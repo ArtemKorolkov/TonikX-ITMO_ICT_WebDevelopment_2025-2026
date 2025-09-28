@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Корольков Артем" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Задание 1: UDP-клиент-сервер - Отчет по практической работе - Веб-программирование</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u0417\u0430\u0434\u0430\u043d\u0438\u0435 1: UDP-\u043a\u043b\u0438\u0435\u043d\u0442-\u0441\u0435\u0440\u0432\u0435\u0440";
+        var mkdocs_page_input_path = "task_1.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Отчет по практической работе - Веб-программирование
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Главная</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Задание 1: UDP-клиент-сервер</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">Цель</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">Реализация</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#task_1_serverpy">Сервер (task_1_server.py)</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="../task_2.md">Задание 2: TCP-сервер (площадь трапеции)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="../task_3.md">Задание 3: HTTP-сервер</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="../task_4.md">Задание 4: Многопользовательский чат</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="../task_5.md">Задание 5: Веб-сервер для учета оценок</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Отчет по практической работе - Веб-программирование</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Задание 1: UDP-клиент-сервер</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p>```markdown</p>
+<h1 id="1-udp-">Задание 1: UDP-клиент и сервер<a class="headerlink" href="#1-udp-" title="Permanent link">&para;</a></h1>
+<h2 id="_1">Цель<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Реализовать клиент-серверное приложение, использующее протокол UDP для обмена сообщениями.</p>
+<h2 id="_2">Реализация<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="task_1_serverpy">Сервер (<code>task_1_server.py</code>)<a class="headerlink" href="#task_1_serverpy" title="Permanent link">&para;</a></h3>
+<p>Сервер ожидает UDP-сообщения на порту 12345. При получении сообщения выводит его и отправляет ответ "Hello, client".
+import socket</p>
+<h1 id="udp-">Создаем UDP-сокет<a class="headerlink" href="#udp-" title="Permanent link">&para;</a></h1>
+<p>server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</p>
+<h1 id="_3">Привязываем сокет к адресу и порту<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h1>
+<p>server_address = ('localhost', 12345)
+server_socket.bind(server_address)</p>
+<p>print("Сервер запущен и ожидает сообщений...")</p>
+<p>while True:
+    # Получаем данные и адрес клиента
+    data, client_address = server_socket.recvfrom(1024)
+    print(f"Получено сообщение от {client_address}: {data.decode('utf-8')}")</p>
+<pre class="codehilite"><code># Формируем ответ
+response = &quot;Hello, client&quot;
+server_socket.sendto(response.encode('utf-8'), client_address)
+print(f&quot;Отправлен ответ: {response}&quot;)
+</code></pre>
+
+<h3 id="task_1_clientpy">Клиент (<code>task_1_client.py</code>)<a class="headerlink" href="#task_1_clientpy" title="Permanent link">&para;</a></h3>
+<p>import socket</p>
+<h1 id="udp-_1">Создаем UDP-сокет<a class="headerlink" href="#udp-_1" title="Permanent link">&para;</a></h1>
+<p>client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</p>
+<h1 id="_4">Адрес сервера<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h1>
+<p>server_address = ('localhost', 12345)</p>
+<h1 id="_5">Сообщение для отправки<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h1>
+<p>message = "Hello, server"
+client_socket.sendto(message.encode('utf-8'), server_address)
+print(f"Отправлено сообщение серверу: {message}")</p>
+<h1 id="_6">Получаем ответ от сервера<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h1>
+<p>data, _ = client_socket.recvfrom(1024)
+print(f"Получен ответ от сервера: {data.decode('utf-8')}")</p>
+<h1 id="_7">Закрываем сокет<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h1>
+<p>client_socket.close()</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Главная"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
