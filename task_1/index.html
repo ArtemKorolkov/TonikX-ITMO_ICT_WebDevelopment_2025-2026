@@ -52,7 +52,11 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#task_1_serverpy">Сервер (task_1_server.py)</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#task_1_clientpy">Клиент (task_1_client.py)</a>
+    </li>
         </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#1">Вывод по заданию 1</a>
     </li>
     </ul>
                 </li>
@@ -96,45 +100,58 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <p>```markdown</p>
-<h1 id="1-udp-">Задание 1: UDP-клиент и сервер<a class="headerlink" href="#1-udp-" title="Permanent link">&para;</a></h1>
+                <h1 id="1-udp-">Задание 1: UDP-клиент и сервер<a class="headerlink" href="#1-udp-" title="Permanent link">&para;</a></h1>
 <h2 id="_1">Цель<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>Реализовать клиент-серверное приложение, использующее протокол UDP для обмена сообщениями.</p>
 <h2 id="_2">Реализация<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <h3 id="task_1_serverpy">Сервер (<code>task_1_server.py</code>)<a class="headerlink" href="#task_1_serverpy" title="Permanent link">&para;</a></h3>
-<p>Сервер ожидает UDP-сообщения на порту 12345. При получении сообщения выводит его и отправляет ответ "Hello, client".
-import socket</p>
-<h1 id="udp-">Создаем UDP-сокет<a class="headerlink" href="#udp-" title="Permanent link">&para;</a></h1>
-<p>server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</p>
-<h1 id="_3">Привязываем сокет к адресу и порту<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h1>
-<p>server_address = ('localhost', 12345)
-server_socket.bind(server_address)</p>
-<p>print("Сервер запущен и ожидает сообщений...")</p>
-<p>while True:
-    # Получаем данные и адрес клиента
-    data, client_address = server_socket.recvfrom(1024)
-    print(f"Получено сообщение от {client_address}: {data.decode('utf-8')}")</p>
-<pre class="codehilite"><code># Формируем ответ
+<p>Сервер ожидает UDP-сообщения на порту 12345. При получении сообщения выводит его и отправляет ответ "Hello, client".</p>
+<pre class="codehilite"><code class="language-python">import socket
+
+# Создаем UDP-сокет
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+# Привязываем сокет к адресу и порту
+server_address = ('localhost', 12345)
+server_socket.bind(server_address)
+
+print(&quot;Сервер запущен и ожидает сообщений...&quot;)
+
+while True:
+# Получаем данные и адрес клиента
+data, client_address = server_socket.recvfrom(1024)
+print(f&quot;Получено сообщение от {client_address}: {data.decode('utf-8')}&quot;)
+
+# Формируем ответ
 response = &quot;Hello, client&quot;
 server_socket.sendto(response.encode('utf-8'), client_address)
 print(f&quot;Отправлен ответ: {response}&quot;)
 </code></pre>
 
 <h3 id="task_1_clientpy">Клиент (<code>task_1_client.py</code>)<a class="headerlink" href="#task_1_clientpy" title="Permanent link">&para;</a></h3>
-<p>import socket</p>
-<h1 id="udp-_1">Создаем UDP-сокет<a class="headerlink" href="#udp-_1" title="Permanent link">&para;</a></h1>
-<p>client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</p>
-<h1 id="_4">Адрес сервера<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h1>
-<p>server_address = ('localhost', 12345)</p>
-<h1 id="_5">Сообщение для отправки<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h1>
-<p>message = "Hello, server"
+<pre class="codehilite"><code class="language-python">import socket
+
+# Создаем UDP-сокет
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+# Адрес сервера
+server_address = ('localhost', 12345)
+
+# Сообщение для отправки
+message = &quot;Hello, server&quot;
 client_socket.sendto(message.encode('utf-8'), server_address)
-print(f"Отправлено сообщение серверу: {message}")</p>
-<h1 id="_6">Получаем ответ от сервера<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h1>
-<p>data, _ = client_socket.recvfrom(1024)
-print(f"Получен ответ от сервера: {data.decode('utf-8')}")</p>
-<h1 id="_7">Закрываем сокет<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h1>
-<p>client_socket.close()</p>
+print(f&quot;Отправлено сообщение серверу: {message}&quot;)
+
+# Получаем ответ от сервера
+data, _ = client_socket.recvfrom(1024)
+print(f&quot;Получен ответ от сервера: {data.decode('utf-8')}&quot;)
+
+# Закрываем сокет
+client_socket.close()
+</code></pre>
+
+<h2 id="1">Вывод по заданию 1<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>Успешно реализовано UDP-взаимодействие между клиентом и сервером. Сервер корректно принимает сообщение от клиента и отправляет ответ. Использован протокол UDP с датаграммами, что обеспечивает простоту реализации для задач, не требующих гарантированной доставки.</p>
               
             </div>
           </div><footer>
