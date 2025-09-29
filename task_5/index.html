@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Корольков Артем" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Задание 5: Веб-сервер для учета оценок - Отчет по практической работе - Веб-программирование</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u0417\u0430\u0434\u0430\u043d\u0438\u0435 5: \u0412\u0435\u0431-\u0441\u0435\u0440\u0432\u0435\u0440 \u0434\u043b\u044f \u0443\u0447\u0435\u0442\u0430 \u043e\u0446\u0435\u043d\u043e\u043a";
+        var mkdocs_page_input_path = "task_5.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Отчет по практической работе - Веб-программирование
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Главная</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../task_1/">Задание 1: UDP-клиент-сервер</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../task_2/">Задание 2: TCP-сервер (площадь трапеции)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../task_3/">Задание 3: HTTP-сервер</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../task_4/">Задание 4: Многопользовательский чат</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Задание 5: Веб-сервер для учета оценок</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">Описание задания</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">Ход выполнения</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#task_5_serverpy">Серверная часть (task_5_server.py):</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#5">Вывод по заданию 5</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Отчет по практической работе - Веб-программирование</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Задание 5: Веб-сервер для учета оценок</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="5-get-post">Задание 5: Веб-сервер для обработки GET и POST запросов<a class="headerlink" href="#5-get-post" title="Permanent link">&para;</a></h1>
+<h2 id="_1">Описание задания<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Написать простой веб-сервер для обработки GET и POST HTTP-запросов. Сервер должен принимать и записывать информацию о дисциплине и оценке по дисциплине, а также отдавать информацию обо всех оценках в виде HTML-страницы.</p>
+<h2 id="_2">Ход выполнения<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="task_5_serverpy">Серверная часть (task_5_server.py):<a class="headerlink" href="#task_5_serverpy" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-python">import socket
+import threading
+from urllib.parse import parse_qs
+
+class SimpleHTTPServer:
+    def __init__(self, host='localhost', port=8080):
+        self.host = host
+        self.port = port
+        self.grades = {}
+        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.lock = threading.Lock()
+
+    def handle_request(self, client_socket):
+        request_data = client_socket.recv(4096).decode('utf-8')
+
+        if not request_data:
+            client_socket.close()
+            return
+
+        lines = request_data.split('\r\n')
+        request_line = lines[0]
+        parts = request_line.split(' ')
+
+        if len(parts) &lt; 3:
+            client_socket.close()
+            return
+
+        method, path, _ = parts
+
+        if method == 'GET' and path == '/':
+            self.handle_get_request(client_socket)
+        elif method == 'POST' and path == '/add':
+            if &quot;\r\n\r\n&quot; in request_data:
+                headers, body = request_data.split(&quot;\r\n\r\n&quot;, 1)
+            else:
+                body = &quot;&quot;
+
+            post_data = parse_qs(body)
+            self.handle_post_request(client_socket, post_data)
+        else:
+            self.send_response(client_socket, '404 Not Found', 'text/html', '&lt;h1&gt;404 Not Found&lt;/h1&gt;')
+
+        client_socket.close()
+
+    def handle_get_request(self, client_socket):
+        html_content = self.generate_html()
+        self.send_response(client_socket, '200 OK', 'text/html', html_content)
+
+    def handle_post_request(self, client_socket, post_data):
+        discipline = post_data.get('discipline', [''])[0].strip()
+        grade = post_data.get('grade', [''])[0].strip()
+
+        if discipline and grade:
+            with self.lock:
+                self.grades[discipline] = grade
+            self.send_redirect(client_socket, '/')
+        else:
+            error_msg = &quot;Ошибка: не получены все данные.&quot;
+            self.send_response(client_socket, '400 Bad Request', 'text/html', f'&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;p&gt;{error_msg}&lt;/p&gt;')
+
+    def generate_html(self):
+        html = &quot;&quot;&quot;
+        &lt;!DOCTYPE html&gt;
+        &lt;html lang=&quot;ru&quot;&gt;
+        &lt;head&gt;
+            &lt;meta charset=&quot;UTF-8&quot;&gt;
+            &lt;title&gt;Учет оценок&lt;/title&gt;
+            &lt;style&gt;
+                body { font-family: Arial, sans-serif; margin: 40px; }
+                table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+                th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                th { background-color: #f2f2f2; }
+            &lt;/style&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+            &lt;h1&gt;Система учета оценок&lt;/h1&gt;
+            &lt;form method=&quot;POST&quot; action=&quot;/add&quot;&gt;
+                &lt;h2&gt;Добавить новую оценку&lt;/h2&gt;
+                &lt;div&gt;&lt;label&gt;Дисциплина:&lt;/label&gt;&lt;input type=&quot;text&quot; name=&quot;discipline&quot; required&gt;&lt;/div&gt;
+                &lt;div&gt;&lt;label&gt;Оценка:&lt;/label&gt;&lt;input type=&quot;number&quot; name=&quot;grade&quot; min=&quot;1&quot; max=&quot;5&quot; required&gt;&lt;/div&gt;
+                &lt;input type=&quot;submit&quot; value=&quot;Добавить&quot;&gt;
+            &lt;/form&gt;
+            &lt;h2&gt;Список оценок&lt;/h2&gt;
+            &lt;table&gt;&lt;tr&gt;&lt;th&gt;Дисциплина&lt;/th&gt;&lt;th&gt;Оценка&lt;/th&gt;&lt;/tr&gt;
+        &quot;&quot;&quot;
+
+        with self.lock:
+            for discipline, grade in self.grades.items():
+                html += f&quot;&lt;tr&gt;&lt;td&gt;{discipline}&lt;/td&gt;&lt;td&gt;{grade}&lt;/td&gt;&lt;/tr&gt;&quot;
+
+        html += &quot;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;&quot;
+        return html
+
+    def start(self):
+        self.server_socket.bind((self.host, self.port))
+        self.server_socket.listen(5)
+        print(f&quot;Веб-сервер запущен на http://{self.host}:{self.port}&quot;)
+
+        try:
+            while True:
+                client_socket, client_address = self.server_socket.accept()
+                print(f&quot;Подключение от {client_address}&quot;)
+
+                thread = threading.Thread(target=self.handle_request, args=(client_socket,))
+                thread.daemon = True
+                thread.start()
+        except KeyboardInterrupt:
+            print(&quot;\nОстановка сервера...&quot;)
+        finally:
+            self.server_socket.close()
+</code></pre>
+
+<h2 id="5">Вывод по заданию 5<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<p>Реализован полнофункциональный веб-сервер с поддержкой GET и POST запросов. Сервер корректно обрабатывает форму добавления оценок, сохраняет данные и отображает их в виде таблицы. Использование потоков обеспечивает возможность обработки нескольких одновременных подключений.</p>
+<h1 id="_3">Общий вывод по работе<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h1>
+<p>В ходе практической работы успешно реализованы все пять заданий, что соответствует 100% выполнения:
+1. UDP-взаимодействие - освоены основы работы с датаграммами
+2. TCP-сервер для вычислений - реализована надежная передача данных с обработкой математических операций
+3. HTTP-сервер - изучены принципы работы веб-серверов на низком уровне
+4. Многопользовательский чат - освоено многопоточное программирование для обработки одновременных подключений
+5. Веб-сервер с формами - реализована обработка GET/POST запросов и динамическая генерация HTML</p>
+<p>Работа демонстрирует уверенное владение сетевым программированием на Python и умение реализовывать клиент-серверные приложения различной сложности. Все компоненты работают корректно и готовы к практическому использованию.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../task_4/" class="btn btn-neutral float-left" title="Задание 4: Многопользовательский чат"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../task_4/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

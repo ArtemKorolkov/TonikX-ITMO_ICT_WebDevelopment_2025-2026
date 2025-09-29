@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Корольков Артем" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Задание 3: HTTP-сервер - Отчет по практической работе - Веб-программирование</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u0417\u0430\u0434\u0430\u043d\u0438\u0435 3: HTTP-\u0441\u0435\u0440\u0432\u0435\u0440";
+        var mkdocs_page_input_path = "task_3.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Отчет по практической работе - Веб-программирование
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Главная</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../task_1/">Задание 1: UDP-клиент-сервер</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../task_2/">Задание 2: TCP-сервер (площадь трапеции)</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Задание 3: HTTP-сервер</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">Описание задания</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">Ход выполнения</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#task_3_serverpy">Серверная часть (task_3_server.py):</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#html-indexhtml">HTML-страница (index.html):</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3">Вывод по заданию 3</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../task_4/">Задание 4: Многопользовательский чат</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../task_5/">Задание 5: Веб-сервер для учета оценок</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Отчет по практической работе - Веб-программирование</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Задание 3: HTTP-сервер</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="3-http-html-">Задание 3: HTTP-сервер для возврата HTML-страницы<a class="headerlink" href="#3-http-html-" title="Permanent link">&para;</a></h1>
+<h2 id="_1">Описание задания<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Реализовать серверную часть приложения. Клиент подключается к серверу, и в ответ получает HTTP-сообщение, содержащее HTML-страницу, которая сервер подгружает из файла index.html.</p>
+<h2 id="_2">Ход выполнения<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="task_3_serverpy">Серверная часть (task_3_server.py):<a class="headerlink" href="#task_3_serverpy" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-python">import socket
+import os
+
+def load_html_file(filename):
+    try:
+        with open(filename, 'r', encoding='utf-8') as file:
+            return file.read()
+    except FileNotFoundError:
+        return &quot;&lt;html&gt;&lt;body&gt;&lt;h1&gt;404 - File Not Found&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;&quot;
+
+def main():
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    server_address = ('localhost', 8080)
+    server_socket.bind(server_address)
+    server_socket.listen(5)
+
+    print(f&quot;HTTP-сервер запущен на http://{server_address[0]}:{server_address[1]}&quot;)
+
+    while True:
+        try:
+            client_socket, client_address = server_socket.accept()
+            print(f&quot;Подключился клиент: {client_address}&quot;)
+
+            request = client_socket.recv(1024).decode('utf-8')
+            print(f&quot;Получен запрос:\n{request}&quot;)
+
+            html_content = load_html_file('index.html')
+
+            response_headers = [
+                'HTTP/1.1 200 OK',
+                'Content-Type: text/html; charset=utf-8',
+                f'Content-Length: {len(html_content)}',
+                'Connection: close',
+                '\r\n'
+            ]
+
+            response = '\r\n'.join(response_headers) + html_content
+            client_socket.sendall(response.encode('utf-8'))
+            print(&quot;Отправлен HTTP-ответ с содержимым index.html&quot;)
+
+            client_socket.close()
+
+        except KeyboardInterrupt:
+            break
+</code></pre>
+
+<h3 id="html-indexhtml">HTML-страница (index.html):<a class="headerlink" href="#html-indexhtml" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Тестовая страница&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1 { color: #333; text-align: center; }
+        .container { background-color: white; padding: 20px; border-radius: 8px; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;h1&gt;Добро пожаловать на HTTP-сервер Королькова Артема!&lt;/h1&gt;
+        &lt;p&gt;Это тестовая страница, загружаемая сервером из файла index.html&lt;/p&gt;
+        &lt;p&gt;Сервер реализован на чистом Python с использованием библиотеки socket&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<h2 id="3">Вывод по заданию 3<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<p>Реализован простой HTTP-сервер, способный обслуживать HTML-страницы. Сервер корректно формирует HTTP-заголовки и возвращает содержимое файла index.html. Достигнута основа для понимания работы веб-серверов на низком уровне.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../task_2/" class="btn btn-neutral float-left" title="Задание 2: TCP-сервер (площадь трапеции)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../task_4/" class="btn btn-neutral float-right" title="Задание 4: Многопользовательский чат">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../task_2/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../task_4/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

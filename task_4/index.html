@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Корольков Артем" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Задание 4: Многопользовательский чат - Отчет по практической работе - Веб-программирование</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u0417\u0430\u0434\u0430\u043d\u0438\u0435 4: \u041c\u043d\u043e\u0433\u043e\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0438\u0439 \u0447\u0430\u0442";
+        var mkdocs_page_input_path = "task_4.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Отчет по практической работе - Веб-программирование
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Главная</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../task_1/">Задание 1: UDP-клиент-сервер</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../task_2/">Задание 2: TCP-сервер (площадь трапеции)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../task_3/">Задание 3: HTTP-сервер</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Задание 4: Многопользовательский чат</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">Описание задания</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">Ход выполнения</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#task_4_serverpy">Серверная часть (task_4_server.py):</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#task_4_clientpy">Клиентская часть (task_4_client.py):</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4_1">Вывод по заданию 4</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../task_5/">Задание 5: Веб-сервер для учета оценок</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Отчет по практической работе - Веб-программирование</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Задание 4: Многопользовательский чат</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="4">Задание 4: Многопользовательский чат<a class="headerlink" href="#4" title="Permanent link">&para;</a></h1>
+<h2 id="_1">Описание задания<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Реализовать многопользовательский чат с использованием потоков. Сервер должен поддерживать одновременное подключение нескольких клиентов и обеспечивать обмен сообщениями между ними.</p>
+<h2 id="_2">Ход выполнения<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="task_4_serverpy">Серверная часть (task_4_server.py):<a class="headerlink" href="#task_4_serverpy" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-python">import socket
+import threading
+
+class ChatServer:
+    def __init__(self, host='localhost', port=12347):
+        self.host = host
+        self.port = port
+        self.clients = []
+        self.nicknames = []
+        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.lock = threading.Lock()
+
+    def broadcast(self, message, sender_client=None):
+        with self.lock:
+            for client in self.clients:
+                if client != sender_client:
+                    try:
+                        client.send(message)
+                    except:
+                        self.remove_client(client)
+
+    def remove_client(self, client):
+        if client in self.clients:
+            index = self.clients.index(client)
+            self.clients.remove(client)
+            nickname = self.nicknames[index]
+            self.nicknames.remove(nickname)
+            self.broadcast(f'{nickname} покинул чат!'.encode('utf-8'))
+            client.close()
+
+    def handle_client(self, client):
+        while True:
+            try:
+                message = client.recv(1024)
+                if message:
+                    self.broadcast(message, client)
+                else:
+                    self.remove_client(client)
+                    break
+            except:
+                self.remove_client(client)
+                break
+
+    def start(self):
+        self.server_socket.bind((self.host, self.port))
+        self.server_socket.listen()
+        print(f&quot;Сервер чата запущен на {self.host}:{self.port}&quot;)
+
+        while True:
+            client, address = self.server_socket.accept()
+            print(f&quot;Подключился клиент с адресом: {address}&quot;)
+
+            client.send('NICK'.encode('utf-8'))
+            nickname = client.recv(1024).decode('utf-8')
+
+            with self.lock:
+                self.nicknames.append(nickname)
+                self.clients.append(client)
+
+            print(f'Никнейм клиента: {nickname}')
+            self.broadcast(f'{nickname} присоединился к чату!'.encode('utf-8'))
+            client.send('Подключение к серверу успешно!'.encode('utf-8'))
+
+            thread = threading.Thread(target=self.handle_client, args=(client,))
+            thread.daemon = True
+            thread.start()
+</code></pre>
+
+<h3 id="task_4_clientpy">Клиентская часть (task_4_client.py):<a class="headerlink" href="#task_4_clientpy" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-python">import socket
+import threading
+
+class ChatClient:
+    def __init__(self, host='localhost', port=12347):
+        self.host = host
+        self.port = port
+        self.nickname = input(&quot;Введите ваш никнейм: &quot;)
+        self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    def receive_messages(self):
+        while True:
+            try:
+                message = self.client_socket.recv(1024).decode('utf-8')
+                if message == 'NICK':
+                    self.client_socket.send(self.nickname.encode('utf-8'))
+                else:
+                    print(message)
+            except:
+                print(&quot;Произошла ошибка при получении сообщения!&quot;)
+                self.client_socket.close()
+                break
+
+    def send_messages(self):
+        while True:
+            message = input()
+            if message.lower() == 'quit':
+                self.client_socket.close()
+                break
+            formatted_message = f'{self.nickname}: {message}'
+            self.client_socket.send(formatted_message.encode('utf-8'))
+
+    def start(self):
+        try:
+            self.client_socket.connect((self.host, self.port))
+            print(&quot;Подключение к чату установлено!&quot;)
+
+            receive_thread = threading.Thread(target=self.receive_messages)
+            receive_thread.daemon = True
+            receive_thread.start()
+
+            self.send_messages()
+        except Exception as e:
+            print(f&quot;Ошибка подключения: {e}&quot;)
+        finally:
+            self.client_socket.close()
+</code></pre>
+
+<h2 id="4_1">Вывод по заданию 4<a class="headerlink" href="#4_1" title="Permanent link">&para;</a></h2>
+<p>Реализован полнофункциональный многопользовательский чат с поддержкой одновременного подключения нескольких клиентов. Использование потоков позволяет эффективно обрабатывать сообщения от разных пользователей. Сервер корректно управляет подключениями и обеспечивает широковещательную рассылку сообщений.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../task_3/" class="btn btn-neutral float-left" title="Задание 3: HTTP-сервер"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../task_5/" class="btn btn-neutral float-right" title="Задание 5: Веб-сервер для учета оценок">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../task_3/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../task_5/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
