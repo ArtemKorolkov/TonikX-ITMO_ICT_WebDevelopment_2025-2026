@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Корольков Артем" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Задание 5: Веб-сервер для учета оценок - Отчет по практической работе - Веб-программирование</title>
+    <title>Задание 5: Веб-сервер для учета оценок - Отчеты по лабораторным работам - Веб-программирование</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -30,7 +30,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> Отчет по практической работе - Веб-программирование
+          <a href=".." class="icon icon-home"> Отчеты по лабораторным работам - Веб-программирование
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
@@ -43,24 +43,17 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Главная</a>
                 </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../task_1/">Задание 1: UDP-клиент-сервер</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../task_2/">Задание 2: TCP-сервер (площадь трапеции)</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../task_3/">Задание 3: HTTP-сервер</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../task_4/">Задание 4: Многопользовательский чат</a>
-                </li>
-              </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №1</span></p>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="#">Задание 5: Веб-сервер для учета оценок</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_1/">Задание 1: UDP-клиент-сервер</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_2/">Задание 2: TCP-сервер (площадь трапеции)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_3/">Задание 3: HTTP-сервер</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_4/">Задание 4: Многопользовательский чат</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Задание 5: Веб-сервер для учета оценок</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#_1">Описание задания</a>
     </li>
@@ -73,7 +66,18 @@
     <li class="toctree-l2"><a class="reference internal" href="#5">Вывод по заданию 5</a>
     </li>
     </ul>
-                </li>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №2: Django</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_1/">Практическая работа №1 — Знакомство с Django</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_2/">Практическая работа №2 — Реализация CRUD</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_3/">Практическая работа №3 — Расширение модели пользователя</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../lab_hotel/">Список отелей (Django)</a>
+                  </li>
               </ul>
       </div>
     </div>
@@ -82,13 +86,14 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">Отчет по практической работе - Веб-программирование</a>
+          <a href="..">Отчеты по лабораторным работам - Веб-программирование</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Лабораторная работа №1</li>
       <li class="breadcrumb-item active">Задание 5: Веб-сервер для учета оценок</li>
     <li class="wy-breadcrumbs-aside">
     </li>
@@ -103,118 +108,118 @@
 <p>Написать простой веб-сервер для обработки GET и POST HTTP-запросов. Сервер должен принимать и записывать информацию о дисциплине и оценке по дисциплине, а также отдавать информацию обо всех оценках в виде HTML-страницы.</p>
 <h2 id="_2">Ход выполнения<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <h3 id="task_5_serverpy">Серверная часть (task_5_server.py):<a class="headerlink" href="#task_5_serverpy" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-python">import socket
-import threading
-from urllib.parse import parse_qs
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">parse_qs</span>
 
-class SimpleHTTPServer:
-    def __init__(self, host='localhost', port=8080):
-        self.host = host
-        self.port = port
-        self.grades = {}
-        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.lock = threading.Lock()
+<span class="k">class</span> <span class="nc">SimpleHTTPServer</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8080</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">host</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">port</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grades</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server_socket</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server_socket</span><span class="o">.</span><span class="n">setsockopt</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SO_REUSEADDR</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
 
-    def handle_request(self, client_socket):
-        request_data = client_socket.recv(4096).decode('utf-8')
+    <span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_socket</span><span class="p">):</span>
+        <span class="n">request_data</span> <span class="o">=</span> <span class="n">client_socket</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 
-        if not request_data:
-            client_socket.close()
-            return
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">request_data</span><span class="p">:</span>
+            <span class="n">client_socket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">return</span>
 
-        lines = request_data.split('\r\n')
-        request_line = lines[0]
-        parts = request_line.split(' ')
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">request_data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">request_line</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">request_line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
 
-        if len(parts) &lt; 3:
-            client_socket.close()
-            return
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">client_socket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">return</span>
 
-        method, path, _ = parts
+        <span class="n">method</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">parts</span>
 
-        if method == 'GET' and path == '/':
-            self.handle_get_request(client_socket)
-        elif method == 'POST' and path == '/add':
-            if &quot;\r\n\r\n&quot; in request_data:
-                headers, body = request_data.split(&quot;\r\n\r\n&quot;, 1)
-            else:
-                body = &quot;&quot;
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span> <span class="ow">and</span> <span class="n">path</span> <span class="o">==</span> <span class="s1">&#39;/&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">handle_get_request</span><span class="p">(</span><span class="n">client_socket</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span> <span class="ow">and</span> <span class="n">path</span> <span class="o">==</span> <span class="s1">&#39;/add&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;</span><span class="se">\r\n\r\n</span><span class="s2">&quot;</span> <span class="ow">in</span> <span class="n">request_data</span><span class="p">:</span>
+                <span class="n">headers</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="n">request_data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r\n\r\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">body</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-            post_data = parse_qs(body)
-            self.handle_post_request(client_socket, post_data)
-        else:
-            self.send_response(client_socket, '404 Not Found', 'text/html', '&lt;h1&gt;404 Not Found&lt;/h1&gt;')
+            <span class="n">post_data</span> <span class="o">=</span> <span class="n">parse_qs</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">handle_post_request</span><span class="p">(</span><span class="n">client_socket</span><span class="p">,</span> <span class="n">post_data</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">send_response</span><span class="p">(</span><span class="n">client_socket</span><span class="p">,</span> <span class="s1">&#39;404 Not Found&#39;</span><span class="p">,</span> <span class="s1">&#39;text/html&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;h1&gt;404 Not Found&lt;/h1&gt;&#39;</span><span class="p">)</span>
 
-        client_socket.close()
+        <span class="n">client_socket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-    def handle_get_request(self, client_socket):
-        html_content = self.generate_html()
-        self.send_response(client_socket, '200 OK', 'text/html', html_content)
+    <span class="k">def</span> <span class="nf">handle_get_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_socket</span><span class="p">):</span>
+        <span class="n">html_content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_html</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">send_response</span><span class="p">(</span><span class="n">client_socket</span><span class="p">,</span> <span class="s1">&#39;200 OK&#39;</span><span class="p">,</span> <span class="s1">&#39;text/html&#39;</span><span class="p">,</span> <span class="n">html_content</span><span class="p">)</span>
 
-    def handle_post_request(self, client_socket, post_data):
-        discipline = post_data.get('discipline', [''])[0].strip()
-        grade = post_data.get('grade', [''])[0].strip()
+    <span class="k">def</span> <span class="nf">handle_post_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_socket</span><span class="p">,</span> <span class="n">post_data</span><span class="p">):</span>
+        <span class="n">discipline</span> <span class="o">=</span> <span class="n">post_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;discipline&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">grade</span> <span class="o">=</span> <span class="n">post_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;grade&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
-        if discipline and grade:
-            with self.lock:
-                self.grades[discipline] = grade
-            self.send_redirect(client_socket, '/')
-        else:
-            error_msg = &quot;Ошибка: не получены все данные.&quot;
-            self.send_response(client_socket, '400 Bad Request', 'text/html', f'&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;p&gt;{error_msg}&lt;/p&gt;')
+        <span class="k">if</span> <span class="n">discipline</span> <span class="ow">and</span> <span class="n">grade</span><span class="p">:</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">grades</span><span class="p">[</span><span class="n">discipline</span><span class="p">]</span> <span class="o">=</span> <span class="n">grade</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">send_redirect</span><span class="p">(</span><span class="n">client_socket</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">error_msg</span> <span class="o">=</span> <span class="s2">&quot;Ошибка: не получены все данные.&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">send_response</span><span class="p">(</span><span class="n">client_socket</span><span class="p">,</span> <span class="s1">&#39;400 Bad Request&#39;</span><span class="p">,</span> <span class="s1">&#39;text/html&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;p&gt;</span><span class="si">{</span><span class="n">error_msg</span><span class="si">}</span><span class="s1">&lt;/p&gt;&#39;</span><span class="p">)</span>
 
-    def generate_html(self):
-        html = &quot;&quot;&quot;
-        &lt;!DOCTYPE html&gt;
-        &lt;html lang=&quot;ru&quot;&gt;
-        &lt;head&gt;
-            &lt;meta charset=&quot;UTF-8&quot;&gt;
-            &lt;title&gt;Учет оценок&lt;/title&gt;
-            &lt;style&gt;
-                body { font-family: Arial, sans-serif; margin: 40px; }
-                table { border-collapse: collapse; width: 100%; margin-top: 20px; }
-                th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-                th { background-color: #f2f2f2; }
-            &lt;/style&gt;
-        &lt;/head&gt;
-        &lt;body&gt;
-            &lt;h1&gt;Система учета оценок&lt;/h1&gt;
-            &lt;form method=&quot;POST&quot; action=&quot;/add&quot;&gt;
-                &lt;h2&gt;Добавить новую оценку&lt;/h2&gt;
-                &lt;div&gt;&lt;label&gt;Дисциплина:&lt;/label&gt;&lt;input type=&quot;text&quot; name=&quot;discipline&quot; required&gt;&lt;/div&gt;
-                &lt;div&gt;&lt;label&gt;Оценка:&lt;/label&gt;&lt;input type=&quot;number&quot; name=&quot;grade&quot; min=&quot;1&quot; max=&quot;5&quot; required&gt;&lt;/div&gt;
-                &lt;input type=&quot;submit&quot; value=&quot;Добавить&quot;&gt;
-            &lt;/form&gt;
-            &lt;h2&gt;Список оценок&lt;/h2&gt;
-            &lt;table&gt;&lt;tr&gt;&lt;th&gt;Дисциплина&lt;/th&gt;&lt;th&gt;Оценка&lt;/th&gt;&lt;/tr&gt;
-        &quot;&quot;&quot;
+    <span class="k">def</span> <span class="nf">generate_html</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;!DOCTYPE html&gt;</span>
+<span class="s2">        &lt;html lang=&quot;ru&quot;&gt;</span>
+<span class="s2">        &lt;head&gt;</span>
+<span class="s2">            &lt;meta charset=&quot;UTF-8&quot;&gt;</span>
+<span class="s2">            &lt;title&gt;Учет оценок&lt;/title&gt;</span>
+<span class="s2">            &lt;style&gt;</span>
+<span class="s2">                body { font-family: Arial, sans-serif; margin: 40px; }</span>
+<span class="s2">                table { border-collapse: collapse; width: 100%; margin-top: 20px; }</span>
+<span class="s2">                th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }</span>
+<span class="s2">                th { background-color: #f2f2f2; }</span>
+<span class="s2">            &lt;/style&gt;</span>
+<span class="s2">        &lt;/head&gt;</span>
+<span class="s2">        &lt;body&gt;</span>
+<span class="s2">            &lt;h1&gt;Система учета оценок&lt;/h1&gt;</span>
+<span class="s2">            &lt;form method=&quot;POST&quot; action=&quot;/add&quot;&gt;</span>
+<span class="s2">                &lt;h2&gt;Добавить новую оценку&lt;/h2&gt;</span>
+<span class="s2">                &lt;div&gt;&lt;label&gt;Дисциплина:&lt;/label&gt;&lt;input type=&quot;text&quot; name=&quot;discipline&quot; required&gt;&lt;/div&gt;</span>
+<span class="s2">                &lt;div&gt;&lt;label&gt;Оценка:&lt;/label&gt;&lt;input type=&quot;number&quot; name=&quot;grade&quot; min=&quot;1&quot; max=&quot;5&quot; required&gt;&lt;/div&gt;</span>
+<span class="s2">                &lt;input type=&quot;submit&quot; value=&quot;Добавить&quot;&gt;</span>
+<span class="s2">            &lt;/form&gt;</span>
+<span class="s2">            &lt;h2&gt;Список оценок&lt;/h2&gt;</span>
+<span class="s2">            &lt;table&gt;&lt;tr&gt;&lt;th&gt;Дисциплина&lt;/th&gt;&lt;th&gt;Оценка&lt;/th&gt;&lt;/tr&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
 
-        with self.lock:
-            for discipline, grade in self.grades.items():
-                html += f&quot;&lt;tr&gt;&lt;td&gt;{discipline}&lt;/td&gt;&lt;td&gt;{grade}&lt;/td&gt;&lt;/tr&gt;&quot;
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">discipline</span><span class="p">,</span> <span class="n">grade</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">grades</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">html</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&lt;tr&gt;&lt;td&gt;</span><span class="si">{</span><span class="n">discipline</span><span class="si">}</span><span class="s2">&lt;/td&gt;&lt;td&gt;</span><span class="si">{</span><span class="n">grade</span><span class="si">}</span><span class="s2">&lt;/td&gt;&lt;/tr&gt;&quot;</span>
 
-        html += &quot;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;&quot;
-        return html
+        <span class="n">html</span> <span class="o">+=</span> <span class="s2">&quot;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;&quot;</span>
+        <span class="k">return</span> <span class="n">html</span>
 
-    def start(self):
-        self.server_socket.bind((self.host, self.port))
-        self.server_socket.listen(5)
-        print(f&quot;Веб-сервер запущен на http://{self.host}:{self.port}&quot;)
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server_socket</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server_socket</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Веб-сервер запущен на http://</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        try:
-            while True:
-                client_socket, client_address = self.server_socket.accept()
-                print(f&quot;Подключение от {client_address}&quot;)
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">client_socket</span><span class="p">,</span> <span class="n">client_address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server_socket</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Подключение от </span><span class="si">{</span><span class="n">client_address</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-                thread = threading.Thread(target=self.handle_request, args=(client_socket,))
-                thread.daemon = True
-                thread.start()
-        except KeyboardInterrupt:
-            print(&quot;\nОстановка сервера...&quot;)
-        finally:
-            self.server_socket.close()
-</code></pre>
+                <span class="n">thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">handle_request</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">client_socket</span><span class="p">,))</span>
+                <span class="n">thread</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Остановка сервера...&quot;</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">server_socket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
 
 <h2 id="5">Вывод по заданию 5<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
 <p>Реализован полнофункциональный веб-сервер с поддержкой GET и POST запросов. Сервер корректно обрабатывает форму добавления оценок, сохраняет данные и отображает их в виде таблицы. Использование потоков обеспечивает возможность обработки нескольких одновременных подключений.</p>
@@ -231,6 +236,7 @@ class SimpleHTTPServer:
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../task_4/" class="btn btn-neutral float-left" title="Задание 4: Многопользовательский чат"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../pr_1/" class="btn btn-neutral float-right" title="Практическая работа №1 — Знакомство с Django">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -255,6 +261,8 @@ class SimpleHTTPServer:
     
       <span><a href="../task_4/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
+    
+      <span><a href="../pr_1/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

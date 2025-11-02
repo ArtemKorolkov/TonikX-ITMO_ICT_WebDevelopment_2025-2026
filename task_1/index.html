@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Корольков Артем" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Задание 1: UDP-клиент-сервер - Отчет по практической работе - Веб-программирование</title>
+    <title>Задание 1: UDP-клиент-сервер - Отчеты по лабораторным работам - Веб-программирование</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -30,7 +30,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> Отчет по практической работе - Веб-программирование
+          <a href=".." class="icon icon-home"> Отчеты по лабораторным работам - Веб-программирование
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
@@ -43,8 +43,9 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Главная</a>
                 </li>
               </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №1</span></p>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="#">Задание 1: UDP-клиент-сервер</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Задание 1: UDP-клиент-сервер</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#_1">Цель</a>
     </li>
@@ -59,23 +60,26 @@
     <li class="toctree-l2"><a class="reference internal" href="#1">Вывод по заданию 1</a>
     </li>
     </ul>
-                </li>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_2/">Задание 2: TCP-сервер (площадь трапеции)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_3/">Задание 3: HTTP-сервер</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_4/">Задание 4: Многопользовательский чат</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_5/">Задание 5: Веб-сервер для учета оценок</a>
+                  </li>
               </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №2: Django</span></p>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../task_2/">Задание 2: TCP-сервер (площадь трапеции)</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../task_3/">Задание 3: HTTP-сервер</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../task_4/">Задание 4: Многопользовательский чат</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../task_5/">Задание 5: Веб-сервер для учета оценок</a>
-                </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_1/">Практическая работа №1 — Знакомство с Django</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_2/">Практическая работа №2 — Реализация CRUD</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_3/">Практическая работа №3 — Расширение модели пользователя</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../lab_hotel/">Список отелей (Django)</a>
+                  </li>
               </ul>
       </div>
     </div>
@@ -84,13 +88,14 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">Отчет по практической работе - Веб-программирование</a>
+          <a href="..">Отчеты по лабораторным работам - Веб-программирование</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Лабораторная работа №1</li>
       <li class="breadcrumb-item active">Задание 1: UDP-клиент-сервер</li>
     <li class="wy-breadcrumbs-aside">
     </li>
@@ -106,49 +111,49 @@
 <h2 id="_2">Реализация<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <h3 id="task_1_serverpy">Сервер (<code>task_1_server.py</code>)<a class="headerlink" href="#task_1_serverpy" title="Permanent link">&para;</a></h3>
 <p>Сервер ожидает UDP-сообщения на порту 12345. При получении сообщения выводит его и отправляет ответ "Hello, client".</p>
-<pre class="codehilite"><code class="language-python">import socket
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">socket</span>
 
-# Создаем UDP-сокет
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+<span class="c1"># Создаем UDP-сокет</span>
+<span class="n">server_socket</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
 
-# Привязываем сокет к адресу и порту
-server_address = ('localhost', 12345)
-server_socket.bind(server_address)
+<span class="c1"># Привязываем сокет к адресу и порту</span>
+<span class="n">server_address</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">12345</span><span class="p">)</span>
+<span class="n">server_socket</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">server_address</span><span class="p">)</span>
 
-print(&quot;Сервер запущен и ожидает сообщений...&quot;)
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Сервер запущен и ожидает сообщений...&quot;</span><span class="p">)</span>
 
-while True:
-# Получаем данные и адрес клиента
-data, client_address = server_socket.recvfrom(1024)
-print(f&quot;Получено сообщение от {client_address}: {data.decode('utf-8')}&quot;)
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="c1"># Получаем данные и адрес клиента</span>
+<span class="n">data</span><span class="p">,</span> <span class="n">client_address</span> <span class="o">=</span> <span class="n">server_socket</span><span class="o">.</span><span class="n">recvfrom</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Получено сообщение от </span><span class="si">{</span><span class="n">client_address</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-# Формируем ответ
-response = &quot;Hello, client&quot;
-server_socket.sendto(response.encode('utf-8'), client_address)
-print(f&quot;Отправлен ответ: {response}&quot;)
-</code></pre>
+<span class="c1"># Формируем ответ</span>
+<span class="n">response</span> <span class="o">=</span> <span class="s2">&quot;Hello, client&quot;</span>
+<span class="n">server_socket</span><span class="o">.</span><span class="n">sendto</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span> <span class="n">client_address</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Отправлен ответ: </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
 
 <h3 id="task_1_clientpy">Клиент (<code>task_1_client.py</code>)<a class="headerlink" href="#task_1_clientpy" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-python">import socket
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">socket</span>
 
-# Создаем UDP-сокет
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+<span class="c1"># Создаем UDP-сокет</span>
+<span class="n">client_socket</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
 
-# Адрес сервера
-server_address = ('localhost', 12345)
+<span class="c1"># Адрес сервера</span>
+<span class="n">server_address</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">12345</span><span class="p">)</span>
 
-# Сообщение для отправки
-message = &quot;Hello, server&quot;
-client_socket.sendto(message.encode('utf-8'), server_address)
-print(f&quot;Отправлено сообщение серверу: {message}&quot;)
+<span class="c1"># Сообщение для отправки</span>
+<span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Hello, server&quot;</span>
+<span class="n">client_socket</span><span class="o">.</span><span class="n">sendto</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span> <span class="n">server_address</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Отправлено сообщение серверу: </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-# Получаем ответ от сервера
-data, _ = client_socket.recvfrom(1024)
-print(f&quot;Получен ответ от сервера: {data.decode('utf-8')}&quot;)
+<span class="c1"># Получаем ответ от сервера</span>
+<span class="n">data</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">client_socket</span><span class="o">.</span><span class="n">recvfrom</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Получен ответ от сервера: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-# Закрываем сокет
-client_socket.close()
-</code></pre>
+<span class="c1"># Закрываем сокет</span>
+<span class="n">client_socket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
 
 <h2 id="1">Вывод по заданию 1<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
 <p>Успешно реализовано UDP-взаимодействие между клиентом и сервером. Сервер корректно принимает сообщение от клиента и отправляет ответ. Использован протокол UDP с датаграммами, что обеспечивает простоту реализации для задач, не требующих гарантированной доставки.</p>

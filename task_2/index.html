@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Корольков Артем" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Задание 2: TCP-сервер (площадь трапеции) - Отчет по практической работе - Веб-программирование</title>
+    <title>Задание 2: TCP-сервер (площадь трапеции) - Отчеты по лабораторным работам - Веб-программирование</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -30,7 +30,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> Отчет по практической работе - Веб-программирование
+          <a href=".." class="icon icon-home"> Отчеты по лабораторным работам - Веб-программирование
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
@@ -43,12 +43,11 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Главная</a>
                 </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../task_1/">Задание 1: UDP-клиент-сервер</a>
-                </li>
-              </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №1</span></p>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="#">Задание 2: TCP-сервер (площадь трапеции)</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_1/">Задание 1: UDP-клиент-сервер</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Задание 2: TCP-сервер (площадь трапеции)</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#_1">Цель</a>
     </li>
@@ -69,19 +68,24 @@
     <li class="toctree-l2"><a class="reference internal" href="#2">Вывод по заданию 2</a>
     </li>
     </ul>
-                </li>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_3/">Задание 3: HTTP-сервер</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_4/">Задание 4: Многопользовательский чат</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_5/">Задание 5: Веб-сервер для учета оценок</a>
+                  </li>
               </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №2: Django</span></p>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../task_3/">Задание 3: HTTP-сервер</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../task_4/">Задание 4: Многопользовательский чат</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../task_5/">Задание 5: Веб-сервер для учета оценок</a>
-                </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_1/">Практическая работа №1 — Знакомство с Django</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_2/">Практическая работа №2 — Реализация CRUD</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_3/">Практическая работа №3 — Расширение модели пользователя</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../lab_hotel/">Список отелей (Django)</a>
+                  </li>
               </ul>
       </div>
     </div>
@@ -90,13 +94,14 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">Отчет по практической работе - Веб-программирование</a>
+          <a href="..">Отчеты по лабораторным работам - Веб-программирование</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Лабораторная работа №1</li>
       <li class="breadcrumb-item active">Задание 2: TCP-сервер (площадь трапеции)</li>
     <li class="wy-breadcrumbs-aside">
     </li>
@@ -124,113 +129,113 @@ h - высота трапеции</p>
 </ul>
 <h2 id="_5">Ход выполнения<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <h3 id="_6">Запуск сервера<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-python">    import socket
+<div class="codehilite"><pre><span></span><code>    <span class="kn">import</span> <span class="nn">socket</span>
 
 
-    def calculate_trapezoid_area(base_a, base_b, height):
-    &quot;&quot;&quot;Вычисляет площадь трапеции по формуле: S = (a + b) * h / 2&quot;&quot;&quot;
-    try:
-        a = float(base_a)
-        b = float(base_b)
-        h = float(height)
-        area = (a + b) * h / 2
-        return f&quot;Площадь трапеции с основаниями {a} и {b} и высотой {h} равна: {area:.2f}&quot;
-    except ValueError:
-        return &quot;Ошибка: Все параметры должны быть числами!&quot;
+    <span class="k">def</span> <span class="nf">calculate_trapezoid_area</span><span class="p">(</span><span class="n">base_a</span><span class="p">,</span> <span class="n">base_b</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Вычисляет площадь трапеции по формуле: S = (a + b) * h / 2&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">base_a</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">base_b</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+        <span class="n">area</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">h</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Площадь трапеции с основаниями </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> и </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2"> и высотой </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2"> равна: </span><span class="si">{</span><span class="n">area</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Ошибка: Все параметры должны быть числами!&quot;</span>
 
 
-    def main():
-    # Создаем TCP-сокет (SOCK_STREAM)
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># Создаем TCP-сокет (SOCK_STREAM)</span>
+    <span class="n">server_socket</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
 
-    # Привязываем сокет к адресу и порту
-    server_address = ('localhost', 12346)
-    server_socket.bind(server_address)
+    <span class="c1"># Привязываем сокет к адресу и порту</span>
+    <span class="n">server_address</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">12346</span><span class="p">)</span>
+    <span class="n">server_socket</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">server_address</span><span class="p">)</span>
 
-    # Начинаем прослушивание входящих подключений
-    server_socket.listen(1)
-    print(&quot;Сервер запущен и ожидает подключений...&quot;)
+    <span class="c1"># Начинаем прослушивание входящих подключений</span>
+    <span class="n">server_socket</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Сервер запущен и ожидает подключений...&quot;</span><span class="p">)</span>
 
-    while True:
-        try:
-            # Принимаем подключение
-            client_socket, client_address = server_socket.accept()
-            print(f&quot;Подключился клиент: {client_address}&quot;)
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Принимаем подключение</span>
+            <span class="n">client_socket</span><span class="p">,</span> <span class="n">client_address</span> <span class="o">=</span> <span class="n">server_socket</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Подключился клиент: </span><span class="si">{</span><span class="n">client_address</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-            # Получаем данные от клиента
-            data = client_socket.recv(1024).decode('utf-8')
-            print(f&quot;Получены данные: {data}&quot;)
+            <span class="c1"># Получаем данные от клиента</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">client_socket</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Получены данные: </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-            # Разбираем параметры (ожидаем формат: a,b,h)
-            params = data.split(',')
-            if len(params) == 3:
-                result = calculate_trapezoid_area(params[0], params[1], params[2])
-            else:
-                result = &quot;Ошибка: Неверный формат данных. Ожидается: основание1,основание2,высота&quot;
+            <span class="c1"># Разбираем параметры (ожидаем формат: a,b,h)</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">calculate_trapezoid_area</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;Ошибка: Неверный формат данных. Ожидается: основание1,основание2,высота&quot;</span>
 
-            # Отправляем результат клиенту
-            client_socket.sendall(result.encode('utf-8'))
-            print(f&quot;Отправлен результат: {result}&quot;)
+            <span class="c1"># Отправляем результат клиенту</span>
+            <span class="n">client_socket</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Отправлен результат: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-            # Закрываем соединение с клиентом
-            client_socket.close()
+            <span class="c1"># Закрываем соединение с клиентом</span>
+            <span class="n">client_socket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-        except Exception as e:
-            print(f&quot;Произошла ошибка: {e}&quot;)
-            if 'client_socket' in locals():
-                client_socket.close()
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Произошла ошибка: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s1">&#39;client_socket&#39;</span> <span class="ow">in</span> <span class="nb">locals</span><span class="p">():</span>
+                <span class="n">client_socket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 
-    if __name__ == &quot;__main__&quot;:
-        main()
-</code></pre>
+    <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+        <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
 
 <h3 id="_7">Запуск клиента<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-python">    import socket
+<div class="codehilite"><pre><span></span><code>    <span class="kn">import</span> <span class="nn">socket</span>
 
 
-    def main():
-    # Создаем TCP-сокет
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># Создаем TCP-сокет</span>
+    <span class="n">client_socket</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
 
-    # Адрес сервера
-    server_address = ('localhost', 12346)
+    <span class="c1"># Адрес сервера</span>
+    <span class="n">server_address</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">12346</span><span class="p">)</span>
 
-    try:
-        # Устанавливаем соединение с сервером
-        client_socket.connect(server_address)
-        print(&quot;Подключение к серверу установлено&quot;)
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Устанавливаем соединение с сервером</span>
+        <span class="n">client_socket</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">server_address</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Подключение к серверу установлено&quot;</span><span class="p">)</span>
 
-        # Запрашиваем данные у пользователя
-        print(&quot;Введите параметры трапеции:&quot;)
-        base_a = input(&quot;Основание a: &quot;)
-        base_b = input(&quot;Основание b: &quot;)
-        height = input(&quot;Высота h: &quot;)
+        <span class="c1"># Запрашиваем данные у пользователя</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Введите параметры трапеции:&quot;</span><span class="p">)</span>
+        <span class="n">base_a</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Основание a: &quot;</span><span class="p">)</span>
+        <span class="n">base_b</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Основание b: &quot;</span><span class="p">)</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Высота h: &quot;</span><span class="p">)</span>
 
-        # Формируем запрос в формате: a,b,h
-        request = f&quot;{base_a},{base_b},{height}&quot;
+        <span class="c1"># Формируем запрос в формате: a,b,h</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_a</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">base_b</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">height</span><span class="si">}</span><span class="s2">&quot;</span>
 
-        # Отправляем запрос серверу
-        client_socket.sendall(request.encode('utf-8'))
-        print(f&quot;Отправлен запрос: {request}&quot;)
+        <span class="c1"># Отправляем запрос серверу</span>
+        <span class="n">client_socket</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Отправлен запрос: </span><span class="si">{</span><span class="n">request</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        # Получаем ответ от сервера
-        response = client_socket.recv(1024).decode('utf-8')
-        print(f&quot;Ответ сервера: {response}&quot;)
+        <span class="c1"># Получаем ответ от сервера</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">client_socket</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ответ сервера: </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    except ConnectionRefusedError:
-        print(&quot;Не удалось подключиться к серверу. Убедитесь, что сервер запущен.&quot;)
-    except Exception as e:
-        print(f&quot;Произошла ошибка: {e}&quot;)
-    finally:
-        # Закрываем соединение
-        client_socket.close()
-        print(&quot;Соединение закрыто&quot;)
+    <span class="k">except</span> <span class="ne">ConnectionRefusedError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Не удалось подключиться к серверу. Убедитесь, что сервер запущен.&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Произошла ошибка: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="c1"># Закрываем соединение</span>
+        <span class="n">client_socket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Соединение закрыто&quot;</span><span class="p">)</span>
 
 
-    if __name__ == &quot;__main__&quot;:
-      main()
-</code></pre>
+    <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+      <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
 
 <h2 id="2">Вывод по заданию 2<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
 <p>Реализовано TCP-взаимодействие для вычисления площади трапеции. Сервер корректно обрабатывает входящие параметры, выполняет расчет и возвращает результат. TCP-протокол обеспечивает надежную доставку данных, что важно для математических вычислений.</p>
