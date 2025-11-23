@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Корольков Артем" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Гостиница (Django rest framework) - Отчеты по лабораторным работам - Веб-программирование</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u0413\u043e\u0441\u0442\u0438\u043d\u0438\u0446\u0430 (Django rest framework)";
+        var mkdocs_page_input_path = "lab_hotel2.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Отчеты по лабораторным работам - Веб-программирование
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Главная</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №1</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_1/">Задание 1: UDP-клиент-сервер</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_2/">Задание 2: TCP-сервер (площадь трапеции)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_3/">Задание 3: HTTP-сервер</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_4/">Задание 4: Многопользовательский чат</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_5/">Задание 5: Веб-сервер для учета оценок</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №2: Django</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_1/">Практическая работа №1 — Знакомство с Django</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_2/">Практическая работа №2 — Реализация CRUD</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_3/">Практическая работа №3 — Расширение модели пользователя</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../lab_hotel/">Список отелей (Django)</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №3: </span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_3_1/">Практическая работа №1 - Django Web framework</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_3_2/">Практическая работа №2 - Django rest framework</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Гостиница (Django rest framework)</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#django">Реализация простого сайта средствами Django</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_1">Цель работы</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">Исходное задание</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">Вариант задания: Система управления гостиницей</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">Требования к данным</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">Функциональные требования</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">Реализация</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-djangoorm">1. Модель базы данных средствами DjangoORM</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#_7">Основные модели</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-api-django-rest-framework">2. API средствами Django REST Framework</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#_8">Сериализаторы</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#viewsets">ViewSets с аналитическими методами</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-djoser">3. Аутентификация средствами Djoser</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#settingspy">Настройки в settings.py</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_9">Маршруты аутентификации</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_10">Тестирование приложения</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#urls">Базовые URLs (без авторизации)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#api-endpoints">API Endpoints (требуют аутентификации)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#crud">Основные CRUD операции:</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_11">Аналитические запросы:</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_12">Операции администратора:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_13">Аутентификация:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_14">Заключение</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_15">Выполненные требования</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#_16">Обязательные задания:</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_17">Дополнительные требования:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_18">Вывод</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Отчеты по лабораторным работам - Веб-программирование</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Лабораторная работа №3: </li>
+      <li class="breadcrumb-item active">Гостиница (Django rest framework)</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="no3">Отчёт по выполнению лабораторной работы №3<a class="headerlink" href="#no3" title="Permanent link">&para;</a></h1>
+<h2 id="django">Реализация простого сайта средствами Django<a class="headerlink" href="#django" title="Permanent link">&para;</a></h2>
+<p><strong>Дисциплина:</strong> Веб-программирование<br />
+<strong>Студент:</strong> Корольков Артем, группа K3340<br />
+<strong>Дата выполнения:</strong> 24 ноября 2025 года  </p>
+<hr />
+<h3 id="_1">Цель работы<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>Овладеть практическими навыками и умениями реализации web-сервисов средствами Django.</p>
+<h3 id="_2">Исходное задание<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>Реализовать сайт, используя фреймворк Django 3, Django REST Framework, Djoser и СУБД PostgreSQL *, в соответствии с вариантом задания лабораторной работы.</p>
+<hr />
+<h3 id="_3">Вариант задания: Система управления гостиницей<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>Создать программную систему, предназначенную для администратора гостиницы. Система должна обеспечивать хранение сведений об имеющихся в гостинице номерах, о проживающих в гостинице клиентах и о служащих, убирающихся в номерах.</p>
+<h3 id="_4">Требования к данным<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p><strong>Номера:</strong>
+- Количество номеров известно
+- Три типа: одноместный, двухместный, трехместный
+- Отличаются стоимостью проживания в сутки
+- В каждом номере есть телефон</p>
+<p><strong>Клиенты:</strong>
+- Номер паспорта, ФИО, город, дата поселения, выделенный номер</p>
+<p><strong>Служащие:</strong>
+- ФИО, этаж, день недели уборки
+- Служащий убирает все номера на одном этаже в определенные дни недели</p>
+<h3 id="_5">Функциональные требования<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p><strong>Информационные запросы:</strong>
+- О клиентах, проживавших в заданном номере в заданный период
+- О количестве клиентов, прибывших из заданного города
+- О том, кто из служащих убирал номер указанного клиента в заданный день недели
+- Сколько в гостинице свободных номеров
+- Список клиентов с указанием места жительства, которые проживали в те же дни, что и заданный клиент</p>
+<p><strong>Операции администратора:</strong>
+- Принять на работу или уволить служащего
+- Изменить расписание работы служащего
+- Поселить или выселить клиента</p>
+<p><strong>Отчетность:</strong>
+- Автоматическая выдача отчета о работе гостиницы за указанный квартал
+- Число клиентов за период в каждом номере
+- Количество номеров на каждом этаже
+- Общая сумма дохода за каждый номер
+- Суммарный доход по всей гостинице</p>
+<hr />
+<h2 id="_6">Реализация<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="1-djangoorm">1. Модель базы данных средствами DjangoORM<a class="headerlink" href="#1-djangoorm" title="Permanent link">&para;</a></h3>
+<h5 id="_7">Основные модели<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h5>
+<pre class="codehilite"><code class="language-python"># hotel_app/models.py
+class CustomUser(AbstractUser):
+    email = models.EmailField(unique=True)
+    is_hotel_staff = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)
+
+class RoomType(models.Model):
+    name = models.CharField(max_length=50, verbose_name=&quot;Тип номера&quot;)
+    capacity = models.PositiveIntegerField(verbose_name=&quot;Вместимость&quot;)
+    price_per_night = models.DecimalField(max_digits=10, decimal_places=2)
+
+class Room(models.Model):
+    room_number = models.CharField(max_length=10, unique=True)
+    floor = models.PositiveIntegerField(verbose_name=&quot;Этаж&quot;)
+    room_type = models.ForeignKey(RoomType, on_delete=models.PROTECT)
+    has_phone = models.BooleanField(default=True)
+    is_available = models.BooleanField(default=True)
+
+class Client(models.Model):
+    passport_number = models.CharField(max_length=20, unique=True)
+    last_name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50)
+    middle_name = models.CharField(max_length=50, blank=True)
+    city = models.CharField(max_length=100)
+    check_in_date = models.DateTimeField(auto_now_add=True)
+
+class Staff(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    last_name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50)
+    middle_name = models.CharField(max_length=50, blank=True)
+    is_active = models.BooleanField(default=True)
+
+class CleaningSchedule(models.Model):
+    staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    floor = models.PositiveIntegerField(verbose_name=&quot;Этаж&quot;)
+    day_of_week = models.CharField(max_length=3, choices=DAYS_OF_WEEK)
+
+class Stay(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    check_in_date = models.DateField(verbose_name=&quot;Дата заселения&quot;)
+    check_out_date = models.DateField(null=True, blank=True)
+    total_cost = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+</code></pre>
+
+<h3 id="2-api-django-rest-framework">2. API средствами Django REST Framework<a class="headerlink" href="#2-api-django-rest-framework" title="Permanent link">&para;</a></h3>
+<h4 id="_8">Сериализаторы<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-python"># hotel_app/serializers.py
+class RoomTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RoomType
+        fields = '__all__'
+
+class RoomSerializer(serializers.ModelSerializer):
+    room_type_name = serializers.CharField(source='room_type.name', read_only=True)
+
+    class Meta:
+        model = Room
+        fields = '__all__'
+
+class ClientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Client
+        fields = '__all__'
+</code></pre>
+
+<h4 id="viewsets">ViewSets с аналитическими методами<a class="headerlink" href="#viewsets" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-python"># hotel_app/views.py
+class RoomViewSet(viewsets.ModelViewSet):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+
+    @action(detail=False, methods=['get'])
+    def available_rooms(self, request):
+        &quot;&quot;&quot;Количество свободных номеров в гостинице&quot;&quot;&quot;
+        available_count = Room.objects.filter(is_available=True).count()
+        return Response({'available_rooms': available_count})
+
+class ClientViewSet(viewsets.ModelViewSet):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+
+    @action(detail=False, methods=['get'])
+    def from_city(self, request):
+        &quot;&quot;&quot;Количество клиентов из заданного города&quot;&quot;&quot;
+        city = request.query_params.get('city', '')
+        if city:
+            count = Client.objects.filter(city__iexact=city).count()
+            return Response({'city': city, 'count': count})
+        return Response({'error': 'Не указан город'}, status=400)
+</code></pre>
+
+<h3 id="3-djoser">3. Аутентификация средствами Djoser<a class="headerlink" href="#3-djoser" title="Permanent link">&para;</a></h3>
+<h4 id="settingspy">Настройки в settings.py<a class="headerlink" href="#settingspy" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-python"># settings.py
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
+
+DJOSER = {
+    'LOGIN_FIELD': 'email',
+    'USER_CREATE_PASSWORD_RETYPE': True,
+}
+
+AUTH_USER_MODEL = 'hotel_app.CustomUser'
+</code></pre>
+
+<h4 id="_9">Маршруты аутентификации<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-python"># urls.py
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
+    path('api/', include('hotel_app.urls')),
+]
+</code></pre>
+
+<hr />
+<h2 id="_10">Тестирование приложения<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h3 id="urls">Базовые URLs (без авторизации)<a class="headerlink" href="#urls" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Главная страница API - http://127.0.0.1:8000/</li>
+<li>Админ-панель - http://127.0.0.1:8000/admin/</li>
+<li>Регистрация пользователя - http://127.0.0.1:8000/register/</li>
+</ol>
+<h3 id="api-endpoints">API Endpoints (требуют аутентификации)<a class="headerlink" href="#api-endpoints" title="Permanent link">&para;</a></h3>
+<h4 id="crud">Основные CRUD операции:<a class="headerlink" href="#crud" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Типы номеров - http://127.0.0.1:8000/api/room-types/</li>
+<li>Все комнаты - http://127.0.0.1:8000/api/rooms/</li>
+<li>Все клиенты - http://127.0.0.1:8000/api/clients/</li>
+<li>Сотрудники - http://127.0.0.1:8000/api/staff/</li>
+<li>Расписание уборки - http://127.0.0.1:8000/api/cleaning-schedule/</li>
+<li>Проживания - http://127.0.0.1:8000/api/stays/</li>
+</ol>
+<h4 id="_11">Аналитические запросы:<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Свободные номера - http://127.0.0.1:8000/api/rooms/available_rooms/</li>
+<li>Клиенты из Москвы - http://127.0.0.1:8000/api/clients/from_city/?city=Москва</li>
+<li>Квартальный отчет 2024 Q1 - http://127.0.0.1:8000/api/stays/quarterly_report/?year=2024&amp;quarter=1</li>
+<li>Кто убирал комнату клиента - http://127.0.0.1:8000/api/cleaning-schedule/cleaner_for_client_room/?client_id=1&amp;day_of_week=MON</li>
+<li>История номера клиента - http://127.0.0.1:8000/api/clients/1/room_history/?start_date=2024-01-01&amp;end_date=2024-01-20</li>
+</ol>
+<h4 id="_12">Операции администратора:<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Нанять сотрудника - POST http://127.0.0.1:8000/api/staff/1/hire/</li>
+<li>Уволить сотрудника - POST http://127.0.0.1:8000/api/staff/1/fire/</li>
+<li>Выселить клиента - POST http://127.0.0.1:8000/api/stays/1/check_out/</li>
+</ol>
+<h3 id="_13">Аутентификация:<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Получение токена - POST http://127.0.0.1:8000/auth/token/login/</li>
+</ol>
+<pre class="codehilite"><code class="language-json">{&quot;email&quot;: &quot;admin@hotel.com&quot;, &quot;password&quot;: &quot;admin123&quot;}
+</code></pre>
+
+<ol>
+<li>Информация о текущем пользователе - GET http://127.0.0.1:8000/auth/users/me/</li>
+</ol>
+<hr />
+<h2 id="_14">Заключение<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<h3 id="_15">Выполненные требования<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<h4 id="_16">Обязательные задания:<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Реализовать модель базы данных средствами DjangoORM</li>
+<li>Реализовать логику работы API средствами Django REST Framework</li>
+<li>Подключить регистрацию/авторизацию по токенам средствами Djoser</li>
+</ol>
+<h4 id="_17">Дополнительные требования:<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Реализованы все необходимые CRUD-операции</li>
+<li>Реализованы GET-запросы с вложенными объектами для связей</li>
+<li>Реализованы все аналитические запросы из варианта задания</li>
+<li>Реализованы операции администратора</li>
+<li>Реализована система отчетности</li>
+</ul>
+<h3 id="_18">Вывод<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<p>В ходе лабораторной работы была успешно реализована серверная часть системы управления гостиницей с использованием Django и Django REST Framework. Система предоставляет полный набор CRUD-операций для всех сущностей, реализует все требуемые аналитические запросы и операции администратора, а также обеспечивает безопасность через токенную аутентификацию с помощью Djoser.</p>
+<p>Проект соответствует всем требованиям технического задания и готов к использованию в производственной среде после дополнительного тестирования и настройки безопасности.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../pr_3_2/" class="btn btn-neutral float-left" title="Практическая работа №2 - Django rest framework"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../pr_3_2/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

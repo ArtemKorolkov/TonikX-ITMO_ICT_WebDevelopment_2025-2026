@@ -75,6 +75,15 @@
                   <li class="toctree-l1"><a class="reference internal" href="../lab_hotel/">Список отелей (Django)</a>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №3: </span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_3_1/">Практическая работа №1 - Django Web framework</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_3_2/">Практическая работа №2 - Django rest framework</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../lab_hotel2/">Гостиница (Django rest framework)</a>
+                  </li>
+              </ul>
       </div>
     </div>
     </nav>
@@ -152,398 +161,398 @@ class Car(models.Model):</p>
 2. Создание и применение миграций</p>
 </li>
 </ol>
-<div class="codehilite"><pre><span></span><code>python<span class="w"> </span>manage.py<span class="w"> </span>makemigrations<span class="w"> </span>automobiles
-python<span class="w"> </span>manage.py<span class="w"> </span>migrate
-</code></pre></div>
+<pre class="codehilite"><code class="language-bash">python manage.py makemigrations automobiles
+python manage.py migrate
+</code></pre>
 
 <ol>
 <li>Обновление админ-панели
 Обновленный <code>automobiles/admin.py</code>:</li>
 </ol>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">OwnershipInline</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">TabularInline</span><span class="p">):</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">Ownership</span>
-    <span class="n">extra</span> <span class="o">=</span> <span class="mi">1</span>
+<pre class="codehilite"><code class="language-python">class OwnershipInline(admin.TabularInline):
+    model = Ownership
+    extra = 1
 
-<span class="nd">@admin</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Owner</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">OwnerAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
-    <span class="n">inlines</span> <span class="o">=</span> <span class="p">[</span><span class="n">OwnershipInline</span><span class="p">]</span>
+@admin.register(Owner)
+class OwnerAdmin(admin.ModelAdmin):
+    inlines = [OwnershipInline]
 
-<span class="nd">@admin</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Car</span><span class="p">)</span>  
-<span class="k">class</span> <span class="nc">CarAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
-    <span class="n">inlines</span> <span class="o">=</span> <span class="p">[</span><span class="n">OwnershipInline</span><span class="p">]</span>
-    <span class="n">list_display</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;brand&#39;</span><span class="p">,</span> <span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="s1">&#39;state_number&#39;</span><span class="p">,</span> <span class="s1">&#39;get_current_owner&#39;</span><span class="p">]</span>
+@admin.register(Car)  
+class CarAdmin(admin.ModelAdmin):
+    inlines = [OwnershipInline]
+    list_display = ['brand', 'model', 'state_number', 'get_current_owner']
 
-    <span class="k">def</span> <span class="nf">get_current_owner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_current_owner</span><span class="p">()</span>
-    <span class="n">get_current_owner</span><span class="o">.</span><span class="n">short_description</span> <span class="o">=</span> <span class="s1">&#39;Текущий владелец&#39;</span>
-</code></pre></div>
+    def get_current_owner(self, obj):
+        return obj.get_current_owner()
+    get_current_owner.short_description = 'Текущий владелец'
+</code></pre>
 
 <h3 id="2">Практическое задание 2<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
 <h4 id="21">Задание 2.1: Реализовать вывод всех владельцев функционально<a class="headerlink" href="#21" title="Permanent link">&para;</a></h4>
 <p><strong>Цель:</strong> Создать контроллер и шаблон для отображения списка всех владельцев.</p>
 <p>Контроллер в <code>automobiles/views.py</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">owners_list</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Список всех владельцев с дополнительной информацией&quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">owners</span> <span class="o">=</span> <span class="n">Owner</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<pre class="codehilite"><code class="language-python">def owners_list(request):
+    &quot;&quot;&quot;Список всех владельцев с дополнительной информацией&quot;&quot;&quot;
+    try:
+        owners = Owner.objects.all()
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">owners</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;owners_list.html&#39;</span><span class="p">,</span> <span class="p">{</span>
-                <span class="s1">&#39;owners&#39;</span><span class="p">:</span> <span class="p">[],</span>
-                <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;В системе пока нет зарегистрированных владельцев&#39;</span>
-            <span class="p">})</span>
+        if not owners.exists():
+            return render(request, 'owners_list.html', {
+                'owners': [],
+                'message': 'В системе пока нет зарегистрированных владельцев'
+            })
 
-        <span class="n">owners_data</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">owner</span> <span class="ow">in</span> <span class="n">owners</span><span class="p">:</span>
-            <span class="n">current_cars</span> <span class="o">=</span> <span class="n">owner</span><span class="o">.</span><span class="n">ownerships</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">end_date__isnull</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">select_related</span><span class="p">(</span><span class="s1">&#39;car&#39;</span><span class="p">)</span>
-            <span class="n">all_cars_count</span> <span class="o">=</span> <span class="n">owner</span><span class="o">.</span><span class="n">ownerships</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-            <span class="n">licenses</span> <span class="o">=</span> <span class="n">owner</span><span class="o">.</span><span class="n">licenses</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        owners_data = []
+        for owner in owners:
+            current_cars = owner.ownerships.filter(end_date__isnull=True).select_related('car')
+            all_cars_count = owner.ownerships.count()
+            licenses = owner.licenses.all()
 
-            <span class="n">owners_data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                <span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owner</span><span class="p">,</span>
-                <span class="s1">&#39;current_cars&#39;</span><span class="p">:</span> <span class="n">current_cars</span><span class="p">,</span>
-                <span class="s1">&#39;all_cars_count&#39;</span><span class="p">:</span> <span class="n">all_cars_count</span><span class="p">,</span>
-                <span class="s1">&#39;licenses&#39;</span><span class="p">:</span> <span class="n">licenses</span>
-            <span class="p">})</span>
+            owners_data.append({
+                'owner': owner,
+                'current_cars': current_cars,
+                'all_cars_count': all_cars_count,
+                'licenses': licenses
+            })
 
-        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;owners_list.html&#39;</span><span class="p">,</span> <span class="p">{</span>
-            <span class="s1">&#39;owners&#39;</span><span class="p">:</span> <span class="n">owners_data</span>
-        <span class="p">})</span>
+        return render(request, 'owners_list.html', {
+            'owners': owners_data
+        })
 
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;owners_list.html&#39;</span><span class="p">,</span> <span class="p">{</span>
-            <span class="s1">&#39;owners&#39;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;Произошла ошибка при загрузке данных&#39;</span>
-        <span class="p">})</span>
-</code></pre></div>
+    except Exception as e:
+        return render(request, 'owners_list.html', {
+            'owners': [],
+            'error': 'Произошла ошибка при загрузке данных'
+        })
+</code></pre>
 
 <p>Шаблон <code>templates/owners_list.html</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;ru&quot;</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Список владельцев<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">owners-grid</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="k">grid</span><span class="p">;</span>
-<span class="w">            </span><span class="k">grid-template-columns</span><span class="p">:</span><span class="w"> </span><span class="nf">repeat</span><span class="p">(</span><span class="kc">auto</span><span class="nv">-fill</span><span class="p">,</span><span class="w"> </span><span class="nf">minmax</span><span class="p">(</span><span class="mi">350</span><span class="kt">px</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="n">fr</span><span class="p">));</span>
-<span class="w">            </span><span class="k">gap</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">owner-card</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="kc">white</span><span class="p">;</span>
-<span class="w">            </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">            </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">            </span><span class="k">box-shadow</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">2</span><span class="kt">px</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="w"> </span><span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.1</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">stats</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">flex</span><span class="p">;</span>
-<span class="w">            </span><span class="k">justify-content</span><span class="p">:</span><span class="w"> </span><span class="kc">space-between</span><span class="p">;</span>
-<span class="w">            </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Список владельцев<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<pre class="codehilite"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Список владельцев&lt;/title&gt;
+    &lt;style&gt;
+        .owners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        .owner-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;h1&gt;Список владельцев&lt;/h1&gt;
 
         {% if owners %}
-            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;owners-grid&quot;</span><span class="p">&gt;</span>
+            &lt;div class=&quot;owners-grid&quot;&gt;
                 {% for owner_data in owners %}
-                <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;owner-card&quot;</span><span class="p">&gt;</span>
-                    <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>{{ owner_data.owner.get_full_name }}<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+                &lt;div class=&quot;owner-card&quot;&gt;
+                    &lt;h3&gt;{{ owner_data.owner.get_full_name }}&lt;/h3&gt;
 
-                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;stats&quot;</span><span class="p">&gt;</span>
-                        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;stat-item&quot;</span><span class="p">&gt;</span>
-                            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;stat-number&quot;</span><span class="p">&gt;</span>{{ owner_data.all_cars_count }}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-                            <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>всего авто<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-                        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-                        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;stat-item&quot;</span><span class="p">&gt;</span>
-                            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;stat-number&quot;</span><span class="p">&gt;</span>{{ owner_data.current_cars|length }}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-                            <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>текущих<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-                        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                    &lt;div class=&quot;stats&quot;&gt;
+                        &lt;div class=&quot;stat-item&quot;&gt;
+                            &lt;div class=&quot;stat-number&quot;&gt;{{ owner_data.all_cars_count }}&lt;/div&gt;
+                            &lt;div&gt;всего авто&lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;stat-item&quot;&gt;
+                            &lt;div class=&quot;stat-number&quot;&gt;{{ owner_data.current_cars|length }}&lt;/div&gt;
+                            &lt;div&gt;текущих&lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
 
-                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;cars-section&quot;</span><span class="p">&gt;</span>
-                        <span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>Текущие автомобили:<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span>
+                    &lt;div class=&quot;cars-section&quot;&gt;
+                        &lt;strong&gt;Текущие автомобили:&lt;/strong&gt;
                         {% for ownership in owner_data.current_cars %}
-                        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;car-item&quot;</span><span class="p">&gt;</span>
+                        &lt;div class=&quot;car-item&quot;&gt;
                             {{ ownership.car.brand }} {{ ownership.car.model }}
-                        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                        &lt;/div&gt;
                         {% endfor %}
-                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                    &lt;/div&gt;
 
-                    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% url &#39;owner_detail&#39; owner_data.owner.id %}&quot;</span><span class="p">&gt;</span>
+                    &lt;a href=&quot;{% url 'owner_detail' owner_data.owner.id %}&quot;&gt;
                         Подробнее о владельце
-                    <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                    &lt;/a&gt;
+                &lt;/div&gt;
                 {% endfor %}
-            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            &lt;/div&gt;
         {% else %}
-            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Владельцы не найдены<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+            &lt;p&gt;Владельцы не найдены&lt;/p&gt;
         {% endif %}
-    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</code></pre></div>
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 
 <h4 id="22">Задание 2.2: Реализовать вывод автомобилей на основе классов<a class="headerlink" href="#22" title="Permanent link">&para;</a></h4>
 <p><strong>Цель:</strong> Создать классовые представления для операций с автомобилями.</p>
 <p>Классовые представления в <code>automobiles/views.py</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="kn">import</span> <span class="n">ListView</span><span class="p">,</span> <span class="n">DetailView</span><span class="p">,</span> <span class="n">UpdateView</span><span class="p">,</span> <span class="n">CreateView</span>
-<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">reverse_lazy</span>
-<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">messages</span>
+<pre class="codehilite"><code class="language-python">from django.views.generic import ListView, DetailView, UpdateView, CreateView
+from django.urls import reverse_lazy
+from django.contrib import messages
 
-<span class="k">class</span> <span class="nc">CarListView</span><span class="p">(</span><span class="n">ListView</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Класс-представление для списка автомобилей&quot;&quot;&quot;</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">Car</span>
-    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;cars_list_class.html&#39;</span>
-    <span class="n">context_object_name</span> <span class="o">=</span> <span class="s1">&#39;cars&#39;</span>
+class CarListView(ListView):
+    &quot;&quot;&quot;Класс-представление для списка автомобилей&quot;&quot;&quot;
+    model = Car
+    template_name = 'cars_list_class.html'
+    context_object_name = 'cars'
 
-    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Car</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">prefetch_related</span><span class="p">(</span><span class="s1">&#39;ownerships__owner&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    def get_queryset(self):
+        return Car.objects.prefetch_related('ownerships__owner').all()
 
-    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;total_cars&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_queryset</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">context</span>
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['total_cars'] = self.get_queryset().count()
+        return context
 
-<span class="k">class</span> <span class="nc">CarDetailView</span><span class="p">(</span><span class="n">DetailView</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Класс-представление для детальной информации об автомобиле&quot;&quot;&quot;</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">Car</span>
-    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;car_detail_class.html&#39;</span>
-    <span class="n">context_object_name</span> <span class="o">=</span> <span class="s1">&#39;car&#39;</span>
+class CarDetailView(DetailView):
+    &quot;&quot;&quot;Класс-представление для детальной информации об автомобиле&quot;&quot;&quot;
+    model = Car
+    template_name = 'car_detail_class.html'
+    context_object_name = 'car'
 
-    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">car</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_object</span><span class="p">()</span>
-        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;ownerships&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">car</span><span class="o">.</span><span class="n">ownerships</span><span class="o">.</span><span class="n">select_related</span><span class="p">(</span><span class="s1">&#39;owner&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-start_date&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">context</span>
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        car = self.get_object()
+        context['ownerships'] = car.ownerships.select_related('owner').order_by('-start_date')
+        return context
 
-<span class="k">class</span> <span class="nc">CarUpdateView</span><span class="p">(</span><span class="n">UpdateView</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Класс-представление для обновления автомобиля&quot;&quot;&quot;</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">Car</span>
-    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;car_form.html&#39;</span>
-    <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;state_number&#39;</span><span class="p">,</span> <span class="s1">&#39;brand&#39;</span><span class="p">,</span> <span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">]</span>
-    <span class="n">success_url</span> <span class="o">=</span> <span class="n">reverse_lazy</span><span class="p">(</span><span class="s1">&#39;cars_list_class&#39;</span><span class="p">)</span>
+class CarUpdateView(UpdateView):
+    &quot;&quot;&quot;Класс-представление для обновления автомобиля&quot;&quot;&quot;
+    model = Car
+    template_name = 'car_form.html'
+    fields = ['state_number', 'brand', 'model', 'color']
+    success_url = reverse_lazy('cars_list_class')
 
-    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
-        <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Автомобиль </span><span class="si">{</span><span class="n">form</span><span class="o">.</span><span class="n">instance</span><span class="si">}</span><span class="s1"> успешно обновлен!&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">form_valid</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
+    def form_valid(self, form):
+        messages.success(self.request, f'Автомобиль {form.instance} успешно обновлен!')
+        return super().form_valid(form)
 
-<span class="k">class</span> <span class="nc">CarCreateView</span><span class="p">(</span><span class="n">CreateView</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Класс-представление для создания нового автомобиля&quot;&quot;&quot;</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">Car</span>
-    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;car_form.html&#39;</span>
-    <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;state_number&#39;</span><span class="p">,</span> <span class="s1">&#39;brand&#39;</span><span class="p">,</span> <span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">]</span>
-    <span class="n">success_url</span> <span class="o">=</span> <span class="n">reverse_lazy</span><span class="p">(</span><span class="s1">&#39;cars_list_class&#39;</span><span class="p">)</span>
+class CarCreateView(CreateView):
+    &quot;&quot;&quot;Класс-представление для создания нового автомобиля&quot;&quot;&quot;
+    model = Car
+    template_name = 'car_form.html'
+    fields = ['state_number', 'brand', 'model', 'color']
+    success_url = reverse_lazy('cars_list_class')
 
-    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
-        <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Автомобиль </span><span class="si">{</span><span class="n">form</span><span class="o">.</span><span class="n">instance</span><span class="si">}</span><span class="s1"> успешно создан!&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">form_valid</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
-</code></pre></div>
+    def form_valid(self, form):
+        messages.success(self.request, f'Автомобиль {form.instance} успешно создан!')
+        return super().form_valid(form)
+</code></pre>
 
 <p>Шаблон <code>templates/cars_list_class.html</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;ru&quot;</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Список автомобилей<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Список автомобилей<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<pre class="codehilite"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Список автомобилей&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Список автомобилей&lt;/h1&gt;
 
-    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% url &#39;car_create&#39; %}&quot;</span><span class="p">&gt;</span>Добавить новый автомобиль<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    &lt;a href=&quot;{% url 'car_create' %}&quot;&gt;Добавить новый автомобиль&lt;/a&gt;
 
     {% if cars %}
-        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;cars-grid&quot;</span><span class="p">&gt;</span>
+        &lt;div class=&quot;cars-grid&quot;&gt;
             {% for car in cars %}
-            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;car-card&quot;</span><span class="p">&gt;</span>
-                <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>{{ car.brand }} {{ car.model }}<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
-                <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Гос. номер: {{ car.state_number }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-                <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Цвет: {{ car.get_color_display }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+            &lt;div class=&quot;car-card&quot;&gt;
+                &lt;h3&gt;{{ car.brand }} {{ car.model }}&lt;/h3&gt;
+                &lt;p&gt;Гос. номер: {{ car.state_number }}&lt;/p&gt;
+                &lt;p&gt;Цвет: {{ car.get_color_display }}&lt;/p&gt;
 
-                <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;car-actions&quot;</span><span class="p">&gt;</span>
-                    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% url &#39;car_detail_class&#39; car.id %}&quot;</span><span class="p">&gt;</span>Подробнее<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-                    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% url &#39;car_update&#39; car.id %}&quot;</span><span class="p">&gt;</span>Редактировать<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                &lt;div class=&quot;car-actions&quot;&gt;
+                    &lt;a href=&quot;{% url 'car_detail_class' car.id %}&quot;&gt;Подробнее&lt;/a&gt;
+                    &lt;a href=&quot;{% url 'car_update' car.id %}&quot;&gt;Редактировать&lt;/a&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
             {% endfor %}
-        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        &lt;/div&gt;
     {% else %}
-        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Автомобили не найдены<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        &lt;p&gt;Автомобили не найдены&lt;/p&gt;
     {% endif %}
-<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</code></pre></div>
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 
 <p>Обновление URL в <code>automobiles/urls.py</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">.views</span> <span class="kn">import</span> <span class="n">CarListView</span><span class="p">,</span> <span class="n">CarDetailView</span><span class="p">,</span> <span class="n">CarUpdateView</span><span class="p">,</span> <span class="n">CarCreateView</span>
+<pre class="codehilite"><code class="language-python">from .views import CarListView, CarDetailView, CarUpdateView, CarCreateView
 
-<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="c1"># ... существующие URL ...</span>
-    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;cars/&#39;</span><span class="p">,</span> <span class="n">CarListView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;cars_list_class&#39;</span><span class="p">),</span>
-    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;car/&lt;int:pk&gt;/&#39;</span><span class="p">,</span> <span class="n">CarDetailView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;car_detail_class&#39;</span><span class="p">),</span>
-    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;car/&lt;int:pk&gt;/update/&#39;</span><span class="p">,</span> <span class="n">CarUpdateView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;car_update&#39;</span><span class="p">),</span>
-    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;car/create/&#39;</span><span class="p">,</span> <span class="n">CarCreateView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;car_create&#39;</span><span class="p">),</span>
-<span class="p">]</span>
-</code></pre></div>
+urlpatterns = [
+    # ... существующие URL ...
+    path('cars/', CarListView.as_view(), name='cars_list_class'),
+    path('car/&lt;int:pk&gt;/', CarDetailView.as_view(), name='car_detail_class'),
+    path('car/&lt;int:pk&gt;/update/', CarUpdateView.as_view(), name='car_update'),
+    path('car/create/', CarCreateView.as_view(), name='car_create'),
+]
+</code></pre>
 
 <h3 id="3">Практическое задание 3<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
 <h4 id="31">Задание 3.1: Реализовать форму ввода владельцев функционально<a class="headerlink" href="#31" title="Permanent link">&para;</a></h4>
 <p><strong>Цель:</strong> Создать формы для операций CRUD с владельцами.</p>
 <p>Формы в <code>automobiles/forms.py</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
-<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Owner</span><span class="p">,</span> <span class="n">DriverLicense</span>
+<pre class="codehilite"><code class="language-python">from django import forms
+from .models import Owner, DriverLicense
 
-<span class="k">class</span> <span class="nc">OwnerForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
-    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
-        <span class="n">model</span> <span class="o">=</span> <span class="n">Owner</span>
-        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;first_name&#39;</span><span class="p">,</span> <span class="s1">&#39;last_name&#39;</span><span class="p">,</span> <span class="s1">&#39;birth_date&#39;</span><span class="p">,</span> <span class="s1">&#39;phone&#39;</span><span class="p">,</span> 
-                 <span class="s1">&#39;passport_number&#39;</span><span class="p">,</span> <span class="s1">&#39;address&#39;</span><span class="p">,</span> <span class="s1">&#39;nationality&#39;</span><span class="p">]</span>
-        <span class="n">widgets</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;birth_date&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">DateInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;date&#39;</span><span class="p">}),</span>
-            <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">Textarea</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rows&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}),</span>
-        <span class="p">}</span>
+class OwnerForm(forms.ModelForm):
+    class Meta:
+        model = Owner
+        fields = ['first_name', 'last_name', 'birth_date', 'phone', 
+                 'passport_number', 'address', 'nationality']
+        widgets = {
+            'birth_date': forms.DateInput(attrs={'type': 'date'}),
+            'address': forms.Textarea(attrs={'rows': 3}),
+        }
 
-<span class="k">class</span> <span class="nc">DriverLicenseForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
-    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
-        <span class="n">model</span> <span class="o">=</span> <span class="n">DriverLicense</span>
-        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;license_number&#39;</span><span class="p">,</span> <span class="s1">&#39;license_type&#39;</span><span class="p">,</span> <span class="s1">&#39;issue_date&#39;</span><span class="p">,</span> <span class="s1">&#39;expiry_date&#39;</span><span class="p">]</span>
-        <span class="n">widgets</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;issue_date&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">DateInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;date&#39;</span><span class="p">}),</span>
-            <span class="s1">&#39;expiry_date&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">DateInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;date&#39;</span><span class="p">}),</span>
-        <span class="p">}</span>
-</code></pre></div>
+class DriverLicenseForm(forms.ModelForm):
+    class Meta:
+        model = DriverLicense
+        fields = ['license_number', 'license_type', 'issue_date', 'expiry_date']
+        widgets = {
+            'issue_date': forms.DateInput(attrs={'type': 'date'}),
+            'expiry_date': forms.DateInput(attrs={'type': 'date'}),
+        }
+</code></pre>
 
 <p>Контроллеры в <code>automobiles/views.py</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">get_object_or_404</span>
-<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">messages</span>
-<span class="kn">from</span> <span class="nn">.forms</span> <span class="kn">import</span> <span class="n">OwnerForm</span><span class="p">,</span> <span class="n">DriverLicenseForm</span>
+<pre class="codehilite"><code class="language-python">from django.shortcuts import redirect, get_object_or_404
+from django.contrib import messages
+from .forms import OwnerForm, DriverLicenseForm
 
-<span class="k">def</span> <span class="nf">owner_create</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Создание нового владельца&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
-        <span class="n">form</span> <span class="o">=</span> <span class="n">OwnerForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
-            <span class="n">owner</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-            <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Владелец </span><span class="si">{</span><span class="n">owner</span><span class="o">.</span><span class="n">get_full_name</span><span class="p">()</span><span class="si">}</span><span class="s1"> успешно создан!&#39;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;owner_detail&#39;</span><span class="p">,</span> <span class="n">owner_id</span><span class="o">=</span><span class="n">owner</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">form</span> <span class="o">=</span> <span class="n">OwnerForm</span><span class="p">()</span>
+def owner_create(request):
+    &quot;&quot;&quot;Создание нового владельца&quot;&quot;&quot;
+    if request.method == 'POST':
+        form = OwnerForm(request.POST)
+        if form.is_valid():
+            owner = form.save()
+            messages.success(request, f'Владелец {owner.get_full_name()} успешно создан!')
+            return redirect('owner_detail', owner_id=owner.id)
+    else:
+        form = OwnerForm()
 
-    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;owner_form.html&#39;</span><span class="p">,</span> <span class="p">{</span>
-        <span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span>
-        <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Добавление нового владельца&#39;</span>
-    <span class="p">})</span>
+    return render(request, 'owner_form.html', {
+        'form': form,
+        'title': 'Добавление нового владельца'
+    })
 
-<span class="k">def</span> <span class="nf">owner_update</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">owner_id</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Редактирование владельца&quot;&quot;&quot;</span>
-    <span class="n">owner</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Owner</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">owner_id</span><span class="p">)</span>
+def owner_update(request, owner_id):
+    &quot;&quot;&quot;Редактирование владельца&quot;&quot;&quot;
+    owner = get_object_or_404(Owner, id=owner_id)
 
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
-        <span class="n">form</span> <span class="o">=</span> <span class="n">OwnerForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">owner</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
-            <span class="n">owner</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-            <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Данные владельца </span><span class="si">{</span><span class="n">owner</span><span class="o">.</span><span class="n">get_full_name</span><span class="p">()</span><span class="si">}</span><span class="s1"> успешно обновлены!&#39;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;owner_detail&#39;</span><span class="p">,</span> <span class="n">owner_id</span><span class="o">=</span><span class="n">owner</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">form</span> <span class="o">=</span> <span class="n">OwnerForm</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">owner</span><span class="p">)</span>
+    if request.method == 'POST':
+        form = OwnerForm(request.POST, instance=owner)
+        if form.is_valid():
+            owner = form.save()
+            messages.success(request, f'Данные владельца {owner.get_full_name()} успешно обновлены!')
+            return redirect('owner_detail', owner_id=owner.id)
+    else:
+        form = OwnerForm(instance=owner)
 
-    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;owner_form.html&#39;</span><span class="p">,</span> <span class="p">{</span>
-        <span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span>
-        <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Редактирование владельца: </span><span class="si">{</span><span class="n">owner</span><span class="o">.</span><span class="n">get_full_name</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span>
-    <span class="p">})</span>
+    return render(request, 'owner_form.html', {
+        'form': form,
+        'title': f'Редактирование владельца: {owner.get_full_name()}'
+    })
 
-<span class="k">def</span> <span class="nf">owner_delete</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">owner_id</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Удаление владельца&quot;&quot;&quot;</span>
-    <span class="n">owner</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Owner</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">owner_id</span><span class="p">)</span>
+def owner_delete(request, owner_id):
+    &quot;&quot;&quot;Удаление владельца&quot;&quot;&quot;
+    owner = get_object_or_404(Owner, id=owner_id)
 
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
-        <span class="n">owner_name</span> <span class="o">=</span> <span class="n">owner</span><span class="o">.</span><span class="n">get_full_name</span><span class="p">()</span>
-        <span class="n">owner</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
-        <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Владелец </span><span class="si">{</span><span class="n">owner_name</span><span class="si">}</span><span class="s1"> успешно удален!&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;owners_list&#39;</span><span class="p">)</span>
+    if request.method == 'POST':
+        owner_name = owner.get_full_name()
+        owner.delete()
+        messages.success(request, f'Владелец {owner_name} успешно удален!')
+        return redirect('owners_list')
 
-    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;owner_confirm_delete.html&#39;</span><span class="p">,</span> <span class="p">{</span>
-        <span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owner</span>
-    <span class="p">})</span>
-</code></pre></div>
+    return render(request, 'owner_confirm_delete.html', {
+        'owner': owner
+    })
+</code></pre>
 
 <p>Шаблон <code>templates/owner_form.html</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;ru&quot;</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>{{ title }}<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>{{ title }}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<pre class="codehilite"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;{{ title }}&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;{{ title }}&lt;/h1&gt;
 
-    <span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span><span class="p">&gt;</span>
+    &lt;form method=&quot;post&quot;&gt;
         {% csrf_token %}
 
         {% for field in form %}
-        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>{{ field.label }}<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label&gt;{{ field.label }}&lt;/label&gt;
             {{ field }}
             {% if field.errors %}
-                <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;error&quot;</span><span class="p">&gt;</span>{{ field.errors }}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                &lt;div class=&quot;error&quot;&gt;{{ field.errors }}&lt;/div&gt;
             {% endif %}
-        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        &lt;/div&gt;
         {% endfor %}
 
-        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span>Сохранить<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% url &#39;owners_list&#39; %}&quot;</span><span class="p">&gt;</span>Отмена<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</code></pre></div>
+        &lt;button type=&quot;submit&quot;&gt;Сохранить&lt;/button&gt;
+        &lt;a href=&quot;{% url 'owners_list' %}&quot;&gt;Отмена&lt;/a&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 
 <h4 id="32">Задание 3.2: Реализовать формы для автомобилей на основе классов<a class="headerlink" href="#32" title="Permanent link">&para;</a></h4>
 <p><strong>Цель:</strong> Расширить классовые представления для операций удаления автомобилей.</p>
 <p>Добавление в <code>automobiles/views.py</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="kn">import</span> <span class="n">DeleteView</span>
+<pre class="codehilite"><code class="language-python">from django.views.generic import DeleteView
 
-<span class="k">class</span> <span class="nc">CarDeleteView</span><span class="p">(</span><span class="n">DeleteView</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Класс-представление для удаления автомобиля&quot;&quot;&quot;</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">Car</span>
-    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;car_confirm_delete.html&#39;</span>
-    <span class="n">success_url</span> <span class="o">=</span> <span class="n">reverse_lazy</span><span class="p">(</span><span class="s1">&#39;cars_list_class&#39;</span><span class="p">)</span>
+class CarDeleteView(DeleteView):
+    &quot;&quot;&quot;Класс-представление для удаления автомобиля&quot;&quot;&quot;
+    model = Car
+    template_name = 'car_confirm_delete.html'
+    success_url = reverse_lazy('cars_list_class')
 
-    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;Автомобиль успешно удален!&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</code></pre></div>
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, 'Автомобиль успешно удален!')
+        return super().delete(request, *args, **kwargs)
+</code></pre>
 
 <p>Шаблон <code>templates/car_confirm_delete.html</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;ru&quot;</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Удаление автомобиля<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Удаление автомобиля<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<pre class="codehilite"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Удаление автомобиля&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Удаление автомобиля&lt;/h1&gt;
 
-    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Вы уверены, что хотите удалить &quot;{{ object }}&quot;?<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    &lt;p&gt;Вы уверены, что хотите удалить &quot;{{ object }}&quot;?&lt;/p&gt;
 
-    <span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span><span class="p">&gt;</span>
+    &lt;form method=&quot;post&quot;&gt;
         {% csrf_token %}
-        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span>Да, удалить<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% url &#39;cars_list_class&#39; %}&quot;</span><span class="p">&gt;</span>Отмена<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</code></pre></div>
+        &lt;button type=&quot;submit&quot;&gt;Да, удалить&lt;/button&gt;
+        &lt;a href=&quot;{% url 'cars_list_class' %}&quot;&gt;Отмена&lt;/a&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 
 <p>Обновление URL в <code>automobiles/urls.py</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">.views</span> <span class="kn">import</span> <span class="n">CarDeleteView</span>
+<pre class="codehilite"><code class="language-python">from .views import CarDeleteView
 
-<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="c1"># ... существующие URL ...</span>
-    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;car/&lt;int:pk&gt;/delete/&#39;</span><span class="p">,</span> <span class="n">CarDeleteView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;car_delete&#39;</span><span class="p">),</span>
-<span class="p">]</span>
-</code></pre></div>
+urlpatterns = [
+    # ... существующие URL ...
+    path('car/&lt;int:pk&gt;/delete/', CarDeleteView.as_view(), name='car_delete'),
+]
+</code></pre>
 
 <hr />
 <h3 id="_4">Результаты выполнения<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>

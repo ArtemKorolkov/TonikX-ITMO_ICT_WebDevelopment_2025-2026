@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Корольков Артем" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Практическая работа №2 - Django rest framework - Отчеты по лабораторным работам - Веб-программирование</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u041f\u0440\u0430\u043a\u0442\u0438\u0447\u0435\u0441\u043a\u0430\u044f \u0440\u0430\u0431\u043e\u0442\u0430 \u21162 - Django rest framework";
+        var mkdocs_page_input_path = "pr_3_2.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Отчеты по лабораторным работам - Веб-программирование
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Главная</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №1</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_1/">Задание 1: UDP-клиент-сервер</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_2/">Задание 2: TCP-сервер (площадь трапеции)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_3/">Задание 3: HTTP-сервер</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_4/">Задание 4: Многопользовательский чат</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_5/">Задание 5: Веб-сервер для учета оценок</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №2: Django</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_1/">Практическая работа №1 — Знакомство с Django</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_2/">Практическая работа №2 — Реализация CRUD</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_3/">Практическая работа №3 — Расширение модели пользователя</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../lab_hotel/">Список отелей (Django)</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №3: </span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_3_1/">Практическая работа №1 - Django Web framework</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Практическая работа №2 - Django rest framework</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#django-rest-framework">Django REST Framework</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_1">Теоретическая основа</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#1">Задание 1: Эндпоинты для навыков</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#_2">Постановка задачи</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_3">Реализация</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2">Задание 2: Расширенные эндпоинты для воинов</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#_4">Постановка задачи</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_5">Реализация</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">Архитектура проекта</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#_7">Структура базы данных</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#rest">Принципы REST</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#api">Тестирование API</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">Результаты работы</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">Вывод</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../lab_hotel2/">Гостиница (Django rest framework)</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Отчеты по лабораторным работам - Веб-программирование</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Лабораторная работа №3: </li>
+      <li class="breadcrumb-item active">Практическая работа №2 - Django rest framework</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="no32">Отчет по практической работе №3.2<a class="headerlink" href="#no32" title="Permanent link">&para;</a></h1>
+<h2 id="django-rest-framework">Django REST Framework<a class="headerlink" href="#django-rest-framework" title="Permanent link">&para;</a></h2>
+<p><strong>Цель:</strong> Освоить принципы RESTful API и научиться создавать API endpoints с использованием Django REST Framework, включая работу с сериализаторами и Generic-классами.</p>
+<h3 id="_1">Теоретическая основа<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>REST (Representational State Transfer) - архитектурный стиль для создания веб-сервисов</li>
+<li>Сериализация - процесс преобразования объектов в формат для передачи (JSON)</li>
+<li>Generic-классы - готовые представления для стандартных операций CRUD</li>
+</ul>
+<h3 id="1">Задание 1: Эндпоинты для навыков<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<h4 id="_2">Постановка задачи<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>Реализовать эндпоинты для добавления и просмотра навыков (Skills) используя APIView.</p>
+<h4 id="_3">Реализация<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Модель Skill</li>
+</ul>
+<pre class="codehilite"><code class="language-python"># warriors_app/models.py
+class Skill(models.Model):
+    title = models.CharField(max_length=120, verbose_name='Наименование')
+
+    def __str__(self):
+        return self.title
+</code></pre>
+
+<ul>
+<li>Сериализатор SkillSerializer</li>
+</ul>
+<pre class="codehilite"><code class="language-python"># warriors_app/serializers.py
+from rest_framework import serializers
+from .models import Skill
+
+class SkillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Skill
+        fields = &quot;__all__&quot;
+</code></pre>
+
+<ul>
+<li>Представление SkillAPIView</li>
+</ul>
+<pre class="codehilite"><code class="language-python"># warriors_app/views.py
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Skill
+from .serializers import SkillSerializer
+
+class SkillAPIView(APIView):
+    def get(self, request):
+        skills = Skill.objects.all()
+        serializer = SkillSerializer(skills, many=True)
+        return Response({&quot;Skills&quot;: serializer.data})
+
+    def post(self, request):
+        skill_data = request.data
+        serializer = SkillSerializer(data=skill_data)
+
+        if serializer.is_valid(raise_exception=True):
+            skill_saved = serializer.save()
+            return Response(
+                {&quot;Success&quot;: &quot;Skill '{}' created successfully.&quot;.format(skill_saved.title)},
+                status=status.HTTP_201_CREATED
+            )
+</code></pre>
+
+<ul>
+<li>Маршрутизация</li>
+</ul>
+<pre class="codehilite"><code class="language-python"># warriors_app/urls.py
+from django.urls import path
+from .views import SkillAPIView
+
+urlpatterns = [
+    path('skills/', SkillAPIView.as_view(), name='skills'),
+]
+</code></pre>
+
+<h3 id="2">Задание 2: Расширенные эндпоинты для воинов<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<h4 id="_4">Постановка задачи<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p>Реализовать эндпоинты для работы с воинами, включая вывод связанных данных и операции CRUD.</p>
+<h4 id="_5">Реализация<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Расширенные сериализаторы</li>
+</ul>
+<pre class="codehilite"><code class="language-python"># warriors_app/serializers.py
+class ProfessionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profession
+        fields = [&quot;title&quot;, &quot;description&quot;]
+
+class SkillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Skill
+        fields = [&quot;title&quot;]
+
+class WarriorProfessionSerializer(serializers.ModelSerializer):
+    profession = ProfessionSerializer()
+    race = serializers.CharField(source=&quot;get_race_display&quot;, read_only=True)
+
+    class Meta:
+        model = Warrior
+        fields = [&quot;id&quot;, &quot;name&quot;, &quot;race&quot;, &quot;level&quot;, &quot;profession&quot;]
+
+class WarriorSkillSerializer(serializers.ModelSerializer):
+    skill = SkillSerializer(many=True)
+    race = serializers.CharField(source=&quot;get_race_display&quot;, read_only=True)
+
+    class Meta:
+        model = Warrior
+        fields = [&quot;id&quot;, &quot;name&quot;, &quot;race&quot;, &quot;level&quot;, &quot;skill&quot;]
+
+class WarriorFullSerializer(serializers.ModelSerializer):
+    profession = ProfessionSerializer()
+    skill = SkillSerializer(many=True)
+    race = serializers.CharField(source=&quot;get_race_display&quot;, read_only=True)
+
+    class Meta:
+        model = Warrior
+        fields = &quot;__all__&quot;
+</code></pre>
+
+<ul>
+<li>Generic-представления</li>
+</ul>
+<pre class="codehilite"><code class="language-python"># warriors_app/views.py
+from rest_framework import generics
+from .models import Warrior
+from .serializers import WarriorProfessionSerializer, WarriorSkillSerializer, WarriorFullSerializer
+
+class WarriorProfessionListAPIView(generics.ListAPIView):
+    serializer_class = WarriorProfessionSerializer
+    queryset = Warrior.objects.all()
+
+class WarriorSkillListAPIView(generics.ListAPIView):
+    serializer_class = WarriorSkillSerializer
+    queryset = Warrior.objects.all()
+
+class WarriorRetrieveAPIView(generics.RetrieveAPIView):
+    serializer_class = WarriorFullSerializer
+    queryset = Warrior.objects.all()
+
+class WarriorDestroyAPIView(generics.DestroyAPIView):
+    queryset = Warrior.objects.all()
+
+class WarriorUpdateAPIView(generics.UpdateAPIView):
+    serializer_class = WarriorFullSerializer
+    queryset = Warrior.objects.all()
+</code></pre>
+
+<ul>
+<li>Маршрутизация</li>
+</ul>
+<pre class="codehilite"><code class="language-python"># warriors_app/urls.py
+urlpatterns = [
+    path('warriors/professions/', WarriorProfessionListAPIView.as_view()),
+    path('warriors/skills/', WarriorSkillListAPIView.as_view()),
+    path('warriors/&lt;int:pk&gt;/', WarriorRetrieveAPIView.as_view()),
+    path('warriors/&lt;int:pk&gt;/delete/', WarriorDestroyAPIView.as_view()),
+    path('warriors/&lt;int:pk&gt;/update/', WarriorUpdateAPIView.as_view()),
+]
+</code></pre>
+
+<hr />
+<h3 id="_6">Архитектура проекта<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<h4 id="_7">Структура базы данных<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-commandline">Warrior (Воин)
+├── id (ID)
+├── name (Имя)
+├── race (Раса)
+├── level (Уровень)
+├── profession (Профессия) → Profession.id
+└── skill (Навыки) → Skill (ManyToMany через SkillOfWarrior)
+
+Profession (Профессия)
+├── id (ID)
+├── title (Название)
+└── description (Описание)
+
+Skill (Навык)
+└── title (Название)
+
+SkillOfWarrior (Навыки воина)
+├── warrior (Воин) → Warrior.id
+├── skill (Навык) → Skill.id
+└── level (Уровень освоения)
+</code></pre>
+
+<h4 id="rest">Принципы REST<a class="headerlink" href="#rest" title="Permanent link">&para;</a></h4>
+<ul>
+<li>GET - получение данных</li>
+<li>POST - создание новых ресурсов</li>
+<li>PUT/PATCH - обновление ресурсов</li>
+<li>DELETE - удаление ресурсов</li>
+</ul>
+<h4 id="api">Тестирование API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h4>
+<h5 id="_8">Главная страница и базовые эндпоинты<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Главная страница API: http://127.0.0.1:8000/</li>
+<li>Админ-панель Django: http://127.0.0.1:8000/admin/</li>
+</ul>
+<h5 id="warriors">Эндпоинты для воинов (Warriors)<a class="headerlink" href="#warriors" title="Permanent link">&para;</a></h5>
+<ul>
+<li>GET запросы (просмотр данных):</li>
+<li>Все воины: http://127.0.0.1:8000/warriors/</li>
+<li>Все воины с профессиями: http://127.0.0.1:8000/warriors/professions/</li>
+<li>Все воины с навыками: http://127.0.0.1:8000/warriors/skills/</li>
+<li>Конкретный воин (ID=1): http://127.0.0.1:8000/warriors/1/</li>
+</ul>
+<h5 id="delete">DELETE запросы (удаление):<a class="headerlink" href="#delete" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Удалить воина ID=1: http://127.0.0.1:8000/warriors/1/delete/</li>
+</ul>
+<h5 id="putpatch">PUT/PATCH запросы (обновление):<a class="headerlink" href="#putpatch" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Обновить воина ID=1: http://127.0.0.1:8000/warriors/1/update/</li>
+</ul>
+<h5 id="skills">Эндпоинты для навыков (Skills)<a class="headerlink" href="#skills" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Все навыки (GET): http://127.0.0.1:8000/skills/</li>
+<li>Создать навык (POST): http://127.0.0.1:8000/skills/</li>
+</ul>
+<h5 id="professions">Эндпоинты для профессий (Professions)<a class="headerlink" href="#professions" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Создать профессию (POST): http://127.0.0.1:8000/profession/create/</li>
+</ul>
+<hr />
+<h3 id="_9">Результаты работы<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Реализованы эндпоинты для добавления и просмотра навыков</li>
+<li>Созданы расширенные эндпоинты для работы с воинами</li>
+<li>Реализована вложенная сериализация для связанных данных</li>
+<li>Использованы Generic-классы для стандартных операций CRUD</li>
+<li>Создан удобный интерфейс для тестирования API</li>
+</ul>
+<hr />
+<h3 id="_10">Вывод<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>В рамках практического задания был успешно разработан REST API для системы управления воинами с использованием Django REST Framework. Реализованы все требуемые эндпоинты, включая операции CRUD для навыков и воинов, с поддержкой вложенной сериализации связанных данных. Применение Generic-классов позволило значительно сократить объем кода при сохранении полной функциональности. API полностью соответствует принципам REST и предоставляет удобный интерфейс для взаимодействия с данными через стандартные HTTP-методы. Все эндпоинты протестированы и готовы к использованию, что подтверждает успешное выполнение поставленных задач по созданию полнофункционального веб-API.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../pr_3_1/" class="btn btn-neutral float-left" title="Практическая работа №1 - Django Web framework"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../lab_hotel2/" class="btn btn-neutral float-right" title="Гостиница (Django rest framework)">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../pr_3_1/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../lab_hotel2/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

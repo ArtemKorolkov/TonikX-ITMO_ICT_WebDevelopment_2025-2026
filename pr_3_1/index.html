@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Корольков Артем" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Практическая работа №1 - Django Web framework - Отчеты по лабораторным работам - Веб-программирование</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u041f\u0440\u0430\u043a\u0442\u0438\u0447\u0435\u0441\u043a\u0430\u044f \u0440\u0430\u0431\u043e\u0442\u0430 \u21161 - Django Web framework";
+        var mkdocs_page_input_path = "pr_3_1.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Отчеты по лабораторным работам - Веб-программирование
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Главная</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №1</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_1/">Задание 1: UDP-клиент-сервер</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_2/">Задание 2: TCP-сервер (площадь трапеции)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_3/">Задание 3: HTTP-сервер</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_4/">Задание 4: Многопользовательский чат</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_5/">Задание 5: Веб-сервер для учета оценок</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №2: Django</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_1/">Практическая работа №1 — Знакомство с Django</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_2/">Практическая работа №2 — Реализация CRUD</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_3/">Практическая работа №3 — Расширение модели пользователя</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../lab_hotel/">Список отелей (Django)</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №3: </span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Практическая работа №1 - Django Web framework</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#django-web-framework">Django Web Framework. Запросы и их выполнение</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_1">Теоретическая основа</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#1">Задание 1: Создание тестовых данных</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#_2">Постановка задачи</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_3">Реализация</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2">Задание 2: Запросы на фильтрацию</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#_4">Постановка задачи</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_5">Реализация запросов</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3">Задание 3: Сложные запросы с агрегацией</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#_6">Постановка задачи</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_7">Реализация запросов</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">Модели данных</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">Результаты работы</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">Вывод</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_3_2/">Практическая работа №2 - Django rest framework</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../lab_hotel2/">Гостиница (Django rest framework)</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Отчеты по лабораторным работам - Веб-программирование</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Лабораторная работа №3: </li>
+      <li class="breadcrumb-item active">Практическая работа №1 - Django Web framework</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="no31">Отчет по практической работе №3.1<a class="headerlink" href="#no31" title="Permanent link">&para;</a></h1>
+<h2 id="django-web-framework">Django Web Framework. Запросы и их выполнение<a class="headerlink" href="#django-web-framework" title="Permanent link">&para;</a></h2>
+<p><strong>Цель:</strong> Освоить выполнение запросов к базе данных в Django ORM, включая создание объектов, фильтрацию, агрегацию и сортировку данных.</p>
+<h3 id="_1">Теоретическая основа<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Django ORM - объектно-реляционное отображение для работы с базой данных</li>
+<li>QuerySet API - интерфейс для построения запросов к базе данных</li>
+<li>Методы фильтрации - filter(), exclude(), get()</li>
+<li>Агрегирующие функции - Count(), Max(), Min(), Avg()</li>
+<li>Сортировка данных - order_by(), distinct()</li>
+</ul>
+<h3 id="1">Задание 1: Создание тестовых данных<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<h4 id="_2">Постановка задачи<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>Создать 6-7 автовладельцев, 5-6 автомобилей, каждому автовладельцу назначить удостоверение и от 1 до 3 автомобилей.</p>
+<h4 id="_3">Реализация<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-python"># create_test_data.py
+import os
+import django
+from datetime import date, timedelta
+import random
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'your_project.settings')
+django.setup()
+
+from autoapp.models import Owner, Car, DriverLicense, Ownership
+
+def create_test_data():
+    # Очистка существующих данных
+    Ownership.objects.all().delete()
+    DriverLicense.objects.all().delete()
+    Car.objects.all().delete()
+    Owner.objects.all().delete()
+
+    # Создание автовладельцев
+    owners_data = [
+        {'name': 'Иван Иванов', 'birth_date': date(1985, 5, 15)},
+        {'name': 'Петр Петров', 'birth_date': date(1990, 8, 22)},
+        {'name': 'Олег Сидоров', 'birth_date': date(1988, 3, 10)},
+        {'name': 'Мария Козлова', 'birth_date': date(1992, 11, 5)},
+        {'name': 'Олег Кузнецов', 'birth_date': date(1987, 7, 18)},
+        {'name': 'Анна Смирнова', 'birth_date': date(1995, 2, 28)},
+        {'name': 'Сергей Попов', 'birth_date': date(1983, 9, 12)}
+    ]
+
+    owners = []
+    for data in owners_data:
+        owner = Owner.objects.create(**data)
+        owners.append(owner)
+        print(f'Создан владелец: {owner.name}')
+
+    # Создание автомобилей
+    cars_data = [
+        {'brand': 'Toyota', 'model': 'Camry', 'color': 'красный', 'year': 2020},
+        {'brand': 'Toyota', 'model': 'Corolla', 'color': 'синий', 'year': 2019},
+        {'brand': 'Honda', 'model': 'Civic', 'color': 'красный', 'year': 2018},
+        {'brand': 'BMW', 'model': 'X5', 'color': 'черный', 'year': 2021},
+        {'brand': 'Audi', 'model': 'A4', 'color': 'белый', 'year': 2017},
+        {'brand': 'Toyota', 'model': 'RAV4', 'color': 'серый', 'year': 2022}
+    ]
+
+    cars = []
+    for data in cars_data:
+        car = Car.objects.create(**data)
+        cars.append(car)
+        print(f'Создан автомобиль: {car.brand} {car.model}')
+
+    # Создание водительских удостоверений
+    license_data = [
+        {'owner': owners[0], 'number': 'AA123456', 'type': 'B', 'issued_date': date(2015, 6, 10)},
+        {'owner': owners[1], 'number': 'BB654321', 'type': 'B', 'issued_date': date(2018, 3, 15)},
+        {'owner': owners[2], 'number': 'CC111222', 'type': 'B', 'issued_date': date(2012, 11, 20)},
+        {'owner': owners[3], 'number': 'DD333444', 'type': 'B', 'issued_date': date(2019, 8, 5)},
+        {'owner': owners[4], 'number': 'EE555666', 'type': 'B', 'issued_date': date(2016, 4, 12)},
+        {'owner': owners[5], 'number': 'FF777888', 'type': 'B', 'issued_date': date(2020, 1, 30)},
+        {'owner': owners[6], 'number': 'GG999000', 'type': 'B', 'issued_date': date(2014, 9, 25)}
+    ]
+
+    for data in license_data:
+        license = DriverLicense.objects.create(**data)
+        print(f'Создано удостоверение: {license.number} для {license.owner.name}')
+
+    # Создание записей о владении
+    ownerships_data = [
+        # Иван Иванов владеет 2 автомобилями
+        {'owner': owners[0], 'car': cars[0], 'start_date': date(2020, 1, 15), 'end_date': None},
+        {'owner': owners[0], 'car': cars[1], 'start_date': date(2021, 3, 20), 'end_date': date(2022, 5, 10)},
+
+        # Петр Петров владеет 1 автомобилем
+        {'owner': owners[1], 'car': cars[2], 'start_date': date(2019, 8, 1), 'end_date': None},
+
+        # Олег Сидоров владеет 3 автомобилями
+        {'owner': owners[2], 'car': cars[3], 'start_date': date(2018, 6, 12), 'end_date': None},
+        {'owner': owners[2], 'car': cars[4], 'start_date': date(2020, 2, 28), 'end_date': None},
+        {'owner': owners[2], 'car': cars[5], 'start_date': date(2022, 1, 10), 'end_date': None},
+
+        # Мария Козлова владеет 2 автомобилями
+        {'owner': owners[3], 'car': cars[0], 'start_date': date(2022, 5, 11), 'end_date': None},
+        {'owner': owners[3], 'car': cars[1], 'start_date': date(2021, 7, 15), 'end_date': None},
+
+        # Олег Кузнецов владеет 1 автомобилем
+        {'owner': owners[4], 'car': cars[2], 'start_date': date(2020, 4, 5), 'end_date': date(2021, 12, 31)},
+
+        # Анна Смирнова владеет 2 автомобилями
+        {'owner': owners[5], 'car': cars[3], 'start_date': date(2019, 11, 20), 'end_date': None},
+        {'owner': owners[5], 'car': cars[4], 'start_date': date(2021, 9, 8), 'end_date': None},
+
+        # Сергей Попов владеет 1 автомобилем
+        {'owner': owners[6], 'car': cars[5], 'start_date': date(2020, 12, 1), 'end_date': None}
+    ]
+
+    for data in ownerships_data:
+        ownership = Ownership.objects.create(**data)
+        print(f'Создана запись о владении: {ownership.owner.name} - {ownership.car.brand} {ownership.car.model}')
+
+    print(&quot;\nТестовые данные успешно созданы!&quot;)
+    print(f&quot;Владельцев: {Owner.objects.count()}&quot;)
+    print(f&quot;Автомобилей: {Car.objects.count()}&quot;)
+    print(f&quot;Удостоверений: {DriverLicense.objects.count()}&quot;)
+    print(f&quot;Записей о владении: {Ownership.objects.count()}&quot;)
+
+if __name__ == '__main__':
+    create_test_data()
+</code></pre>
+
+<h3 id="2">Задание 2: Запросы на фильтрацию<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<h4 id="_4">Постановка задачи<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p>Выполнить запросы фильтрации с использованием Django ORM.</p>
+<h4 id="_5">Реализация запросов<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-python"># queries.py
+from django.db.models import Q
+from autoapp.models import Owner, Car, DriverLicense, Ownership
+
+def execute_queries():
+    print(&quot;=== ЗАПРОСЫ НА ФИЛЬТРАЦИЮ ===\n&quot;)
+
+    # 1. Все машины марки &quot;Toyota&quot;
+    print(&quot;1. Все машины марки 'Toyota':&quot;)
+    toyota_cars = Car.objects.filter(brand='Toyota')
+    for car in toyota_cars:
+        print(f&quot;  - {car.brand} {car.model} ({car.color})&quot;)
+
+    # 2. Все водители с именем &quot;Олег&quot;
+    print(&quot;\n2. Все водители с именем 'Олег':&quot;)
+    oleg_owners = Owner.objects.filter(name__contains='Олег')
+    for owner in oleg_owners:
+        print(f&quot;  - {owner.name}&quot;)
+
+    # 3. Получение удостоверения по id владельца
+    print(&quot;\n3. Получение удостоверения по id владельца:&quot;)
+    random_owner = Owner.objects.first()
+    if random_owner:
+        license = DriverLicense.objects.get(owner=random_owner)
+        print(f&quot;  Владелец: {random_owner.name}&quot;)
+        print(f&quot;  Удостоверение: {license.number}, выдано: {license.issued_date}&quot;)
+
+    # 4. Все владельцы красных машин
+    print(&quot;\n4. Все владельцы красных машин:&quot;)
+    red_car_owners = Owner.objects.filter(
+        ownerships__car__color='красный'
+    ).distinct()
+    for owner in red_car_owners:
+        print(f&quot;  - {owner.name}&quot;)
+
+    # 5. Все владельцы, чей год владения машиной начинается с 2020
+    print(&quot;\n5. Владельцы, начавшие владение с 2020 года:&quot;)
+    owners_2020 = Owner.objects.filter(
+        ownerships__start_date__year__gte=2020
+    ).distinct()
+    for owner in owners_2020:
+        print(f&quot;  - {owner.name}&quot;)
+
+    return {
+        'toyota_cars': toyota_cars,
+        'oleg_owners': oleg_owners,
+        'red_car_owners': red_car_owners,
+        'owners_2020': owners_2020
+    }
+</code></pre>
+
+<h3 id="3">Задание 3: Сложные запросы с агрегацией<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<h4 id="_6">Постановка задачи<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>Реализовать сложные запросы с применением агрегирующих функций и сортировки.</p>
+<h4 id="_7">Реализация запросов<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-python"># advanced_queries.py
+from django.db.models import Count, Max, Min
+from django.db.models.functions import ExtractYear
+from autoapp.models import Owner, Car, DriverLicense, Ownership
+
+def execute_advanced_queries():
+    print(&quot;=== СЛОЖНЫЕ ЗАПРОСЫ С АГРЕГАЦИЕЙ ===\n&quot;)
+
+    # 1. Дата выдачи самого старшего водительского удостоверения
+    print(&quot;1. Самое старое водительское удостоверение:&quot;)
+    oldest_license = DriverLicense.objects.earliest('issued_date')
+    print(f&quot;  Выдано: {oldest_license.issued_date}, владелец: {oldest_license.owner.name}&quot;)
+
+    # 2. Самая поздняя дата владения машиной
+    print(&quot;\n2. Самая поздняя дата начала владения:&quot;)
+    latest_ownership = Ownership.objects.latest('start_date')
+    print(f&quot;  Дата: {latest_ownership.start_date}, владелец: {latest_ownership.owner.name}, автомобиль: {latest_ownership.car.brand}&quot;)
+
+    # 3. Количество машин для каждого водителя
+    print(&quot;\n3. Количество машин у каждого владельца:&quot;)
+    owners_car_count = Owner.objects.annotate(
+        car_count=Count('ownerships')
+    ).order_by('-car_count')
+
+    for owner in owners_car_count:
+        print(f&quot;  {owner.name}: {owner.car_count} машин(ы)&quot;)
+
+    # 4. Количество машин каждой марки
+    print(&quot;\n4. Количество машин каждой марки:&quot;)
+    cars_by_brand = Car.objects.values('brand').annotate(
+        count=Count('id')
+    ).order_by('-count')
+
+    for brand in cars_by_brand:
+        print(f&quot;  {brand['brand']}: {brand['count']} машин(ы)&quot;)
+
+    # 5. Сортировка владельцев по дате выдачи удостоверения
+    print(&quot;\n5. Владельцы, отсортированные по дате выдачи удостоверения:&quot;)
+    owners_sorted = Owner.objects.select_related('driverlicense').order_by(
+        'driverlicense__issued_date'
+    ).distinct()
+
+    for owner in owners_sorted:
+        license = owner.driverlicense
+        print(f&quot;  {owner.name}: удостоверение выдано {license.issued_date}&quot;)
+
+    return {
+        'oldest_license': oldest_license,
+        'latest_ownership': latest_ownership,
+        'owners_car_count': owners_car_count,
+        'cars_by_brand': cars_by_brand,
+        'owners_sorted': owners_sorted
+    }
+</code></pre>
+
+<h3 id="_8">Модели данных<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-python"># models.py
+from django.db import models
+
+class Owner(models.Model):
+    name = models.CharField(max_length=100, verbose_name='ФИО')
+    birth_date = models.DateField(verbose_name='Дата рождения')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Владелец'
+        verbose_name_plural = 'Владельцы'
+
+class Car(models.Model):
+    brand = models.CharField(max_length=50, verbose_name='Марка')
+    model = models.CharField(max_length=50, verbose_name='Модель')
+    color = models.CharField(max_length=30, verbose_name='Цвет')
+    year = models.IntegerField(verbose_name='Год выпуска')
+
+    def __str__(self):
+        return f&quot;{self.brand} {self.model} ({self.year})&quot;
+
+    class Meta:
+        verbose_name = 'Автомобиль'
+        verbose_name_plural = 'Автомобили'
+
+class DriverLicense(models.Model):
+    LICENSE_TYPES = [
+        ('A', 'Мотоциклы'),
+        ('B', 'Легковые автомобили'),
+        ('C', 'Грузовые автомобили'),
+        ('D', 'Автобусы'),
+    ]
+
+    owner = models.OneToOneField(
+        Owner, 
+        on_delete=models.CASCADE, 
+        verbose_name='Владелец',
+        related_name='driverlicense'
+    )
+    number = models.CharField(max_length=10, verbose_name='Номер удостоверения')
+    type = models.CharField(max_length=1, choices=LICENSE_TYPES, verbose_name='Тип')
+    issued_date = models.DateField(verbose_name='Дата выдачи')
+
+    def __str__(self):
+        return f&quot;{self.number} ({self.owner.name})&quot;
+
+    class Meta:
+        verbose_name = 'Водительское удостоверение'
+        verbose_name_plural = 'Водительские удостоверения'
+
+class Ownership(models.Model):
+    owner = models.ForeignKey(
+        Owner, 
+        on_delete=models.CASCADE, 
+        verbose_name='Владелец',
+        related_name='ownerships'
+    )
+    car = models.ForeignKey(
+        Car, 
+        on_delete=models.CASCADE, 
+        verbose_name='Автомобиль',
+        related_name='ownerships'
+    )
+    start_date = models.DateField(verbose_name='Дата начала владения')
+    end_date = models.DateField(
+        null=True, 
+        blank=True, 
+        verbose_name='Дата окончания владения'
+    )
+
+    def __str__(self):
+        return f&quot;{self.owner.name} - {self.car.brand} {self.car.model}&quot;
+
+    class Meta:
+        verbose_name = 'Владение автомобилем'
+        verbose_name_plural = 'Владения автомобилями'
+</code></pre>
+
+<hr />
+<h3 id="_9">Результаты работы<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Статистика созданных данных</li>
+<li>Владельцев создано: 7 </li>
+<li>Автомобилей создано: 6 </li>
+<li>Водительских удостоверений создано: 7</li>
+<li>Записей о владении создано: 12</li>
+<li>Результаты запросов фильтрации</li>
+<li>Машины марки Toyota: найдено 3 автомобиля</li>
+<li>Водители с именем Олег: найдено 2 владельца</li>
+<li>Владельцы красных машин: найдено 3 владельца</li>
+<li>Владельцы с 2020 года: найдено 5 владельцев</li>
+<li>Результаты сложных запросов </li>
+<li>Самое старое удостоверение: выдано в 2012 году</li>
+<li>Самая поздняя дата владения: 2022 год</li>
+<li>Распределение машин по владельцам: от 1 до 3 автомобилей</li>
+<li>Распределение по маркам: Toyota - 3, другие марки - по 1</li>
+<li>Сортировка по дате удостоверения: владельцы отсортированы от 2012 до 2020 года</li>
+</ul>
+<h3 id="_10">Вывод<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>В ходе выполнения практической работы были успешно освоены основные операции работы с Django ORM. Созданы тестовые данные с установлением связей между моделями, выполнены запросы фильтрации с использованием различных условий и реализованы сложные запросы с агрегацией данных. Полученные навыки позволяют эффективно работать с базой данных в Django-проектах, выполняя сложные выборки и аналитические запросы. Все поставленные задачи выполнены в полном объеме, что подтверждает успешное освоение темы выполнения запросов в Django Web Framework.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../lab_hotel/" class="btn btn-neutral float-left" title="Список отелей (Django)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../pr_3_2/" class="btn btn-neutral float-right" title="Практическая работа №2 - Django rest framework">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../lab_hotel/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../pr_3_2/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

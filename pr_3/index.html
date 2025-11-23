@@ -113,6 +113,15 @@
                   <li class="toctree-l1"><a class="reference internal" href="../lab_hotel/">Список отелей (Django)</a>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №3: </span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_3_1/">Практическая работа №1 - Django Web framework</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_3_2/">Практическая работа №2 - Django rest framework</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../lab_hotel2/">Гостиница (Django rest framework)</a>
+                  </li>
+              </ul>
       </div>
     </div>
     </nav>
@@ -144,425 +153,425 @@
 <h3 id="1">Часть 1: Расширение модели пользователя<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
 <h4 id="11-owner">1.1. Добавление новых полей в модель Owner<a class="headerlink" href="#11-owner" title="Permanent link">&para;</a></h4>
 <p>Файл: <code>automobiles/models.py</code></p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Owner</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Модель владельца автомобиля (пользователя системы)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">AutoField</span><span class="p">(</span><span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">first_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s2">&quot;Имя&quot;</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">last_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s2">&quot;Фамилия&quot;</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">birth_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="n">verbose_name</span><span class="o">=</span><span class="s2">&quot;Дата рождения&quot;</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">phone</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s2">&quot;Телефон&quot;</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<pre class="codehilite"><code class="language-python">class Owner(models.Model):
+    &quot;&quot;&quot;
+    Модель владельца автомобиля (пользователя системы)
+    &quot;&quot;&quot;
+    id = models.AutoField(primary_key=True)
+    first_name = models.CharField(max_length=50, verbose_name=&quot;Имя&quot;, null=True, blank=True)
+    last_name = models.CharField(max_length=50, verbose_name=&quot;Фамилия&quot;, null=True, blank=True)
+    birth_date = models.DateField(verbose_name=&quot;Дата рождения&quot;, null=True, blank=True)
+    phone = models.CharField(max_length=20, verbose_name=&quot;Телефон&quot;, null=True, blank=True)
 
-    <span class="c1"># Новые поля пользователя</span>
-    <span class="n">passport_number</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
-        <span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> 
-        <span class="n">verbose_name</span><span class="o">=</span><span class="s2">&quot;Номер паспорта&quot;</span><span class="p">,</span>
-        <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
-        <span class="n">blank</span><span class="o">=</span><span class="kc">True</span>
-    <span class="p">)</span>
+    # Новые поля пользователя
+    passport_number = models.CharField(
+        max_length=20, 
+        verbose_name=&quot;Номер паспорта&quot;,
+        null=True, 
+        blank=True
+    )
 
-    <span class="n">address</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span>
-        <span class="n">verbose_name</span><span class="o">=</span><span class="s2">&quot;Домашний адрес&quot;</span><span class="p">,</span>
-        <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
-        <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">max_length</span><span class="o">=</span><span class="mi">500</span>
-    <span class="p">)</span>
+    address = models.TextField(
+        verbose_name=&quot;Домашний адрес&quot;,
+        null=True, 
+        blank=True,
+        max_length=500
+    )
 
-    <span class="n">NATIONALITY_CHOICES</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">(</span><span class="s1">&#39;RU&#39;</span><span class="p">,</span> <span class="s1">&#39;Российская Федерация&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;BY&#39;</span><span class="p">,</span> <span class="s1">&#39;Республика Беларусь&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;KZ&#39;</span><span class="p">,</span> <span class="s1">&#39;Республика Казахстан&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;UA&#39;</span><span class="p">,</span> <span class="s1">&#39;Украина&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;AM&#39;</span><span class="p">,</span> <span class="s1">&#39;Армения&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;OTHER&#39;</span><span class="p">,</span> <span class="s1">&#39;Другая&#39;</span><span class="p">),</span>
-    <span class="p">]</span>
-    <span class="n">nationality</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
-        <span class="n">max_length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-        <span class="n">choices</span><span class="o">=</span><span class="n">NATIONALITY_CHOICES</span><span class="p">,</span>
-        <span class="n">verbose_name</span><span class="o">=</span><span class="s2">&quot;Национальность&quot;</span><span class="p">,</span>
-        <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
-        <span class="n">blank</span><span class="o">=</span><span class="kc">True</span>
-    <span class="p">)</span>
+    NATIONALITY_CHOICES = [
+        ('RU', 'Российская Федерация'),
+        ('BY', 'Республика Беларусь'),
+        ('KZ', 'Республика Казахстан'),
+        ('UA', 'Украина'),
+        ('AM', 'Армения'),
+        ('OTHER', 'Другая'),
+    ]
+    nationality = models.CharField(
+        max_length=10,
+        choices=NATIONALITY_CHOICES,
+        verbose_name=&quot;Национальность&quot;,
+        null=True, 
+        blank=True
+    )
 
-    <span class="c1"># Связь многие-ко-многим с автомобилями через модель Ownership</span>
-    <span class="n">cars</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span>
-        <span class="s1">&#39;Car&#39;</span><span class="p">,</span>
-        <span class="n">through</span><span class="o">=</span><span class="s1">&#39;Ownership&#39;</span><span class="p">,</span>
-        <span class="n">through_fields</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;owner&#39;</span><span class="p">,</span> <span class="s1">&#39;car&#39;</span><span class="p">),</span>
-        <span class="n">verbose_name</span><span class="o">=</span><span class="s2">&quot;Автомобили&quot;</span><span class="p">,</span>
-        <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;owners&#39;</span>
-    <span class="p">)</span>
+    # Связь многие-ко-многим с автомобилями через модель Ownership
+    cars = models.ManyToManyField(
+        'Car',
+        through='Ownership',
+        through_fields=('owner', 'car'),
+        verbose_name=&quot;Автомобили&quot;,
+        related_name='owners'
+    )
 
-    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
-        <span class="n">db_table</span> <span class="o">=</span> <span class="s1">&#39;owner&#39;</span>
-        <span class="n">verbose_name</span> <span class="o">=</span> <span class="s1">&#39;Владелец&#39;</span>
-        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s1">&#39;Владельцы&#39;</span>
+    class Meta:
+        db_table = 'owner'
+        verbose_name = 'Владелец'
+        verbose_name_plural = 'Владельцы'
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_name</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_name</span><span class="p">:</span>
-            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">first_name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">last_name</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Владелец </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span>
+    def __str__(self):
+        if self.first_name and self.last_name:
+            return f&quot;{self.first_name} {self.last_name}&quot;
+        return f&quot;Владелец {self.id}&quot;
 
-    <span class="k">def</span> <span class="nf">get_full_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Возвращает полное имя пользователя&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_name</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_name</span><span class="p">:</span>
-            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">first_name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">last_name</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Владелец </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span>
+    def get_full_name(self):
+        &quot;&quot;&quot;Возвращает полное имя пользователя&quot;&quot;&quot;
+        if self.first_name and self.last_name:
+            return f&quot;{self.first_name} {self.last_name}&quot;
+        return f&quot;Владелец {self.id}&quot;
 
-    <span class="k">def</span> <span class="nf">get_nationality_display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Возвращает отображаемое значение национальности&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nationality</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">code</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">NATIONALITY_CHOICES</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">nationality</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="n">name</span>
-        <span class="k">return</span> <span class="s2">&quot;Не указана&quot;</span>
+    def get_nationality_display(self):
+        &quot;&quot;&quot;Возвращает отображаемое значение национальности&quot;&quot;&quot;
+        if self.nationality:
+            for code, name in self.NATIONALITY_CHOICES:
+                if code == self.nationality:
+                    return name
+        return &quot;Не указана&quot;
 
-    <span class="k">def</span> <span class="nf">get_short_address</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Возвращает сокращенный адрес&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">address</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;...&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">address</span>
-</code></pre></div>
+    def get_short_address(self):
+        &quot;&quot;&quot;Возвращает сокращенный адрес&quot;&quot;&quot;
+        if self.address and len(self.address) &gt; 50:
+            return self.address[:50] + &quot;...&quot;
+        return self.address
+</code></pre>
 
 <h4 id="12">1.2. Создание и применение миграций<a class="headerlink" href="#12" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Создание миграций для новых полей</span>
-python<span class="w"> </span>manage.py<span class="w"> </span>makemigrations<span class="w"> </span>automobiles
+<pre class="codehilite"><code class="language-bash"># Создание миграций для новых полей
+python manage.py makemigrations automobiles
 
-<span class="c1"># Применение миграций</span>
-python<span class="w"> </span>manage.py<span class="w"> </span>migrate
-</code></pre></div>
+# Применение миграций
+python manage.py migrate
+</code></pre>
 
 <h3 id="2-django-admin">Часть 2: Отображение новых полей в Django Admin<a class="headerlink" href="#2-django-admin" title="Permanent link">&para;</a></h3>
 <h4 id="21-">2.1. Обновление админ-панели<a class="headerlink" href="#21-" title="Permanent link">&para;</a></h4>
 <p>Файл: <code>automobiles/admin.py</code></p>
-<div class="codehilite"><pre><span></span><code><span class="nd">@admin</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Owner</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">OwnerAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
-    <span class="n">list_display</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;id&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;get_full_name&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;phone&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;passport_number&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;nationality&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;get_short_address&#39;</span>
-    <span class="p">]</span>
-    <span class="n">list_filter</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;nationality&#39;</span><span class="p">,</span> <span class="s1">&#39;birth_date&#39;</span><span class="p">]</span>
-    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;first_name&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;last_name&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;phone&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;passport_number&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;address&#39;</span>
-    <span class="p">]</span>
-    <span class="n">list_editable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;phone&#39;</span><span class="p">,</span> <span class="s1">&#39;nationality&#39;</span><span class="p">]</span>
+<pre class="codehilite"><code class="language-python">@admin.register(Owner)
+class OwnerAdmin(admin.ModelAdmin):
+    list_display = [
+        'id', 
+        'get_full_name', 
+        'phone', 
+        'passport_number', 
+        'nationality',
+        'get_short_address'
+    ]
+    list_filter = ['nationality', 'birth_date']
+    search_fields = [
+        'first_name', 
+        'last_name', 
+        'phone', 
+        'passport_number',
+        'address'
+    ]
+    list_editable = ['phone', 'nationality']
 
-    <span class="c1"># Группировка полей в форме редактирования</span>
-    <span class="n">fieldsets</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">(</span><span class="s1">&#39;Основная информация&#39;</span><span class="p">,</span> <span class="p">{</span>
-            <span class="s1">&#39;fields&#39;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="s1">&#39;first_name&#39;</span><span class="p">,</span> 
-                <span class="s1">&#39;last_name&#39;</span><span class="p">,</span> 
-                <span class="s1">&#39;birth_date&#39;</span><span class="p">,</span> 
-                <span class="s1">&#39;phone&#39;</span>
-            <span class="p">]</span>
-        <span class="p">}),</span>
-        <span class="p">(</span><span class="s1">&#39;Паспортные данные&#39;</span><span class="p">,</span> <span class="p">{</span>
-            <span class="s1">&#39;fields&#39;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="s1">&#39;passport_number&#39;</span><span class="p">,</span>
-            <span class="p">]</span>
-        <span class="p">}),</span>
-        <span class="p">(</span><span class="s1">&#39;Адрес и гражданство&#39;</span><span class="p">,</span> <span class="p">{</span>
-            <span class="s1">&#39;fields&#39;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="s1">&#39;address&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;nationality&#39;</span>
-            <span class="p">]</span>
-        <span class="p">}),</span>
-    <span class="p">]</span>
+    # Группировка полей в форме редактирования
+    fieldsets = [
+        ('Основная информация', {
+            'fields': [
+                'first_name', 
+                'last_name', 
+                'birth_date', 
+                'phone'
+            ]
+        }),
+        ('Паспортные данные', {
+            'fields': [
+                'passport_number',
+            ]
+        }),
+        ('Адрес и гражданство', {
+            'fields': [
+                'address',
+                'nationality'
+            ]
+        }),
+    ]
 
-    <span class="k">def</span> <span class="nf">get_full_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_full_name</span><span class="p">()</span>
-    <span class="n">get_full_name</span><span class="o">.</span><span class="n">short_description</span> <span class="o">=</span> <span class="s1">&#39;ФИО&#39;</span>
+    def get_full_name(self, obj):
+        return obj.get_full_name()
+    get_full_name.short_description = 'ФИО'
 
-    <span class="k">def</span> <span class="nf">get_short_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_short_address</span><span class="p">()</span> <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">address</span> <span class="k">else</span> <span class="s2">&quot;Не указан&quot;</span>
-    <span class="n">get_short_address</span><span class="o">.</span><span class="n">short_description</span> <span class="o">=</span> <span class="s1">&#39;Адрес&#39;</span>
-</code></pre></div>
+    def get_short_address(self, obj):
+        return obj.get_short_address() if obj.address else &quot;Не указан&quot;
+    get_short_address.short_description = 'Адрес'
+</code></pre>
 
 <h3 id="3">Часть 3: Создание интерфейса для пользователя<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
 <h4 id="31">3.1. Создание формы для владельца<a class="headerlink" href="#31" title="Permanent link">&para;</a></h4>
 <p>Файл: <code>automobiles/forms.py</code></p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
-<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Owner</span>
-<span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ValidationError</span>
+<pre class="codehilite"><code class="language-python">from django import forms
+from .models import Owner
+from django.core.exceptions import ValidationError
 
-<span class="k">class</span> <span class="nc">OwnerForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Форма для создания и редактирования пользователя (владельца)&quot;&quot;&quot;</span>
+class OwnerForm(forms.ModelForm):
+    &quot;&quot;&quot;Форма для создания и редактирования пользователя (владельца)&quot;&quot;&quot;
 
-    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
-        <span class="n">model</span> <span class="o">=</span> <span class="n">Owner</span>
-        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;first_name&#39;</span><span class="p">,</span> 
-            <span class="s1">&#39;last_name&#39;</span><span class="p">,</span> 
-            <span class="s1">&#39;birth_date&#39;</span><span class="p">,</span> 
-            <span class="s1">&#39;phone&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;passport_number&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;address&#39;</span><span class="p">,</span> 
-            <span class="s1">&#39;nationality&#39;</span>
-        <span class="p">]</span>
-        <span class="n">widgets</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;first_name&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
-                <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s1">&#39;Введите имя&#39;</span>
-            <span class="p">}),</span>
-            <span class="s1">&#39;last_name&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
-                <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span><span class="p">,</span> 
-                <span class="s1">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s1">&#39;Введите фамилию&#39;</span>
-            <span class="p">}),</span>
-            <span class="s1">&#39;birth_date&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">DateInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
-                <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;date&#39;</span>
-            <span class="p">}),</span>
-            <span class="s1">&#39;phone&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
-                <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s1">&#39;+7XXXXXXXXXX&#39;</span>
-            <span class="p">}),</span>
-            <span class="s1">&#39;passport_number&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
-                <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s1">&#39;12 34 567890&#39;</span>
-            <span class="p">}),</span>
-            <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">Textarea</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
-                <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s1">&#39;Введите полный домашний адрес&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;rows&#39;</span><span class="p">:</span> <span class="mi">3</span>
-            <span class="p">}),</span>
-            <span class="s1">&#39;nationality&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
-                <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span>
-            <span class="p">}),</span>
-        <span class="p">}</span>
-        <span class="n">labels</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;first_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Имя&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;last_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Фамилия&#39;</span><span class="p">,</span> 
-            <span class="s1">&#39;birth_date&#39;</span><span class="p">:</span> <span class="s1">&#39;Дата рождения&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;phone&#39;</span><span class="p">:</span> <span class="s1">&#39;Телефон&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;passport_number&#39;</span><span class="p">:</span> <span class="s1">&#39;Номер паспорта&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="s1">&#39;Домашний адрес&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;nationality&#39;</span><span class="p">:</span> <span class="s1">&#39;Национальность&#39;</span><span class="p">,</span>
-        <span class="p">}</span>
+    class Meta:
+        model = Owner
+        fields = [
+            'first_name', 
+            'last_name', 
+            'birth_date', 
+            'phone',
+            'passport_number',
+            'address', 
+            'nationality'
+        ]
+        widgets = {
+            'first_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите имя'
+            }),
+            'last_name': forms.TextInput(attrs={
+                'class': 'form-control', 
+                'placeholder': 'Введите фамилию'
+            }),
+            'birth_date': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date'
+            }),
+            'phone': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': '+7XXXXXXXXXX'
+            }),
+            'passport_number': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': '12 34 567890'
+            }),
+            'address': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите полный домашний адрес',
+                'rows': 3
+            }),
+            'nationality': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+        }
+        labels = {
+            'first_name': 'Имя',
+            'last_name': 'Фамилия', 
+            'birth_date': 'Дата рождения',
+            'phone': 'Телефон',
+            'passport_number': 'Номер паспорта',
+            'address': 'Домашний адрес',
+            'nationality': 'Национальность',
+        }
 
-    <span class="k">def</span> <span class="nf">clean_phone</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Валидация номера телефона&quot;&quot;&quot;</span>
-        <span class="n">phone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;phone&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">phone</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">phone</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s1">&#39;Номер телефона должен начинаться с +&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">phone</span>
+    def clean_phone(self):
+        &quot;&quot;&quot;Валидация номера телефона&quot;&quot;&quot;
+        phone = self.cleaned_data.get('phone')
+        if phone and not phone.startswith('+'):
+            raise ValidationError('Номер телефона должен начинаться с +')
+        return phone
 
-    <span class="k">def</span> <span class="nf">clean_passport_number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Валидация номера паспорта&quot;&quot;&quot;</span>
-        <span class="n">passport_number</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;passport_number&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">passport_number</span><span class="p">:</span>
-            <span class="n">clean_number</span> <span class="o">=</span> <span class="n">passport_number</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">clean_number</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
-                <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s1">&#39;Номер паспорта должен содержать только цифры и пробелы&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">passport_number</span>
-</code></pre></div>
+    def clean_passport_number(self):
+        &quot;&quot;&quot;Валидация номера паспорта&quot;&quot;&quot;
+        passport_number = self.cleaned_data.get('passport_number')
+        if passport_number:
+            clean_number = passport_number.replace(' ', '')
+            if not clean_number.isdigit():
+                raise ValidationError('Номер паспорта должен содержать только цифры и пробелы')
+        return passport_number
+</code></pre>
 
 <h4 id="32">3.2. Создание контроллеров для работы с пользователями<a class="headerlink" href="#32" title="Permanent link">&para;</a></h4>
 <p>Файл: <code>automobiles/views.py</code></p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">get_object_or_404</span>
-<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">messages</span>
-<span class="kn">from</span> <span class="nn">.forms</span> <span class="kn">import</span> <span class="n">OwnerForm</span>
+<pre class="codehilite"><code class="language-python">from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from .forms import OwnerForm
 
-<span class="k">def</span> <span class="nf">owner_create</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Создание нового пользователя (владельца)&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
-        <span class="n">form</span> <span class="o">=</span> <span class="n">OwnerForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
-            <span class="n">owner</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-            <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Пользователь </span><span class="si">{</span><span class="n">owner</span><span class="o">.</span><span class="n">get_full_name</span><span class="p">()</span><span class="si">}</span><span class="s1"> успешно создан!&#39;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;owner_detail&#39;</span><span class="p">,</span> <span class="n">owner_id</span><span class="o">=</span><span class="n">owner</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">form</span> <span class="o">=</span> <span class="n">OwnerForm</span><span class="p">()</span>
+def owner_create(request):
+    &quot;&quot;&quot;Создание нового пользователя (владельца)&quot;&quot;&quot;
+    if request.method == 'POST':
+        form = OwnerForm(request.POST)
+        if form.is_valid():
+            owner = form.save()
+            messages.success(request, f'Пользователь {owner.get_full_name()} успешно создан!')
+            return redirect('owner_detail', owner_id=owner.id)
+    else:
+        form = OwnerForm()
 
-    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;owner_form.html&#39;</span><span class="p">,</span> <span class="p">{</span>
-        <span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span>
-        <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Добавление нового пользователя&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;submit_text&#39;</span><span class="p">:</span> <span class="s1">&#39;Создать пользователя&#39;</span>
-    <span class="p">})</span>
+    return render(request, 'owner_form.html', {
+        'form': form,
+        'title': 'Добавление нового пользователя',
+        'submit_text': 'Создать пользователя'
+    })
 
-<span class="k">def</span> <span class="nf">owner_update</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">owner_id</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Редактирование пользователя&quot;&quot;&quot;</span>
-    <span class="n">owner</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Owner</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">owner_id</span><span class="p">)</span>
+def owner_update(request, owner_id):
+    &quot;&quot;&quot;Редактирование пользователя&quot;&quot;&quot;
+    owner = get_object_or_404(Owner, id=owner_id)
 
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
-        <span class="n">form</span> <span class="o">=</span> <span class="n">OwnerForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">owner</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
-            <span class="n">owner</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-            <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Данные пользователя </span><span class="si">{</span><span class="n">owner</span><span class="o">.</span><span class="n">get_full_name</span><span class="p">()</span><span class="si">}</span><span class="s1"> успешно обновлены!&#39;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;owner_detail&#39;</span><span class="p">,</span> <span class="n">owner_id</span><span class="o">=</span><span class="n">owner</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">form</span> <span class="o">=</span> <span class="n">OwnerForm</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">owner</span><span class="p">)</span>
+    if request.method == 'POST':
+        form = OwnerForm(request.POST, instance=owner)
+        if form.is_valid():
+            owner = form.save()
+            messages.success(request, f'Данные пользователя {owner.get_full_name()} успешно обновлены!')
+            return redirect('owner_detail', owner_id=owner.id)
+    else:
+        form = OwnerForm(instance=owner)
 
-    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;owner_form.html&#39;</span><span class="p">,</span> <span class="p">{</span>
-        <span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span>
-        <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Редактирование пользователя: </span><span class="si">{</span><span class="n">owner</span><span class="o">.</span><span class="n">get_full_name</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;submit_text&#39;</span><span class="p">:</span> <span class="s1">&#39;Сохранить изменения&#39;</span>
-    <span class="p">})</span>
+    return render(request, 'owner_form.html', {
+        'form': form,
+        'title': f'Редактирование пользователя: {owner.get_full_name()}',
+        'submit_text': 'Сохранить изменения'
+    })
 
-<span class="k">def</span> <span class="nf">owner_delete</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">owner_id</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Удаление пользователя&quot;&quot;&quot;</span>
-    <span class="n">owner</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Owner</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">owner_id</span><span class="p">)</span>
+def owner_delete(request, owner_id):
+    &quot;&quot;&quot;Удаление пользователя&quot;&quot;&quot;
+    owner = get_object_or_404(Owner, id=owner_id)
 
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
-        <span class="n">owner_name</span> <span class="o">=</span> <span class="n">owner</span><span class="o">.</span><span class="n">get_full_name</span><span class="p">()</span>
-        <span class="n">owner</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
-        <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Пользователь </span><span class="si">{</span><span class="n">owner_name</span><span class="si">}</span><span class="s1"> успешно удален!&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;owners_list&#39;</span><span class="p">)</span>
+    if request.method == 'POST':
+        owner_name = owner.get_full_name()
+        owner.delete()
+        messages.success(request, f'Пользователь {owner_name} успешно удален!')
+        return redirect('owners_list')
 
-    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;owner_confirm_delete.html&#39;</span><span class="p">,</span> <span class="p">{</span>
-        <span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owner</span>
-    <span class="p">})</span>
-</code></pre></div>
+    return render(request, 'owner_confirm_delete.html', {
+        'owner': owner
+    })
+</code></pre>
 
 <h4 id="33">3.3. Создание шаблона формы<a class="headerlink" href="#33" title="Permanent link">&para;</a></h4>
 <p>Файл: <code>templates/owner_form.html</code></p>
-<div class="codehilite"><pre><span></span><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;ru&quot;</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1.0&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>{{ title }}<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
-<span class="w">        </span><span class="nt">body</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="n">Arial</span><span class="p">,</span><span class="w"> </span><span class="kc">sans-serif</span><span class="p">;</span><span class="w"> </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#f5f5f5</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">container</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">max-width</span><span class="p">:</span><span class="w"> </span><span class="mi">600</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">header</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="nb">linear-gradient</span><span class="p">(</span><span class="mi">135</span><span class="kt">deg</span><span class="p">,</span><span class="w"> </span><span class="mh">#007bff</span><span class="p">,</span><span class="w"> </span><span class="mh">#0056b3</span><span class="p">);</span><span class="w"> </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">white</span><span class="p">;</span><span class="w"> </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="k">margin-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">form-container</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="kc">white</span><span class="p">;</span><span class="w"> </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="k">box-shadow</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">4</span><span class="kt">px</span><span class="w"> </span><span class="mi">15</span><span class="kt">px</span><span class="w"> </span><span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.1</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">form-group</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">margin-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="nt">label</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="p">;</span><span class="w"> </span><span class="k">margin-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="k">font-weight</span><span class="p">:</span><span class="w"> </span><span class="kc">bold</span><span class="p">;</span><span class="w"> </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#333</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">form-control</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span><span class="w"> </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mh">#ddd</span><span class="p">;</span><span class="w"> </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="k">box-sizing</span><span class="p">:</span><span class="w"> </span><span class="kc">border-box</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">form-control</span><span class="p">:</span><span class="nd">focus</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">border-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#007bff</span><span class="p">;</span><span class="w"> </span><span class="k">outline</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"> </span><span class="k">box-shadow</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="w"> </span><span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">123</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mf">0.3</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">btn</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="kt">px</span><span class="w"> </span><span class="mi">25</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"> </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">white</span><span class="p">;</span><span class="w"> </span><span class="k">font-weight</span><span class="p">:</span><span class="w"> </span><span class="kc">bold</span><span class="p">;</span><span class="w"> </span><span class="k">cursor</span><span class="p">:</span><span class="w"> </span><span class="kc">pointer</span><span class="p">;</span><span class="w"> </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="k">margin-right</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="k">text-decoration</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"> </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">inline-block</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">btn-success</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="mh">#28a745</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">btn-secondary</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="mh">#6c757d</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">btn</span><span class="p">:</span><span class="nd">hover</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">opacity</span><span class="p">:</span><span class="w"> </span><span class="mf">0.9</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">form-actions</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">flex</span><span class="p">;</span><span class="w"> </span><span class="k">justify-content</span><span class="p">:</span><span class="w"> </span><span class="kc">space-between</span><span class="p">;</span><span class="w"> </span><span class="k">margin-top</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">error</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#dc3545</span><span class="p">;</span><span class="w"> </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">0.9</span><span class="kt">em</span><span class="p">;</span><span class="w"> </span><span class="k">margin-top</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">help-text</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#666</span><span class="p">;</span><span class="w"> </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">0.9</span><span class="kt">em</span><span class="p">;</span><span class="w"> </span><span class="k">margin-top</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;header&quot;</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>{{ title }}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
-        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<pre class="codehilite"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;{{ title }}&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f5f5f5; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #007bff, #0056b3); color: white; padding: 25px; border-radius: 10px; margin-bottom: 25px; text-align: center; }
+        .form-container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
+        .form-control { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; box-sizing: border-box; }
+        .form-control:focus { border-color: #007bff; outline: none; box-shadow: 0 0 5px rgba(0,123,255,0.3); }
+        .btn { padding: 12px 25px; border: none; border-radius: 5px; color: white; font-weight: bold; cursor: pointer; font-size: 16px; margin-right: 10px; text-decoration: none; display: inline-block; }
+        .btn-success { background: #28a745; }
+        .btn-secondary { background: #6c757d; }
+        .btn:hover { opacity: 0.9; }
+        .form-actions { display: flex; justify-content: space-between; margin-top: 30px; }
+        .error { color: #dc3545; font-size: 0.9em; margin-top: 5px; }
+        .help-text { color: #666; font-size: 0.9em; margin-top: 5px; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;div class=&quot;header&quot;&gt;
+            &lt;h1&gt;{{ title }}&lt;/h1&gt;
+        &lt;/div&gt;
 
-        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-container&quot;</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span><span class="p">&gt;</span>
+        &lt;div class=&quot;form-container&quot;&gt;
+            &lt;form method=&quot;post&quot;&gt;
                 {% csrf_token %}
 
                 {% for field in form %}
-                <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
-                    <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;{{ field.id_for_label }}&quot;</span><span class="p">&gt;</span>{{ field.label }}<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+                &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label for=&quot;{{ field.id_for_label }}&quot;&gt;{{ field.label }}&lt;/label&gt;
                     {{ field }}
                     {% if field.help_text %}
-                        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;help-text&quot;</span><span class="p">&gt;</span>{{ field.help_text }}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                        &lt;div class=&quot;help-text&quot;&gt;{{ field.help_text }}&lt;/div&gt;
                     {% endif %}
                     {% if field.errors %}
-                        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;error&quot;</span><span class="p">&gt;</span>{{ field.errors }}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                        &lt;div class=&quot;error&quot;&gt;{{ field.errors }}&lt;/div&gt;
                     {% endif %}
-                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                &lt;/div&gt;
                 {% endfor %}
 
-                <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-actions&quot;</span><span class="p">&gt;</span>
-                    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
-                        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-success&quot;</span><span class="p">&gt;</span>{{ submit_text }}<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-                        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% url &#39;owners_list&#39; %}&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-secondary&quot;</span><span class="p">&gt;</span>Отмена<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-            <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
-        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</code></pre></div>
+                &lt;div class=&quot;form-actions&quot;&gt;
+                    &lt;div&gt;
+                        &lt;button type=&quot;submit&quot; class=&quot;btn btn-success&quot;&gt;{{ submit_text }}&lt;/button&gt;
+                        &lt;a href=&quot;{% url 'owners_list' %}&quot; class=&quot;btn btn-secondary&quot;&gt;Отмена&lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 
 <h4 id="34">3.4. Обновление шаблона списка пользователей<a class="headerlink" href="#34" title="Permanent link">&para;</a></h4>
 <p>Файл: <code>templates/owners_list.html</code> (фрагмент с новыми полями)</p>
-<div class="codehilite"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;owner-card&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;owner-name&quot;</span><span class="p">&gt;</span>{{ owner_data.owner.get_full_name }}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<pre class="codehilite"><code class="language-html">&lt;div class=&quot;owner-card&quot;&gt;
+    &lt;div class=&quot;owner-name&quot;&gt;{{ owner_data.owner.get_full_name }}&lt;/div&gt;
 
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;owner-info&quot;</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>ID:<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span> {{ owner_data.owner.id }}<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
-        {% if owner_data.owner.phone %}<span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>Телефон:<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span> {{ owner_data.owner.phone }}<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>{% endif %}
-        {% if owner_data.owner.birth_date %}<span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>Дата рождения:<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span> {{ owner_data.owner.birth_date|date:&quot;d.m.Y&quot; }}<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>{% endif %}
-        {% if owner_data.owner.passport_number %}<span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>Паспорт:<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span> {{ owner_data.owner.passport_number }}<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>{% endif %}
-        {% if owner_data.owner.nationality %}<span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>Национальность:<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span> {{ owner_data.owner.get_nationality_display }}<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>{% endif %}
-        {% if owner_data.owner.address %}<span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>Адрес:<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span> {{ owner_data.owner.get_short_address }}{% endif %}
-    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    &lt;div class=&quot;owner-info&quot;&gt;
+        &lt;strong&gt;ID:&lt;/strong&gt; {{ owner_data.owner.id }}&lt;br&gt;
+        {% if owner_data.owner.phone %}&lt;strong&gt;Телефон:&lt;/strong&gt; {{ owner_data.owner.phone }}&lt;br&gt;{% endif %}
+        {% if owner_data.owner.birth_date %}&lt;strong&gt;Дата рождения:&lt;/strong&gt; {{ owner_data.owner.birth_date|date:&quot;d.m.Y&quot; }}&lt;br&gt;{% endif %}
+        {% if owner_data.owner.passport_number %}&lt;strong&gt;Паспорт:&lt;/strong&gt; {{ owner_data.owner.passport_number }}&lt;br&gt;{% endif %}
+        {% if owner_data.owner.nationality %}&lt;strong&gt;Национальность:&lt;/strong&gt; {{ owner_data.owner.get_nationality_display }}&lt;br&gt;{% endif %}
+        {% if owner_data.owner.address %}&lt;strong&gt;Адрес:&lt;/strong&gt; {{ owner_data.owner.get_short_address }}{% endif %}
+    &lt;/div&gt;
 
-    <span class="cm">&lt;!-- Остальная часть карточки --&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</code></pre></div>
+    &lt;!-- Остальная часть карточки --&gt;
+&lt;/div&gt;
+</code></pre>
 
 <h4 id="35-url-">3.5. Настройка URL-адресов<a class="headerlink" href="#35-url-" title="Permanent link">&para;</a></h4>
 <p>Файл: <code>automobiles/urls.py</code></p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">views</span>
+<pre class="codehilite"><code class="language-python">from django.urls import path
+from . import views
 
-<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;owners/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">owners_list</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;owners_list&#39;</span><span class="p">),</span>
-    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;owner/&lt;int:owner_id&gt;/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">owner_detail</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;owner_detail&#39;</span><span class="p">),</span>
-    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;owner/create/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">owner_create</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;owner_create&#39;</span><span class="p">),</span>
-    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;owner/&lt;int:owner_id&gt;/update/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">owner_update</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;owner_update&#39;</span><span class="p">),</span>
-    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;owner/&lt;int:owner_id&gt;/delete/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">owner_delete</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;owner_delete&#39;</span><span class="p">),</span>
-<span class="p">]</span>
-</code></pre></div>
+urlpatterns = [
+    path('owners/', views.owners_list, name='owners_list'),
+    path('owner/&lt;int:owner_id&gt;/', views.owner_detail, name='owner_detail'),
+    path('owner/create/', views.owner_create, name='owner_create'),
+    path('owner/&lt;int:owner_id&gt;/update/', views.owner_update, name='owner_update'),
+    path('owner/&lt;int:owner_id&gt;/delete/', views.owner_delete, name='owner_delete'),
+]
+</code></pre>
 
 <h3 id="4">Часть 4: Создание тестовых данных<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
 <h4 id="41">4.1. Скрипт для заполнения базы данных<a class="headerlink" href="#41" title="Permanent link">&para;</a></h4>
 <p>Файл: <code>create_test_users.py</code></p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">django</span>
+<pre class="codehilite"><code class="language-python">import os
+import django
 
-<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;DJANGO_SETTINGS_MODULE&#39;</span><span class="p">,</span> <span class="s1">&#39;blogfspo.settings&#39;</span><span class="p">)</span>
-<span class="n">django</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'blogfspo.settings')
+django.setup()
 
-<span class="kn">from</span> <span class="nn">automobiles.models</span> <span class="kn">import</span> <span class="n">Owner</span>
+from automobiles.models import Owner
 
-<span class="k">def</span> <span class="nf">create_test_users</span><span class="p">():</span>
-    <span class="n">users_data</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="s1">&#39;first_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Иван&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;last_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Иванов&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;phone&#39;</span><span class="p">:</span> <span class="s1">&#39;+79161234567&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;passport_number&#39;</span><span class="p">:</span> <span class="s1">&#39;4501 123456&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="s1">&#39;г. Москва, ул. Тверская, д. 1, кв. 10&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;nationality&#39;</span><span class="p">:</span> <span class="s1">&#39;RU&#39;</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-            <span class="s1">&#39;first_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Петр&#39;</span><span class="p">,</span> 
-            <span class="s1">&#39;last_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Петров&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;phone&#39;</span><span class="p">:</span> <span class="s1">&#39;+79167654321&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;passport_number&#39;</span><span class="p">:</span> <span class="s1">&#39;4502 654321&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="s1">&#39;г. Санкт-Петербург, Невский пр-т, д. 25, кв. 5&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;nationality&#39;</span><span class="p">:</span> <span class="s1">&#39;RU&#39;</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-            <span class="s1">&#39;first_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Мария&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;last_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Сидорова&#39;</span><span class="p">,</span> 
-            <span class="s1">&#39;phone&#39;</span><span class="p">:</span> <span class="s1">&#39;+79169998877&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;passport_number&#39;</span><span class="p">:</span> <span class="s1">&#39;4503 789012&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="s1">&#39;г. Минск, ул. Ленина, д. 15, кв. 3&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;nationality&#39;</span><span class="p">:</span> <span class="s1">&#39;BY&#39;</span>
-        <span class="p">}</span>
-    <span class="p">]</span>
+def create_test_users():
+    users_data = [
+        {
+            'first_name': 'Иван',
+            'last_name': 'Иванов',
+            'phone': '+79161234567',
+            'passport_number': '4501 123456',
+            'address': 'г. Москва, ул. Тверская, д. 1, кв. 10',
+            'nationality': 'RU'
+        },
+        {
+            'first_name': 'Петр', 
+            'last_name': 'Петров',
+            'phone': '+79167654321',
+            'passport_number': '4502 654321',
+            'address': 'г. Санкт-Петербург, Невский пр-т, д. 25, кв. 5',
+            'nationality': 'RU'
+        },
+        {
+            'first_name': 'Мария',
+            'last_name': 'Сидорова', 
+            'phone': '+79169998877',
+            'passport_number': '4503 789012',
+            'address': 'г. Минск, ул. Ленина, д. 15, кв. 3',
+            'nationality': 'BY'
+        }
+    ]
 
-    <span class="k">for</span> <span class="n">user_data</span> <span class="ow">in</span> <span class="n">users_data</span><span class="p">:</span>
-        <span class="n">Owner</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">user_data</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Создан пользователь: </span><span class="si">{</span><span class="n">user_data</span><span class="p">[</span><span class="s1">&#39;first_name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">user_data</span><span class="p">[</span><span class="s1">&#39;last_name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    for user_data in users_data:
+        Owner.objects.create(**user_data)
+        print(f&quot;Создан пользователь: {user_data['first_name']} {user_data['last_name']}&quot;)
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">create_test_users</span><span class="p">()</span>
-</code></pre></div>
+if __name__ == &quot;__main__&quot;:
+    create_test_users()
+</code></pre>
 
 <hr />
 <h3 id="_3">Результаты работы<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
