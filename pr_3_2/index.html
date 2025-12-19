@@ -67,7 +67,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../lab_hotel/">Список отелей (Django)</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">Лабораторная работа №3: </span></p>
+              <p class="caption"><span class="caption-text">Лабораторная работа №3</span></p>
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../pr_3_1/">Практическая работа №1 - Django Web framework</a>
                   </li>
@@ -114,6 +114,11 @@
                   <li class="toctree-l1"><a class="reference internal" href="../lab_hotel2/">Гостиница (Django rest framework)</a>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №4</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../lab_hotel3/">Реализация клиентской части средствами Vue.js</a>
+                  </li>
+              </ul>
       </div>
     </div>
     </nav>
@@ -128,7 +133,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Лабораторная работа №3: </li>
+          <li class="breadcrumb-item">Лабораторная работа №3</li>
       <li class="breadcrumb-item active">Практическая работа №2 - Django rest framework</li>
     <li class="wy-breadcrumbs-aside">
     </li>
@@ -154,66 +159,66 @@
 <ul>
 <li>Модель Skill</li>
 </ul>
-<pre class="codehilite"><code class="language-python"># warriors_app/models.py
-class Skill(models.Model):
-    title = models.CharField(max_length=120, verbose_name='Наименование')
+<div class="codehilite"><pre><span></span><code><span class="c1"># warriors_app/models.py</span>
+<span class="k">class</span> <span class="nc">Skill</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Наименование&#39;</span><span class="p">)</span>
 
-    def __str__(self):
-        return self.title
-</code></pre>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span>
+</code></pre></div>
 
 <ul>
 <li>Сериализатор SkillSerializer</li>
 </ul>
-<pre class="codehilite"><code class="language-python"># warriors_app/serializers.py
-from rest_framework import serializers
-from .models import Skill
+<div class="codehilite"><pre><span></span><code><span class="c1"># warriors_app/serializers.py</span>
+<span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">serializers</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Skill</span>
 
-class SkillSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Skill
-        fields = &quot;__all__&quot;
-</code></pre>
+<span class="k">class</span> <span class="nc">SkillSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Skill</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s2">&quot;__all__&quot;</span>
+</code></pre></div>
 
 <ul>
 <li>Представление SkillAPIView</li>
 </ul>
-<pre class="codehilite"><code class="language-python"># warriors_app/views.py
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from .models import Skill
-from .serializers import SkillSerializer
+<div class="codehilite"><pre><span></span><code><span class="c1"># warriors_app/views.py</span>
+<span class="kn">from</span> <span class="nn">rest_framework.views</span> <span class="kn">import</span> <span class="n">APIView</span>
+<span class="kn">from</span> <span class="nn">rest_framework.response</span> <span class="kn">import</span> <span class="n">Response</span>
+<span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">status</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Skill</span>
+<span class="kn">from</span> <span class="nn">.serializers</span> <span class="kn">import</span> <span class="n">SkillSerializer</span>
 
-class SkillAPIView(APIView):
-    def get(self, request):
-        skills = Skill.objects.all()
-        serializer = SkillSerializer(skills, many=True)
-        return Response({&quot;Skills&quot;: serializer.data})
+<span class="k">class</span> <span class="nc">SkillAPIView</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">skills</span> <span class="o">=</span> <span class="n">Skill</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="n">serializer</span> <span class="o">=</span> <span class="n">SkillSerializer</span><span class="p">(</span><span class="n">skills</span><span class="p">,</span> <span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s2">&quot;Skills&quot;</span><span class="p">:</span> <span class="n">serializer</span><span class="o">.</span><span class="n">data</span><span class="p">})</span>
 
-    def post(self, request):
-        skill_data = request.data
-        serializer = SkillSerializer(data=skill_data)
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">skill_data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">serializer</span> <span class="o">=</span> <span class="n">SkillSerializer</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">skill_data</span><span class="p">)</span>
 
-        if serializer.is_valid(raise_exception=True):
-            skill_saved = serializer.save()
-            return Response(
-                {&quot;Success&quot;: &quot;Skill '{}' created successfully.&quot;.format(skill_saved.title)},
-                status=status.HTTP_201_CREATED
-            )
-</code></pre>
+        <span class="k">if</span> <span class="n">serializer</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(</span><span class="n">raise_exception</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="n">skill_saved</span> <span class="o">=</span> <span class="n">serializer</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">Response</span><span class="p">(</span>
+                <span class="p">{</span><span class="s2">&quot;Success&quot;</span><span class="p">:</span> <span class="s2">&quot;Skill &#39;</span><span class="si">{}</span><span class="s2">&#39; created successfully.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">skill_saved</span><span class="o">.</span><span class="n">title</span><span class="p">)},</span>
+                <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_201_CREATED</span>
+            <span class="p">)</span>
+</code></pre></div>
 
 <ul>
 <li>Маршрутизация</li>
 </ul>
-<pre class="codehilite"><code class="language-python"># warriors_app/urls.py
-from django.urls import path
-from .views import SkillAPIView
+<div class="codehilite"><pre><span></span><code><span class="c1"># warriors_app/urls.py</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">.views</span> <span class="kn">import</span> <span class="n">SkillAPIView</span>
 
-urlpatterns = [
-    path('skills/', SkillAPIView.as_view(), name='skills'),
-]
-</code></pre>
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;skills/&#39;</span><span class="p">,</span> <span class="n">SkillAPIView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;skills&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+</code></pre></div>
 
 <h3 id="2">Задание 2: Расширенные эндпоинты для воинов<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
 <h4 id="_4">Постановка задачи<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
@@ -222,88 +227,88 @@ urlpatterns = [
 <ul>
 <li>Расширенные сериализаторы</li>
 </ul>
-<pre class="codehilite"><code class="language-python"># warriors_app/serializers.py
-class ProfessionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profession
-        fields = [&quot;title&quot;, &quot;description&quot;]
+<div class="codehilite"><pre><span></span><code><span class="c1"># warriors_app/serializers.py</span>
+<span class="k">class</span> <span class="nc">ProfessionSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Profession</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">]</span>
 
-class SkillSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Skill
-        fields = [&quot;title&quot;]
+<span class="k">class</span> <span class="nc">SkillSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Skill</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">]</span>
 
-class WarriorProfessionSerializer(serializers.ModelSerializer):
-    profession = ProfessionSerializer()
-    race = serializers.CharField(source=&quot;get_race_display&quot;, read_only=True)
+<span class="k">class</span> <span class="nc">WarriorProfessionSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="n">profession</span> <span class="o">=</span> <span class="n">ProfessionSerializer</span><span class="p">()</span>
+    <span class="n">race</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s2">&quot;get_race_display&quot;</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    class Meta:
-        model = Warrior
-        fields = [&quot;id&quot;, &quot;name&quot;, &quot;race&quot;, &quot;level&quot;, &quot;profession&quot;]
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Warrior</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;race&quot;</span><span class="p">,</span> <span class="s2">&quot;level&quot;</span><span class="p">,</span> <span class="s2">&quot;profession&quot;</span><span class="p">]</span>
 
-class WarriorSkillSerializer(serializers.ModelSerializer):
-    skill = SkillSerializer(many=True)
-    race = serializers.CharField(source=&quot;get_race_display&quot;, read_only=True)
+<span class="k">class</span> <span class="nc">WarriorSkillSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="n">skill</span> <span class="o">=</span> <span class="n">SkillSerializer</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">race</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s2">&quot;get_race_display&quot;</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    class Meta:
-        model = Warrior
-        fields = [&quot;id&quot;, &quot;name&quot;, &quot;race&quot;, &quot;level&quot;, &quot;skill&quot;]
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Warrior</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;race&quot;</span><span class="p">,</span> <span class="s2">&quot;level&quot;</span><span class="p">,</span> <span class="s2">&quot;skill&quot;</span><span class="p">]</span>
 
-class WarriorFullSerializer(serializers.ModelSerializer):
-    profession = ProfessionSerializer()
-    skill = SkillSerializer(many=True)
-    race = serializers.CharField(source=&quot;get_race_display&quot;, read_only=True)
+<span class="k">class</span> <span class="nc">WarriorFullSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="n">profession</span> <span class="o">=</span> <span class="n">ProfessionSerializer</span><span class="p">()</span>
+    <span class="n">skill</span> <span class="o">=</span> <span class="n">SkillSerializer</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">race</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s2">&quot;get_race_display&quot;</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    class Meta:
-        model = Warrior
-        fields = &quot;__all__&quot;
-</code></pre>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Warrior</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s2">&quot;__all__&quot;</span>
+</code></pre></div>
 
 <ul>
 <li>Generic-представления</li>
 </ul>
-<pre class="codehilite"><code class="language-python"># warriors_app/views.py
-from rest_framework import generics
-from .models import Warrior
-from .serializers import WarriorProfessionSerializer, WarriorSkillSerializer, WarriorFullSerializer
+<div class="codehilite"><pre><span></span><code><span class="c1"># warriors_app/views.py</span>
+<span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">generics</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Warrior</span>
+<span class="kn">from</span> <span class="nn">.serializers</span> <span class="kn">import</span> <span class="n">WarriorProfessionSerializer</span><span class="p">,</span> <span class="n">WarriorSkillSerializer</span><span class="p">,</span> <span class="n">WarriorFullSerializer</span>
 
-class WarriorProfessionListAPIView(generics.ListAPIView):
-    serializer_class = WarriorProfessionSerializer
-    queryset = Warrior.objects.all()
+<span class="k">class</span> <span class="nc">WarriorProfessionListAPIView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">ListAPIView</span><span class="p">):</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">WarriorProfessionSerializer</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Warrior</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 
-class WarriorSkillListAPIView(generics.ListAPIView):
-    serializer_class = WarriorSkillSerializer
-    queryset = Warrior.objects.all()
+<span class="k">class</span> <span class="nc">WarriorSkillListAPIView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">ListAPIView</span><span class="p">):</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">WarriorSkillSerializer</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Warrior</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 
-class WarriorRetrieveAPIView(generics.RetrieveAPIView):
-    serializer_class = WarriorFullSerializer
-    queryset = Warrior.objects.all()
+<span class="k">class</span> <span class="nc">WarriorRetrieveAPIView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">RetrieveAPIView</span><span class="p">):</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">WarriorFullSerializer</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Warrior</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 
-class WarriorDestroyAPIView(generics.DestroyAPIView):
-    queryset = Warrior.objects.all()
+<span class="k">class</span> <span class="nc">WarriorDestroyAPIView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">DestroyAPIView</span><span class="p">):</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Warrior</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 
-class WarriorUpdateAPIView(generics.UpdateAPIView):
-    serializer_class = WarriorFullSerializer
-    queryset = Warrior.objects.all()
-</code></pre>
+<span class="k">class</span> <span class="nc">WarriorUpdateAPIView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">UpdateAPIView</span><span class="p">):</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">WarriorFullSerializer</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Warrior</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</code></pre></div>
 
 <ul>
 <li>Маршрутизация</li>
 </ul>
-<pre class="codehilite"><code class="language-python"># warriors_app/urls.py
-urlpatterns = [
-    path('warriors/professions/', WarriorProfessionListAPIView.as_view()),
-    path('warriors/skills/', WarriorSkillListAPIView.as_view()),
-    path('warriors/&lt;int:pk&gt;/', WarriorRetrieveAPIView.as_view()),
-    path('warriors/&lt;int:pk&gt;/delete/', WarriorDestroyAPIView.as_view()),
-    path('warriors/&lt;int:pk&gt;/update/', WarriorUpdateAPIView.as_view()),
-]
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="c1"># warriors_app/urls.py</span>
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;warriors/professions/&#39;</span><span class="p">,</span> <span class="n">WarriorProfessionListAPIView</span><span class="o">.</span><span class="n">as_view</span><span class="p">()),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;warriors/skills/&#39;</span><span class="p">,</span> <span class="n">WarriorSkillListAPIView</span><span class="o">.</span><span class="n">as_view</span><span class="p">()),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;warriors/&lt;int:pk&gt;/&#39;</span><span class="p">,</span> <span class="n">WarriorRetrieveAPIView</span><span class="o">.</span><span class="n">as_view</span><span class="p">()),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;warriors/&lt;int:pk&gt;/delete/&#39;</span><span class="p">,</span> <span class="n">WarriorDestroyAPIView</span><span class="o">.</span><span class="n">as_view</span><span class="p">()),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;warriors/&lt;int:pk&gt;/update/&#39;</span><span class="p">,</span> <span class="n">WarriorUpdateAPIView</span><span class="o">.</span><span class="n">as_view</span><span class="p">()),</span>
+<span class="p">]</span>
+</code></pre></div>
 
 <hr />
 <h3 id="_6">Архитектура проекта<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <h4 id="_7">Структура базы данных<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-commandline">Warrior (Воин)
+<div class="codehilite"><pre><span></span><code>Warrior (Воин)
 ├── id (ID)
 ├── name (Имя)
 ├── race (Раса)
@@ -323,7 +328,7 @@ SkillOfWarrior (Навыки воина)
 ├── warrior (Воин) → Warrior.id
 ├── skill (Навык) → Skill.id
 └── level (Уровень освоения)
-</code></pre>
+</code></pre></div>
 
 <h4 id="rest">Принципы REST<a class="headerlink" href="#rest" title="Permanent link">&para;</a></h4>
 <ul>

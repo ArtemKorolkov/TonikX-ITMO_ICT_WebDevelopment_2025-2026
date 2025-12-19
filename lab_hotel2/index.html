@@ -67,7 +67,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../lab_hotel/">Список отелей (Django)</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">Лабораторная работа №3: </span></p>
+              <p class="caption"><span class="caption-text">Лабораторная работа №3</span></p>
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../pr_3_1/">Практическая работа №1 - Django Web framework</a>
                   </li>
@@ -150,6 +150,11 @@
     </ul>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №4</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../lab_hotel3/">Реализация клиентской части средствами Vue.js</a>
+                  </li>
+              </ul>
       </div>
     </div>
     </nav>
@@ -164,7 +169,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Лабораторная работа №3: </li>
+          <li class="breadcrumb-item">Лабораторная работа №3</li>
       <li class="breadcrumb-item active">Гостиница (Django rest framework)</li>
     <li class="wy-breadcrumbs-aside">
     </li>
@@ -219,128 +224,128 @@
 <h2 id="_6">Реализация<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <h3 id="1-djangoorm">1. Модель базы данных средствами DjangoORM<a class="headerlink" href="#1-djangoorm" title="Permanent link">&para;</a></h3>
 <h5 id="_7">Основные модели<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h5>
-<pre class="codehilite"><code class="language-python"># hotel_app/models.py
-class CustomUser(AbstractUser):
-    email = models.EmailField(unique=True)
-    is_hotel_staff = models.BooleanField(default=False)
-    is_admin = models.BooleanField(default=False)
+<div class="codehilite"><pre><span></span><code><span class="c1"># hotel_app/models.py</span>
+<span class="k">class</span> <span class="nc">CustomUser</span><span class="p">(</span><span class="n">AbstractUser</span><span class="p">):</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">EmailField</span><span class="p">(</span><span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">is_hotel_staff</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">is_admin</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-class RoomType(models.Model):
-    name = models.CharField(max_length=50, verbose_name=&quot;Тип номера&quot;)
-    capacity = models.PositiveIntegerField(verbose_name=&quot;Вместимость&quot;)
-    price_per_night = models.DecimalField(max_digits=10, decimal_places=2)
+<span class="k">class</span> <span class="nc">RoomType</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s2">&quot;Тип номера&quot;</span><span class="p">)</span>
+    <span class="n">capacity</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveIntegerField</span><span class="p">(</span><span class="n">verbose_name</span><span class="o">=</span><span class="s2">&quot;Вместимость&quot;</span><span class="p">)</span>
+    <span class="n">price_per_night</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">(</span><span class="n">max_digits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">decimal_places</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
-class Room(models.Model):
-    room_number = models.CharField(max_length=10, unique=True)
-    floor = models.PositiveIntegerField(verbose_name=&quot;Этаж&quot;)
-    room_type = models.ForeignKey(RoomType, on_delete=models.PROTECT)
-    has_phone = models.BooleanField(default=True)
-    is_available = models.BooleanField(default=True)
+<span class="k">class</span> <span class="nc">Room</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">room_number</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">floor</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveIntegerField</span><span class="p">(</span><span class="n">verbose_name</span><span class="o">=</span><span class="s2">&quot;Этаж&quot;</span><span class="p">)</span>
+    <span class="n">room_type</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">RoomType</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">PROTECT</span><span class="p">)</span>
+    <span class="n">has_phone</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">is_available</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-class Client(models.Model):
-    passport_number = models.CharField(max_length=20, unique=True)
-    last_name = models.CharField(max_length=50)
-    first_name = models.CharField(max_length=50)
-    middle_name = models.CharField(max_length=50, blank=True)
-    city = models.CharField(max_length=100)
-    check_in_date = models.DateTimeField(auto_now_add=True)
+<span class="k">class</span> <span class="nc">Client</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">passport_number</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">last_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">first_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">middle_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">city</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">check_in_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-class Staff(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    last_name = models.CharField(max_length=50)
-    first_name = models.CharField(max_length=50)
-    middle_name = models.CharField(max_length=50, blank=True)
-    is_active = models.BooleanField(default=True)
+<span class="k">class</span> <span class="nc">Staff</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">CustomUser</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+    <span class="n">last_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">first_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">middle_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">is_active</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-class CleaningSchedule(models.Model):
-    staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
-    floor = models.PositiveIntegerField(verbose_name=&quot;Этаж&quot;)
-    day_of_week = models.CharField(max_length=3, choices=DAYS_OF_WEEK)
+<span class="k">class</span> <span class="nc">CleaningSchedule</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">staff</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Staff</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+    <span class="n">floor</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveIntegerField</span><span class="p">(</span><span class="n">verbose_name</span><span class="o">=</span><span class="s2">&quot;Этаж&quot;</span><span class="p">)</span>
+    <span class="n">day_of_week</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">DAYS_OF_WEEK</span><span class="p">)</span>
 
-class Stay(models.Model):
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    check_in_date = models.DateField(verbose_name=&quot;Дата заселения&quot;)
-    check_out_date = models.DateField(null=True, blank=True)
-    total_cost = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-</code></pre>
+<span class="k">class</span> <span class="nc">Stay</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Client</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+    <span class="n">room</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Room</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+    <span class="n">check_in_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="n">verbose_name</span><span class="o">=</span><span class="s2">&quot;Дата заселения&quot;</span><span class="p">)</span>
+    <span class="n">check_out_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">total_cost</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">(</span><span class="n">max_digits</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">decimal_places</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
 
 <h3 id="2-api-django-rest-framework">2. API средствами Django REST Framework<a class="headerlink" href="#2-api-django-rest-framework" title="Permanent link">&para;</a></h3>
 <h4 id="_8">Сериализаторы<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-python"># hotel_app/serializers.py
-class RoomTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = RoomType
-        fields = '__all__'
+<div class="codehilite"><pre><span></span><code><span class="c1"># hotel_app/serializers.py</span>
+<span class="k">class</span> <span class="nc">RoomTypeSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">RoomType</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span>
 
-class RoomSerializer(serializers.ModelSerializer):
-    room_type_name = serializers.CharField(source='room_type.name', read_only=True)
+<span class="k">class</span> <span class="nc">RoomSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="n">room_type_name</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;room_type.name&#39;</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    class Meta:
-        model = Room
-        fields = '__all__'
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Room</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span>
 
-class ClientSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Client
-        fields = '__all__'
-</code></pre>
+<span class="k">class</span> <span class="nc">ClientSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Client</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span>
+</code></pre></div>
 
 <h4 id="viewsets">ViewSets с аналитическими методами<a class="headerlink" href="#viewsets" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-python"># hotel_app/views.py
-class RoomViewSet(viewsets.ModelViewSet):
-    queryset = Room.objects.all()
-    serializer_class = RoomSerializer
+<div class="codehilite"><pre><span></span><code><span class="c1"># hotel_app/views.py</span>
+<span class="k">class</span> <span class="nc">RoomViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Room</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">RoomSerializer</span>
 
-    @action(detail=False, methods=['get'])
-    def available_rooms(self, request):
-        &quot;&quot;&quot;Количество свободных номеров в гостинице&quot;&quot;&quot;
-        available_count = Room.objects.filter(is_available=True).count()
-        return Response({'available_rooms': available_count})
+    <span class="nd">@action</span><span class="p">(</span><span class="n">detail</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;get&#39;</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">available_rooms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Количество свободных номеров в гостинице&quot;&quot;&quot;</span>
+        <span class="n">available_count</span> <span class="o">=</span> <span class="n">Room</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_available</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s1">&#39;available_rooms&#39;</span><span class="p">:</span> <span class="n">available_count</span><span class="p">})</span>
 
-class ClientViewSet(viewsets.ModelViewSet):
-    queryset = Client.objects.all()
-    serializer_class = ClientSerializer
+<span class="k">class</span> <span class="nc">ClientViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ClientSerializer</span>
 
-    @action(detail=False, methods=['get'])
-    def from_city(self, request):
-        &quot;&quot;&quot;Количество клиентов из заданного города&quot;&quot;&quot;
-        city = request.query_params.get('city', '')
-        if city:
-            count = Client.objects.filter(city__iexact=city).count()
-            return Response({'city': city, 'count': count})
-        return Response({'error': 'Не указан город'}, status=400)
-</code></pre>
+    <span class="nd">@action</span><span class="p">(</span><span class="n">detail</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;get&#39;</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">from_city</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Количество клиентов из заданного города&quot;&quot;&quot;</span>
+        <span class="n">city</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">query_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;city&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">city</span><span class="p">:</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">city__iexact</span><span class="o">=</span><span class="n">city</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="n">city</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="n">count</span><span class="p">})</span>
+        <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;Не указан город&#39;</span><span class="p">},</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</code></pre></div>
 
 <h3 id="3-djoser">3. Аутентификация средствами Djoser<a class="headerlink" href="#3-djoser" title="Permanent link">&para;</a></h3>
 <h4 id="settingspy">Настройки в settings.py<a class="headerlink" href="#settingspy" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-python"># settings.py
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ]
-}
+<div class="codehilite"><pre><span></span><code><span class="c1"># settings.py</span>
+<span class="n">REST_FRAMEWORK</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;DEFAULT_AUTHENTICATION_CLASSES&#39;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s1">&#39;rest_framework.authentication.TokenAuthentication&#39;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s1">&#39;DEFAULT_PERMISSION_CLASSES&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">&#39;rest_framework.permissions.IsAuthenticated&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">}</span>
 
-DJOSER = {
-    'LOGIN_FIELD': 'email',
-    'USER_CREATE_PASSWORD_RETYPE': True,
-}
+<span class="n">DJOSER</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;LOGIN_FIELD&#39;</span><span class="p">:</span> <span class="s1">&#39;email&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;USER_CREATE_PASSWORD_RETYPE&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">}</span>
 
-AUTH_USER_MODEL = 'hotel_app.CustomUser'
-</code></pre>
+<span class="n">AUTH_USER_MODEL</span> <span class="o">=</span> <span class="s1">&#39;hotel_app.CustomUser&#39;</span>
+</code></pre></div>
 
 <h4 id="_9">Маршруты аутентификации<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-python"># urls.py
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken')),
-    path('api/', include('hotel_app.urls')),
-]
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="c1"># urls.py</span>
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;admin/&#39;</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;auth/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;djoser.urls&#39;</span><span class="p">)),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;auth/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;djoser.urls.authtoken&#39;</span><span class="p">)),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;api/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;hotel_app.urls&#39;</span><span class="p">)),</span>
+<span class="p">]</span>
+</code></pre></div>
 
 <hr />
 <h2 id="_10">Тестирование приложения<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
@@ -378,8 +383,8 @@ urlpatterns = [
 <ol>
 <li>Получение токена - POST http://127.0.0.1:8000/auth/token/login/</li>
 </ol>
-<pre class="codehilite"><code class="language-json">{&quot;email&quot;: &quot;admin@hotel.com&quot;, &quot;password&quot;: &quot;admin123&quot;}
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;admin@hotel.com&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;admin123&quot;</span><span class="p">}</span>
+</code></pre></div>
 
 <ol>
 <li>Информация о текущем пользователе - GET http://127.0.0.1:8000/auth/users/me/</li>
@@ -409,6 +414,7 @@ urlpatterns = [
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../pr_3_2/" class="btn btn-neutral float-left" title="Практическая работа №2 - Django rest framework"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../lab_hotel3/" class="btn btn-neutral float-right" title="Реализация клиентской части средствами Vue.js">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -433,6 +439,8 @@ urlpatterns = [
     
       <span><a href="../pr_3_2/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
+    
+      <span><a href="../lab_hotel3/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

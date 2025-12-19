@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Корольков Артем" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Реализация клиентской части средствами Vue.js - Отчеты по лабораторным работам - Веб-программирование</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u0420\u0435\u0430\u043b\u0438\u0437\u0430\u0446\u0438\u044f \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u043e\u0439 \u0447\u0430\u0441\u0442\u0438 \u0441\u0440\u0435\u0434\u0441\u0442\u0432\u0430\u043c\u0438 Vue.js";
+        var mkdocs_page_input_path = "lab_hotel3.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Отчеты по лабораторным работам - Веб-программирование
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Главная</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №1</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_1/">Задание 1: UDP-клиент-сервер</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_2/">Задание 2: TCP-сервер (площадь трапеции)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_3/">Задание 3: HTTP-сервер</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_4/">Задание 4: Многопользовательский чат</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task_5/">Задание 5: Веб-сервер для учета оценок</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №2: Django</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_1/">Практическая работа №1 — Знакомство с Django</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_2/">Практическая работа №2 — Реализация CRUD</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_3/">Практическая работа №3 — Расширение модели пользователя</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../lab_hotel/">Список отелей (Django)</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №3</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_3_1/">Практическая работа №1 - Django Web framework</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pr_3_2/">Практическая работа №2 - Django rest framework</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../lab_hotel2/">Гостиница (Django rest framework)</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №4</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Реализация клиентской части средствами Vue.js</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#vuejs">Реализация клиентской части средствами Vue.js</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_1">Цель работы</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">Исходное задание</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">Вариант задания: Система управления гостиницей</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">Требования к данным</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">Функциональные требования</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">Реализация</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1">1. Структура пользовательского интерфейса</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#_7">Главное меню</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2">2. Описание основных интерфейсов</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#21">2.1 Панель управления</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#22">2.2 Управление номерами</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#23">2.3 Клиенты</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#24">2.4 Сотрудники</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#25">2.5 Услуги гостиницы</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#26">2.6 Аналитика</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">Заключение</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">Реализация клиентской части (дополнительно)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">Вывод</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Отчеты по лабораторным работам - Веб-программирование</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Лабораторная работа №4</li>
+      <li class="breadcrumb-item active">Реализация клиентской части средствами Vue.js</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="no4">Отчёт по выполнению лабораторной работы №4<a class="headerlink" href="#no4" title="Permanent link">&para;</a></h1>
+<h2 id="vuejs">Реализация клиентской части средствами Vue.js<a class="headerlink" href="#vuejs" title="Permanent link">&para;</a></h2>
+<p><strong>Дисциплина:</strong> Веб-программирование
+<strong>Студент:</strong> Корольков Артем, группа K3340
+<strong>Дата выполнения:</strong> 19 декабря 2025 года</p>
+<hr />
+<h3 id="_1">Цель работы<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>Овладеть практическими навыками и получить представление о работе Vue.js.</p>
+<h3 id="_2">Исходное задание<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Реализовать интерфейсы авторизации, регистрации и изменения учётных данных и настроить взаимодействие с серверной частью.</li>
+<li>Реализовать клиентские интерфейсы и настроить взаимодействие с серверной частью.</li>
+<li>Подключить vuetify или аналогичную библиотеку.</li>
+</ul>
+<hr />
+<h3 id="_3">Вариант задания: Система управления гостиницей<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>Создать программную систему, предназначенную для администратора гостиницы. Система должна обеспечивать хранение сведений об имеющихся в гостинице номерах, о проживающих в гостинице клиентах и о служащих, убирающихся в номерах.</p>
+<h3 id="_4">Требования к данным<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p><strong>Номера:</strong>
+- Количество номеров известно
+- Три типа: одноместный, двухместный, трехместный
+- Отличаются стоимостью проживания в сутки
+- В каждом номере есть телефон</p>
+<p><strong>Клиенты:</strong>
+- Номер паспорта, ФИО, город, дата поселения, выделенный номер</p>
+<p><strong>Служащие:</strong>
+- ФИО, этаж, день недели уборки
+- Служащий убирает все номера на одном этаже в определенные дни недели</p>
+<h3 id="_5">Функциональные требования<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p><strong>Информационные запросы:</strong>
+- О клиентах, проживавших в заданном номере в заданный период
+- О количестве клиентов, прибывших из заданного города
+- О том, кто из служащих убирал номер указанного клиента в заданный день недели
+- Сколько в гостинице свободных номеров
+- Список клиентов с указанием места жительства, которые проживали в те же дни, что и заданный клиент</p>
+<p><strong>Операции администратора:</strong>
+- Принять на работу или уволить служащего
+- Изменить расписание работы служащего
+- Поселить или выселить клиента</p>
+<p><strong>Отчетность:</strong>
+- Автоматическая выдача отчета о работе гостиницы за указанный квартал
+- Число клиентов за период в каждом номере
+- Количество номеров на каждом этаже
+- Общая сумма дохода за каждый номер
+- Суммарный доход по всей гостинице</p>
+<hr />
+<h2 id="_6">Реализация<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. Структура пользовательского интерфейса<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<h5 id="_7">Главное меню<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h5>
+<p>Навигационное меню содержит только реализованные и рабочие разделы:</p>
+<ul>
+<li>Панель управления</li>
+<li>Номера</li>
+<li>Все номера</li>
+<li>Клиенты</li>
+<li>Сотрудники</li>
+<li>Услуги гостиницы</li>
+<li>Проживания</li>
+<li>Аналитика</li>
+<li>Профиль пользователя</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="cm">&lt;!-- Навигационная панель --&gt;</span>
+                <span class="p">&lt;</span><span class="nt">v-navigation-drawer</span>
+                    <span class="na">v-model</span><span class="o">=</span><span class="s">&quot;drawer&quot;</span>
+                    <span class="na">app</span>
+                    <span class="na">clipped</span>
+                    <span class="na">v-if</span><span class="o">=</span><span class="s">&quot;isAuthenticated&quot;</span>
+                <span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">v-list</span> <span class="na">dense</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">v-list-item</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&quot;currentView = &#39;dashboard&#39;&quot;</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">v-list-item-icon</span><span class="p">&gt;</span>
+                                <span class="p">&lt;</span><span class="nt">v-icon</span><span class="p">&gt;</span>mdi-view-dashboard<span class="p">&lt;/</span><span class="nt">v-icon</span><span class="p">&gt;</span>
+                            <span class="p">&lt;/</span><span class="nt">v-list-item-icon</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>Панель управления<span class="p">&lt;/</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>
+                        <span class="p">&lt;/</span><span class="nt">v-list-item</span><span class="p">&gt;</span>
+
+                        <span class="p">&lt;</span><span class="nt">v-list-group</span> <span class="na">prepend-icon</span><span class="o">=</span><span class="s">&quot;mdi-bed&quot;</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">template</span> <span class="na">v-slot:activator</span><span class="p">&gt;</span>
+                                <span class="p">&lt;</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>Номера<span class="p">&lt;/</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>
+                            <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">v-list-item</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&quot;currentView = &#39;rooms&#39;&quot;</span><span class="p">&gt;</span>
+                                <span class="p">&lt;</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>Все номера<span class="p">&lt;/</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>
+                            <span class="p">&lt;/</span><span class="nt">v-list-item</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">v-list-item</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&quot;currentView = &#39;roomTypes&#39;&quot;</span><span class="p">&gt;</span>
+                                <span class="p">&lt;</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>Типы номеров<span class="p">&lt;/</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>
+                            <span class="p">&lt;/</span><span class="nt">v-list-item</span><span class="p">&gt;</span>
+                        <span class="p">&lt;/</span><span class="nt">v-list-group</span><span class="p">&gt;</span>
+
+                        <span class="p">&lt;</span><span class="nt">v-list-item</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&quot;currentView = &#39;clients&#39;&quot;</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">v-list-item-icon</span><span class="p">&gt;</span>
+                                <span class="p">&lt;</span><span class="nt">v-icon</span><span class="p">&gt;</span>mdi-account-group<span class="p">&lt;/</span><span class="nt">v-icon</span><span class="p">&gt;</span>
+                            <span class="p">&lt;/</span><span class="nt">v-list-item-icon</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>Клиенты<span class="p">&lt;/</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>
+                        <span class="p">&lt;/</span><span class="nt">v-list-item</span><span class="p">&gt;</span>
+
+                        <span class="p">&lt;</span><span class="nt">v-list-group</span> <span class="na">prepend-icon</span><span class="o">=</span><span class="s">&quot;mdi-account-tie&quot;</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">template</span> <span class="na">v-slot:activator</span><span class="p">&gt;</span>
+                                <span class="p">&lt;</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>Сотрудники<span class="p">&lt;/</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>
+                            <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">v-list-item</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&quot;currentView = &#39;staff&#39;&quot;</span><span class="p">&gt;</span>
+                                <span class="p">&lt;</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>Все сотрудники<span class="p">&lt;/</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>
+                            <span class="p">&lt;/</span><span class="nt">v-list-item</span><span class="p">&gt;</span>
+                        <span class="p">&lt;/</span><span class="nt">v-list-group</span><span class="p">&gt;</span>
+
+                        <span class="p">&lt;</span><span class="nt">v-list-group</span> <span class="na">prepend-icon</span><span class="o">=</span><span class="s">&quot;mdi-room-service&quot;</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">template</span> <span class="na">v-slot:activator</span><span class="p">&gt;</span>
+                                <span class="p">&lt;</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>Услуги<span class="p">&lt;/</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>
+                            <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">v-list-item</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&quot;currentView = &#39;hotelServices&#39;&quot;</span><span class="p">&gt;</span>
+                                <span class="p">&lt;</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>Все услуги<span class="p">&lt;/</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>
+                            <span class="p">&lt;/</span><span class="nt">v-list-item</span><span class="p">&gt;</span>
+                        <span class="p">&lt;/</span><span class="nt">v-list-group</span><span class="p">&gt;</span>
+
+                        <span class="p">&lt;</span><span class="nt">v-list-item</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&quot;currentView = &#39;stays&#39;&quot;</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">v-list-item-icon</span><span class="p">&gt;</span>
+                                <span class="p">&lt;</span><span class="nt">v-icon</span><span class="p">&gt;</span>mdi-calendar-check<span class="p">&lt;/</span><span class="nt">v-icon</span><span class="p">&gt;</span>
+                            <span class="p">&lt;/</span><span class="nt">v-list-item-icon</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>Проживания<span class="p">&lt;/</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>
+                        <span class="p">&lt;/</span><span class="nt">v-list-item</span><span class="p">&gt;</span>
+
+                        <span class="p">&lt;</span><span class="nt">v-list-group</span> <span class="na">prepend-icon</span><span class="o">=</span><span class="s">&quot;mdi-chart-bar&quot;</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">template</span> <span class="na">v-slot:activator</span><span class="p">&gt;</span>
+                                <span class="p">&lt;</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>Аналитика<span class="p">&lt;/</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>
+                            <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">v-list-item</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&quot;currentView = &#39;analytics&#39;&quot;</span><span class="p">&gt;</span>
+                                <span class="p">&lt;</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>Аналитические запросы<span class="p">&lt;/</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>
+                            <span class="p">&lt;/</span><span class="nt">v-list-item</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">v-list-item</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&quot;currentView = &#39;quarterlyReport&#39;&quot;</span><span class="p">&gt;</span>
+                                <span class="p">&lt;</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>Квартальный отчет<span class="p">&lt;/</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>
+                            <span class="p">&lt;/</span><span class="nt">v-list-item</span><span class="p">&gt;</span>
+                        <span class="p">&lt;/</span><span class="nt">v-list-group</span><span class="p">&gt;</span>
+
+                        <span class="p">&lt;</span><span class="nt">v-list-item</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&quot;currentView = &#39;profile&#39;&quot;</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">v-list-item-icon</span><span class="p">&gt;</span>
+                                <span class="p">&lt;</span><span class="nt">v-icon</span><span class="p">&gt;</span>mdi-account-cog<span class="p">&lt;/</span><span class="nt">v-icon</span><span class="p">&gt;</span>
+                            <span class="p">&lt;/</span><span class="nt">v-list-item-icon</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>Профиль<span class="p">&lt;/</span><span class="nt">v-list-item-title</span><span class="p">&gt;</span>
+                        <span class="p">&lt;/</span><span class="nt">v-list-item</span><span class="p">&gt;</span>
+                    <span class="p">&lt;/</span><span class="nt">v-list</span><span class="p">&gt;</span>
+                <span class="p">&lt;/</span><span class="nt">v-navigation-drawer</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<h3 id="2">2. Описание основных интерфейсов<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<h4 id="21">2.1 Панель управления<a class="headerlink" href="#21" title="Permanent link">&para;</a></h4>
+<p><strong>Назначение:</strong>
+Отображение общей информации о состоянии гостиницы.</p>
+<p>Функциональность:
+- отображение количества номеров;
+- отображение количества свободных номеров;
+- быстрый доступ к основным разделам системы.</p>
+<p><img alt="" src="../src/1.jpeg" /></p>
+<h4 id="22">2.2 Управление номерами<a class="headerlink" href="#22" title="Permanent link">&para;</a></h4>
+<p><strong>Назначение:</strong>
+Просмотр и управление номерным фондом.</p>
+<p>Возможности:
+- просмотр списка всех номеров;
+- отображение этажа, типа номера, наличия телефона;
+- определение статуса номера (свободен / занят).</p>
+<p><img alt="" src="../src/2.jpeg" /></p>
+<h4 id="23">2.3 Клиенты<a class="headerlink" href="#23" title="Permanent link">&para;</a></h4>
+<p><strong>Назначение:</strong>
+Работа с информацией о клиентах гостиницы.</p>
+<p>Возможности:
+- просмотр списка клиентов;
+- использование данных в аналитических запросах;
+- выбор клиента для определения уборщика номера.</p>
+<p><img alt="" src="../src/3.jpeg" /></p>
+<h4 id="24">2.4 Сотрудники<a class="headerlink" href="#24" title="Permanent link">&para;</a></h4>
+<p><strong>Назначение:</strong>
+Управление персоналом гостиницы.</p>
+<p>Функциональность:
+- отображение списка сотрудников;
+- использование данных сотрудников в расписании уборки.</p>
+<p><img alt="" src="../src/4.jpeg" /></p>
+<h4 id="25">2.5 Услуги гостиницы<a class="headerlink" href="#25" title="Permanent link">&para;</a></h4>
+<p><strong>Назначение:</strong>
+Отображение перечня услуг, предоставляемых гостиницей.</p>
+<p>Функциональность:
+- таблица услуг;
+- отображение названия и описания услуги;
+- данные загружаются с backend (/api/hotel-services/).</p>
+<p>Примеры услуг:
+- Обслуживание номеров
+- Ресепшен
+- Обслуживание мероприятий</p>
+<p><img alt="" src="../src/5.jpeg" /></p>
+<h4 id="26">2.6 Аналитика<a class="headerlink" href="#26" title="Permanent link">&para;</a></h4>
+<p><strong>Назначение:</strong>
+Получение статистических данных для принятия управленческих решений.</p>
+<p>Реализованные аналитические запросы:
+- количество клиентов по выбранному городу;
+- поиск уборщика, обслуживавшего номер клиента в заданный день недели.</p>
+<p><img alt="" src="../src/6.jpeg" /></p>
+<hr />
+<h2 id="_8">Заключение<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h3 id="_9">Реализация клиентской части (дополнительно)<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Разработан полноценный SPA-интерфейс на Vue.js + Vuetify</li>
+<li>Реализованы интерфейсы авторизации и регистрации</li>
+<li>Созданы CRUD интерфейсы для всех сущностей системы</li>
+<li>Реализована панель управления с аналитикой</li>
+<li>Настроено взаимодействие с серверной частью через Axios</li>
+</ul>
+<h3 id="_10">Вывод<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>В ходе лабораторной работы была успешно реализована полнофункциональная система управления гостиницей, включающая как серверную (backend), так и клиентскую (frontend) части. Все требования технического задания выполнены в полном объеме.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../lab_hotel2/" class="btn btn-neutral float-left" title="Гостиница (Django rest framework)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../lab_hotel2/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

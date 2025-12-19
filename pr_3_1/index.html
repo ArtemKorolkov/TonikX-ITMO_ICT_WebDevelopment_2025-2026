@@ -67,7 +67,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../lab_hotel/">Список отелей (Django)</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">Лабораторная работа №3: </span></p>
+              <p class="caption"><span class="caption-text">Лабораторная работа №3</span></p>
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Практическая работа №1 - Django Web framework</a>
     <ul class="current">
@@ -114,6 +114,11 @@
                   <li class="toctree-l1"><a class="reference internal" href="../lab_hotel2/">Гостиница (Django rest framework)</a>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">Лабораторная работа №4</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../lab_hotel3/">Реализация клиентской части средствами Vue.js</a>
+                  </li>
+              </ul>
       </div>
     </div>
     </nav>
@@ -128,7 +133,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Лабораторная работа №3: </li>
+          <li class="breadcrumb-item">Лабораторная работа №3</li>
       <li class="breadcrumb-item active">Практическая работа №1 - Django Web framework</li>
     <li class="wy-breadcrumbs-aside">
     </li>
@@ -153,309 +158,309 @@
 <h4 id="_2">Постановка задачи<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
 <p>Создать 6-7 автовладельцев, 5-6 автомобилей, каждому автовладельцу назначить удостоверение и от 1 до 3 автомобилей.</p>
 <h4 id="_3">Реализация<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-python"># create_test_data.py
-import os
-import django
-from datetime import date, timedelta
-import random
+<div class="codehilite"><pre><span></span><code><span class="c1"># create_test_data.py</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">django</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'your_project.settings')
-django.setup()
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;DJANGO_SETTINGS_MODULE&#39;</span><span class="p">,</span> <span class="s1">&#39;your_project.settings&#39;</span><span class="p">)</span>
+<span class="n">django</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
 
-from autoapp.models import Owner, Car, DriverLicense, Ownership
+<span class="kn">from</span> <span class="nn">autoapp.models</span> <span class="kn">import</span> <span class="n">Owner</span><span class="p">,</span> <span class="n">Car</span><span class="p">,</span> <span class="n">DriverLicense</span><span class="p">,</span> <span class="n">Ownership</span>
 
-def create_test_data():
-    # Очистка существующих данных
-    Ownership.objects.all().delete()
-    DriverLicense.objects.all().delete()
-    Car.objects.all().delete()
-    Owner.objects.all().delete()
+<span class="k">def</span> <span class="nf">create_test_data</span><span class="p">():</span>
+    <span class="c1"># Очистка существующих данных</span>
+    <span class="n">Ownership</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+    <span class="n">DriverLicense</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+    <span class="n">Car</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+    <span class="n">Owner</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
 
-    # Создание автовладельцев
-    owners_data = [
-        {'name': 'Иван Иванов', 'birth_date': date(1985, 5, 15)},
-        {'name': 'Петр Петров', 'birth_date': date(1990, 8, 22)},
-        {'name': 'Олег Сидоров', 'birth_date': date(1988, 3, 10)},
-        {'name': 'Мария Козлова', 'birth_date': date(1992, 11, 5)},
-        {'name': 'Олег Кузнецов', 'birth_date': date(1987, 7, 18)},
-        {'name': 'Анна Смирнова', 'birth_date': date(1995, 2, 28)},
-        {'name': 'Сергей Попов', 'birth_date': date(1983, 9, 12)}
-    ]
+    <span class="c1"># Создание автовладельцев</span>
+    <span class="n">owners_data</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Иван Иванов&#39;</span><span class="p">,</span> <span class="s1">&#39;birth_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">1985</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">)},</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Петр Петров&#39;</span><span class="p">,</span> <span class="s1">&#39;birth_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">22</span><span class="p">)},</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Олег Сидоров&#39;</span><span class="p">,</span> <span class="s1">&#39;birth_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">1988</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">)},</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Мария Козлова&#39;</span><span class="p">,</span> <span class="s1">&#39;birth_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">1992</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">)},</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Олег Кузнецов&#39;</span><span class="p">,</span> <span class="s1">&#39;birth_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">1987</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">18</span><span class="p">)},</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Анна Смирнова&#39;</span><span class="p">,</span> <span class="s1">&#39;birth_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">1995</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">28</span><span class="p">)},</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Сергей Попов&#39;</span><span class="p">,</span> <span class="s1">&#39;birth_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">1983</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">)}</span>
+    <span class="p">]</span>
 
-    owners = []
-    for data in owners_data:
-        owner = Owner.objects.create(**data)
-        owners.append(owner)
-        print(f'Создан владелец: {owner.name}')
+    <span class="n">owners</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">owners_data</span><span class="p">:</span>
+        <span class="n">owner</span> <span class="o">=</span> <span class="n">Owner</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">owners</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">owner</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Создан владелец: </span><span class="si">{</span><span class="n">owner</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-    # Создание автомобилей
-    cars_data = [
-        {'brand': 'Toyota', 'model': 'Camry', 'color': 'красный', 'year': 2020},
-        {'brand': 'Toyota', 'model': 'Corolla', 'color': 'синий', 'year': 2019},
-        {'brand': 'Honda', 'model': 'Civic', 'color': 'красный', 'year': 2018},
-        {'brand': 'BMW', 'model': 'X5', 'color': 'черный', 'year': 2021},
-        {'brand': 'Audi', 'model': 'A4', 'color': 'белый', 'year': 2017},
-        {'brand': 'Toyota', 'model': 'RAV4', 'color': 'серый', 'year': 2022}
-    ]
+    <span class="c1"># Создание автомобилей</span>
+    <span class="n">cars_data</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s1">&#39;brand&#39;</span><span class="p">:</span> <span class="s1">&#39;Toyota&#39;</span><span class="p">,</span> <span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="s1">&#39;Camry&#39;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;красный&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="mi">2020</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;brand&#39;</span><span class="p">:</span> <span class="s1">&#39;Toyota&#39;</span><span class="p">,</span> <span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="s1">&#39;Corolla&#39;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;синий&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="mi">2019</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;brand&#39;</span><span class="p">:</span> <span class="s1">&#39;Honda&#39;</span><span class="p">,</span> <span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="s1">&#39;Civic&#39;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;красный&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="mi">2018</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;brand&#39;</span><span class="p">:</span> <span class="s1">&#39;BMW&#39;</span><span class="p">,</span> <span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="s1">&#39;X5&#39;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;черный&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="mi">2021</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;brand&#39;</span><span class="p">:</span> <span class="s1">&#39;Audi&#39;</span><span class="p">,</span> <span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="s1">&#39;A4&#39;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;белый&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="mi">2017</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;brand&#39;</span><span class="p">:</span> <span class="s1">&#39;Toyota&#39;</span><span class="p">,</span> <span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="s1">&#39;RAV4&#39;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;серый&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="mi">2022</span><span class="p">}</span>
+    <span class="p">]</span>
 
-    cars = []
-    for data in cars_data:
-        car = Car.objects.create(**data)
-        cars.append(car)
-        print(f'Создан автомобиль: {car.brand} {car.model}')
+    <span class="n">cars</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">cars_data</span><span class="p">:</span>
+        <span class="n">car</span> <span class="o">=</span> <span class="n">Car</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">cars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">car</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Создан автомобиль: </span><span class="si">{</span><span class="n">car</span><span class="o">.</span><span class="n">brand</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">car</span><span class="o">.</span><span class="n">model</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-    # Создание водительских удостоверений
-    license_data = [
-        {'owner': owners[0], 'number': 'AA123456', 'type': 'B', 'issued_date': date(2015, 6, 10)},
-        {'owner': owners[1], 'number': 'BB654321', 'type': 'B', 'issued_date': date(2018, 3, 15)},
-        {'owner': owners[2], 'number': 'CC111222', 'type': 'B', 'issued_date': date(2012, 11, 20)},
-        {'owner': owners[3], 'number': 'DD333444', 'type': 'B', 'issued_date': date(2019, 8, 5)},
-        {'owner': owners[4], 'number': 'EE555666', 'type': 'B', 'issued_date': date(2016, 4, 12)},
-        {'owner': owners[5], 'number': 'FF777888', 'type': 'B', 'issued_date': date(2020, 1, 30)},
-        {'owner': owners[6], 'number': 'GG999000', 'type': 'B', 'issued_date': date(2014, 9, 25)}
-    ]
+    <span class="c1"># Создание водительских удостоверений</span>
+    <span class="n">license_data</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owners</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;number&#39;</span><span class="p">:</span> <span class="s1">&#39;AA123456&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;issued_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">)},</span>
+        <span class="p">{</span><span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owners</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;number&#39;</span><span class="p">:</span> <span class="s1">&#39;BB654321&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;issued_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">15</span><span class="p">)},</span>
+        <span class="p">{</span><span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owners</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;number&#39;</span><span class="p">:</span> <span class="s1">&#39;CC111222&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;issued_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">20</span><span class="p">)},</span>
+        <span class="p">{</span><span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owners</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;number&#39;</span><span class="p">:</span> <span class="s1">&#39;DD333444&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;issued_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">)},</span>
+        <span class="p">{</span><span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owners</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;number&#39;</span><span class="p">:</span> <span class="s1">&#39;EE555666&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;issued_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">)},</span>
+        <span class="p">{</span><span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owners</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="s1">&#39;number&#39;</span><span class="p">:</span> <span class="s1">&#39;FF777888&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;issued_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">)},</span>
+        <span class="p">{</span><span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owners</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="s1">&#39;number&#39;</span><span class="p">:</span> <span class="s1">&#39;GG999000&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;issued_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2014</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">25</span><span class="p">)}</span>
+    <span class="p">]</span>
 
-    for data in license_data:
-        license = DriverLicense.objects.create(**data)
-        print(f'Создано удостоверение: {license.number} для {license.owner.name}')
+    <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">license_data</span><span class="p">:</span>
+        <span class="n">license</span> <span class="o">=</span> <span class="n">DriverLicense</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Создано удостоверение: </span><span class="si">{</span><span class="n">license</span><span class="o">.</span><span class="n">number</span><span class="si">}</span><span class="s1"> для </span><span class="si">{</span><span class="n">license</span><span class="o">.</span><span class="n">owner</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-    # Создание записей о владении
-    ownerships_data = [
-        # Иван Иванов владеет 2 автомобилями
-        {'owner': owners[0], 'car': cars[0], 'start_date': date(2020, 1, 15), 'end_date': None},
-        {'owner': owners[0], 'car': cars[1], 'start_date': date(2021, 3, 20), 'end_date': date(2022, 5, 10)},
+    <span class="c1"># Создание записей о владении</span>
+    <span class="n">ownerships_data</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="c1"># Иван Иванов владеет 2 автомобилями</span>
+        <span class="p">{</span><span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owners</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;car&#39;</span><span class="p">:</span> <span class="n">cars</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;start_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="s1">&#39;end_date&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owners</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;car&#39;</span><span class="p">:</span> <span class="n">cars</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;start_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="s1">&#39;end_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)},</span>
 
-        # Петр Петров владеет 1 автомобилем
-        {'owner': owners[1], 'car': cars[2], 'start_date': date(2019, 8, 1), 'end_date': None},
+        <span class="c1"># Петр Петров владеет 1 автомобилем</span>
+        <span class="p">{</span><span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owners</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;car&#39;</span><span class="p">:</span> <span class="n">cars</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;start_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;end_date&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
 
-        # Олег Сидоров владеет 3 автомобилями
-        {'owner': owners[2], 'car': cars[3], 'start_date': date(2018, 6, 12), 'end_date': None},
-        {'owner': owners[2], 'car': cars[4], 'start_date': date(2020, 2, 28), 'end_date': None},
-        {'owner': owners[2], 'car': cars[5], 'start_date': date(2022, 1, 10), 'end_date': None},
+        <span class="c1"># Олег Сидоров владеет 3 автомобилями</span>
+        <span class="p">{</span><span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owners</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;car&#39;</span><span class="p">:</span> <span class="n">cars</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;start_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="s1">&#39;end_date&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owners</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;car&#39;</span><span class="p">:</span> <span class="n">cars</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;start_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="s1">&#39;end_date&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owners</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;car&#39;</span><span class="p">:</span> <span class="n">cars</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="s1">&#39;start_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s1">&#39;end_date&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
 
-        # Мария Козлова владеет 2 автомобилями
-        {'owner': owners[3], 'car': cars[0], 'start_date': date(2022, 5, 11), 'end_date': None},
-        {'owner': owners[3], 'car': cars[1], 'start_date': date(2021, 7, 15), 'end_date': None},
+        <span class="c1"># Мария Козлова владеет 2 автомобилями</span>
+        <span class="p">{</span><span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owners</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;car&#39;</span><span class="p">:</span> <span class="n">cars</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;start_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="s1">&#39;end_date&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owners</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;car&#39;</span><span class="p">:</span> <span class="n">cars</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;start_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="s1">&#39;end_date&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
 
-        # Олег Кузнецов владеет 1 автомобилем
-        {'owner': owners[4], 'car': cars[2], 'start_date': date(2020, 4, 5), 'end_date': date(2021, 12, 31)},
+        <span class="c1"># Олег Кузнецов владеет 1 автомобилем</span>
+        <span class="p">{</span><span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owners</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;car&#39;</span><span class="p">:</span> <span class="n">cars</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;start_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="s1">&#39;end_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">)},</span>
 
-        # Анна Смирнова владеет 2 автомобилями
-        {'owner': owners[5], 'car': cars[3], 'start_date': date(2019, 11, 20), 'end_date': None},
-        {'owner': owners[5], 'car': cars[4], 'start_date': date(2021, 9, 8), 'end_date': None},
+        <span class="c1"># Анна Смирнова владеет 2 автомобилями</span>
+        <span class="p">{</span><span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owners</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="s1">&#39;car&#39;</span><span class="p">:</span> <span class="n">cars</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;start_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="s1">&#39;end_date&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owners</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="s1">&#39;car&#39;</span><span class="p">:</span> <span class="n">cars</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;start_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="s1">&#39;end_date&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
 
-        # Сергей Попов владеет 1 автомобилем
-        {'owner': owners[6], 'car': cars[5], 'start_date': date(2020, 12, 1), 'end_date': None}
-    ]
+        <span class="c1"># Сергей Попов владеет 1 автомобилем</span>
+        <span class="p">{</span><span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owners</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="s1">&#39;car&#39;</span><span class="p">:</span> <span class="n">cars</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="s1">&#39;start_date&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;end_date&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+    <span class="p">]</span>
 
-    for data in ownerships_data:
-        ownership = Ownership.objects.create(**data)
-        print(f'Создана запись о владении: {ownership.owner.name} - {ownership.car.brand} {ownership.car.model}')
+    <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">ownerships_data</span><span class="p">:</span>
+        <span class="n">ownership</span> <span class="o">=</span> <span class="n">Ownership</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Создана запись о владении: </span><span class="si">{</span><span class="n">ownership</span><span class="o">.</span><span class="n">owner</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">ownership</span><span class="o">.</span><span class="n">car</span><span class="o">.</span><span class="n">brand</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">ownership</span><span class="o">.</span><span class="n">car</span><span class="o">.</span><span class="n">model</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-    print(&quot;\nТестовые данные успешно созданы!&quot;)
-    print(f&quot;Владельцев: {Owner.objects.count()}&quot;)
-    print(f&quot;Автомобилей: {Car.objects.count()}&quot;)
-    print(f&quot;Удостоверений: {DriverLicense.objects.count()}&quot;)
-    print(f&quot;Записей о владении: {Ownership.objects.count()}&quot;)
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Тестовые данные успешно созданы!&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Владельцев: </span><span class="si">{</span><span class="n">Owner</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Автомобилей: </span><span class="si">{</span><span class="n">Car</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Удостоверений: </span><span class="si">{</span><span class="n">DriverLicense</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Записей о владении: </span><span class="si">{</span><span class="n">Ownership</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-if __name__ == '__main__':
-    create_test_data()
-</code></pre>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">create_test_data</span><span class="p">()</span>
+</code></pre></div>
 
 <h3 id="2">Задание 2: Запросы на фильтрацию<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
 <h4 id="_4">Постановка задачи<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
 <p>Выполнить запросы фильтрации с использованием Django ORM.</p>
 <h4 id="_5">Реализация запросов<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-python"># queries.py
-from django.db.models import Q
-from autoapp.models import Owner, Car, DriverLicense, Ownership
+<div class="codehilite"><pre><span></span><code><span class="c1"># queries.py</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Q</span>
+<span class="kn">from</span> <span class="nn">autoapp.models</span> <span class="kn">import</span> <span class="n">Owner</span><span class="p">,</span> <span class="n">Car</span><span class="p">,</span> <span class="n">DriverLicense</span><span class="p">,</span> <span class="n">Ownership</span>
 
-def execute_queries():
-    print(&quot;=== ЗАПРОСЫ НА ФИЛЬТРАЦИЮ ===\n&quot;)
+<span class="k">def</span> <span class="nf">execute_queries</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== ЗАПРОСЫ НА ФИЛЬТРАЦИЮ ===</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    # 1. Все машины марки &quot;Toyota&quot;
-    print(&quot;1. Все машины марки 'Toyota':&quot;)
-    toyota_cars = Car.objects.filter(brand='Toyota')
-    for car in toyota_cars:
-        print(f&quot;  - {car.brand} {car.model} ({car.color})&quot;)
+    <span class="c1"># 1. Все машины марки &quot;Toyota&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1. Все машины марки &#39;Toyota&#39;:&quot;</span><span class="p">)</span>
+    <span class="n">toyota_cars</span> <span class="o">=</span> <span class="n">Car</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">brand</span><span class="o">=</span><span class="s1">&#39;Toyota&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">car</span> <span class="ow">in</span> <span class="n">toyota_cars</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">car</span><span class="o">.</span><span class="n">brand</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">car</span><span class="o">.</span><span class="n">model</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">car</span><span class="o">.</span><span class="n">color</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 
-    # 2. Все водители с именем &quot;Олег&quot;
-    print(&quot;\n2. Все водители с именем 'Олег':&quot;)
-    oleg_owners = Owner.objects.filter(name__contains='Олег')
-    for owner in oleg_owners:
-        print(f&quot;  - {owner.name}&quot;)
+    <span class="c1"># 2. Все водители с именем &quot;Олег&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">2. Все водители с именем &#39;Олег&#39;:&quot;</span><span class="p">)</span>
+    <span class="n">oleg_owners</span> <span class="o">=</span> <span class="n">Owner</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">name__contains</span><span class="o">=</span><span class="s1">&#39;Олег&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">owner</span> <span class="ow">in</span> <span class="n">oleg_owners</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">owner</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    # 3. Получение удостоверения по id владельца
-    print(&quot;\n3. Получение удостоверения по id владельца:&quot;)
-    random_owner = Owner.objects.first()
-    if random_owner:
-        license = DriverLicense.objects.get(owner=random_owner)
-        print(f&quot;  Владелец: {random_owner.name}&quot;)
-        print(f&quot;  Удостоверение: {license.number}, выдано: {license.issued_date}&quot;)
+    <span class="c1"># 3. Получение удостоверения по id владельца</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">3. Получение удостоверения по id владельца:&quot;</span><span class="p">)</span>
+    <span class="n">random_owner</span> <span class="o">=</span> <span class="n">Owner</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">random_owner</span><span class="p">:</span>
+        <span class="n">license</span> <span class="o">=</span> <span class="n">DriverLicense</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">owner</span><span class="o">=</span><span class="n">random_owner</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Владелец: </span><span class="si">{</span><span class="n">random_owner</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Удостоверение: </span><span class="si">{</span><span class="n">license</span><span class="o">.</span><span class="n">number</span><span class="si">}</span><span class="s2">, выдано: </span><span class="si">{</span><span class="n">license</span><span class="o">.</span><span class="n">issued_date</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    # 4. Все владельцы красных машин
-    print(&quot;\n4. Все владельцы красных машин:&quot;)
-    red_car_owners = Owner.objects.filter(
-        ownerships__car__color='красный'
-    ).distinct()
-    for owner in red_car_owners:
-        print(f&quot;  - {owner.name}&quot;)
+    <span class="c1"># 4. Все владельцы красных машин</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">4. Все владельцы красных машин:&quot;</span><span class="p">)</span>
+    <span class="n">red_car_owners</span> <span class="o">=</span> <span class="n">Owner</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+        <span class="n">ownerships__car__color</span><span class="o">=</span><span class="s1">&#39;красный&#39;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">owner</span> <span class="ow">in</span> <span class="n">red_car_owners</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">owner</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    # 5. Все владельцы, чей год владения машиной начинается с 2020
-    print(&quot;\n5. Владельцы, начавшие владение с 2020 года:&quot;)
-    owners_2020 = Owner.objects.filter(
-        ownerships__start_date__year__gte=2020
-    ).distinct()
-    for owner in owners_2020:
-        print(f&quot;  - {owner.name}&quot;)
+    <span class="c1"># 5. Все владельцы, чей год владения машиной начинается с 2020</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">5. Владельцы, начавшие владение с 2020 года:&quot;</span><span class="p">)</span>
+    <span class="n">owners_2020</span> <span class="o">=</span> <span class="n">Owner</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+        <span class="n">ownerships__start_date__year__gte</span><span class="o">=</span><span class="mi">2020</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">owner</span> <span class="ow">in</span> <span class="n">owners_2020</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">owner</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    return {
-        'toyota_cars': toyota_cars,
-        'oleg_owners': oleg_owners,
-        'red_car_owners': red_car_owners,
-        'owners_2020': owners_2020
-    }
-</code></pre>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s1">&#39;toyota_cars&#39;</span><span class="p">:</span> <span class="n">toyota_cars</span><span class="p">,</span>
+        <span class="s1">&#39;oleg_owners&#39;</span><span class="p">:</span> <span class="n">oleg_owners</span><span class="p">,</span>
+        <span class="s1">&#39;red_car_owners&#39;</span><span class="p">:</span> <span class="n">red_car_owners</span><span class="p">,</span>
+        <span class="s1">&#39;owners_2020&#39;</span><span class="p">:</span> <span class="n">owners_2020</span>
+    <span class="p">}</span>
+</code></pre></div>
 
 <h3 id="3">Задание 3: Сложные запросы с агрегацией<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
 <h4 id="_6">Постановка задачи<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
 <p>Реализовать сложные запросы с применением агрегирующих функций и сортировки.</p>
 <h4 id="_7">Реализация запросов<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-python"># advanced_queries.py
-from django.db.models import Count, Max, Min
-from django.db.models.functions import ExtractYear
-from autoapp.models import Owner, Car, DriverLicense, Ownership
+<div class="codehilite"><pre><span></span><code><span class="c1"># advanced_queries.py</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Count</span><span class="p">,</span> <span class="n">Max</span><span class="p">,</span> <span class="n">Min</span>
+<span class="kn">from</span> <span class="nn">django.db.models.functions</span> <span class="kn">import</span> <span class="n">ExtractYear</span>
+<span class="kn">from</span> <span class="nn">autoapp.models</span> <span class="kn">import</span> <span class="n">Owner</span><span class="p">,</span> <span class="n">Car</span><span class="p">,</span> <span class="n">DriverLicense</span><span class="p">,</span> <span class="n">Ownership</span>
 
-def execute_advanced_queries():
-    print(&quot;=== СЛОЖНЫЕ ЗАПРОСЫ С АГРЕГАЦИЕЙ ===\n&quot;)
+<span class="k">def</span> <span class="nf">execute_advanced_queries</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== СЛОЖНЫЕ ЗАПРОСЫ С АГРЕГАЦИЕЙ ===</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    # 1. Дата выдачи самого старшего водительского удостоверения
-    print(&quot;1. Самое старое водительское удостоверение:&quot;)
-    oldest_license = DriverLicense.objects.earliest('issued_date')
-    print(f&quot;  Выдано: {oldest_license.issued_date}, владелец: {oldest_license.owner.name}&quot;)
+    <span class="c1"># 1. Дата выдачи самого старшего водительского удостоверения</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1. Самое старое водительское удостоверение:&quot;</span><span class="p">)</span>
+    <span class="n">oldest_license</span> <span class="o">=</span> <span class="n">DriverLicense</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">earliest</span><span class="p">(</span><span class="s1">&#39;issued_date&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Выдано: </span><span class="si">{</span><span class="n">oldest_license</span><span class="o">.</span><span class="n">issued_date</span><span class="si">}</span><span class="s2">, владелец: </span><span class="si">{</span><span class="n">oldest_license</span><span class="o">.</span><span class="n">owner</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    # 2. Самая поздняя дата владения машиной
-    print(&quot;\n2. Самая поздняя дата начала владения:&quot;)
-    latest_ownership = Ownership.objects.latest('start_date')
-    print(f&quot;  Дата: {latest_ownership.start_date}, владелец: {latest_ownership.owner.name}, автомобиль: {latest_ownership.car.brand}&quot;)
+    <span class="c1"># 2. Самая поздняя дата владения машиной</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">2. Самая поздняя дата начала владения:&quot;</span><span class="p">)</span>
+    <span class="n">latest_ownership</span> <span class="o">=</span> <span class="n">Ownership</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">latest</span><span class="p">(</span><span class="s1">&#39;start_date&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Дата: </span><span class="si">{</span><span class="n">latest_ownership</span><span class="o">.</span><span class="n">start_date</span><span class="si">}</span><span class="s2">, владелец: </span><span class="si">{</span><span class="n">latest_ownership</span><span class="o">.</span><span class="n">owner</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">, автомобиль: </span><span class="si">{</span><span class="n">latest_ownership</span><span class="o">.</span><span class="n">car</span><span class="o">.</span><span class="n">brand</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    # 3. Количество машин для каждого водителя
-    print(&quot;\n3. Количество машин у каждого владельца:&quot;)
-    owners_car_count = Owner.objects.annotate(
-        car_count=Count('ownerships')
-    ).order_by('-car_count')
+    <span class="c1"># 3. Количество машин для каждого водителя</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">3. Количество машин у каждого владельца:&quot;</span><span class="p">)</span>
+    <span class="n">owners_car_count</span> <span class="o">=</span> <span class="n">Owner</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
+        <span class="n">car_count</span><span class="o">=</span><span class="n">Count</span><span class="p">(</span><span class="s1">&#39;ownerships&#39;</span><span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-car_count&#39;</span><span class="p">)</span>
 
-    for owner in owners_car_count:
-        print(f&quot;  {owner.name}: {owner.car_count} машин(ы)&quot;)
+    <span class="k">for</span> <span class="n">owner</span> <span class="ow">in</span> <span class="n">owners_car_count</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">owner</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">owner</span><span class="o">.</span><span class="n">car_count</span><span class="si">}</span><span class="s2"> машин(ы)&quot;</span><span class="p">)</span>
 
-    # 4. Количество машин каждой марки
-    print(&quot;\n4. Количество машин каждой марки:&quot;)
-    cars_by_brand = Car.objects.values('brand').annotate(
-        count=Count('id')
-    ).order_by('-count')
+    <span class="c1"># 4. Количество машин каждой марки</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">4. Количество машин каждой марки:&quot;</span><span class="p">)</span>
+    <span class="n">cars_by_brand</span> <span class="o">=</span> <span class="n">Car</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">&#39;brand&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
+        <span class="n">count</span><span class="o">=</span><span class="n">Count</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-count&#39;</span><span class="p">)</span>
 
-    for brand in cars_by_brand:
-        print(f&quot;  {brand['brand']}: {brand['count']} машин(ы)&quot;)
+    <span class="k">for</span> <span class="n">brand</span> <span class="ow">in</span> <span class="n">cars_by_brand</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">brand</span><span class="p">[</span><span class="s1">&#39;brand&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">brand</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> машин(ы)&quot;</span><span class="p">)</span>
 
-    # 5. Сортировка владельцев по дате выдачи удостоверения
-    print(&quot;\n5. Владельцы, отсортированные по дате выдачи удостоверения:&quot;)
-    owners_sorted = Owner.objects.select_related('driverlicense').order_by(
-        'driverlicense__issued_date'
-    ).distinct()
+    <span class="c1"># 5. Сортировка владельцев по дате выдачи удостоверения</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">5. Владельцы, отсортированные по дате выдачи удостоверения:&quot;</span><span class="p">)</span>
+    <span class="n">owners_sorted</span> <span class="o">=</span> <span class="n">Owner</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">select_related</span><span class="p">(</span><span class="s1">&#39;driverlicense&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span>
+        <span class="s1">&#39;driverlicense__issued_date&#39;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span>
 
-    for owner in owners_sorted:
-        license = owner.driverlicense
-        print(f&quot;  {owner.name}: удостоверение выдано {license.issued_date}&quot;)
+    <span class="k">for</span> <span class="n">owner</span> <span class="ow">in</span> <span class="n">owners_sorted</span><span class="p">:</span>
+        <span class="n">license</span> <span class="o">=</span> <span class="n">owner</span><span class="o">.</span><span class="n">driverlicense</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">owner</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: удостоверение выдано </span><span class="si">{</span><span class="n">license</span><span class="o">.</span><span class="n">issued_date</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    return {
-        'oldest_license': oldest_license,
-        'latest_ownership': latest_ownership,
-        'owners_car_count': owners_car_count,
-        'cars_by_brand': cars_by_brand,
-        'owners_sorted': owners_sorted
-    }
-</code></pre>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s1">&#39;oldest_license&#39;</span><span class="p">:</span> <span class="n">oldest_license</span><span class="p">,</span>
+        <span class="s1">&#39;latest_ownership&#39;</span><span class="p">:</span> <span class="n">latest_ownership</span><span class="p">,</span>
+        <span class="s1">&#39;owners_car_count&#39;</span><span class="p">:</span> <span class="n">owners_car_count</span><span class="p">,</span>
+        <span class="s1">&#39;cars_by_brand&#39;</span><span class="p">:</span> <span class="n">cars_by_brand</span><span class="p">,</span>
+        <span class="s1">&#39;owners_sorted&#39;</span><span class="p">:</span> <span class="n">owners_sorted</span>
+    <span class="p">}</span>
+</code></pre></div>
 
 <h3 id="_8">Модели данных<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-python"># models.py
-from django.db import models
+<div class="codehilite"><pre><span></span><code><span class="c1"># models.py</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
 
-class Owner(models.Model):
-    name = models.CharField(max_length=100, verbose_name='ФИО')
-    birth_date = models.DateField(verbose_name='Дата рождения')
+<span class="k">class</span> <span class="nc">Owner</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;ФИО&#39;</span><span class="p">)</span>
+    <span class="n">birth_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Дата рождения&#39;</span><span class="p">)</span>
 
-    def __str__(self):
-        return self.name
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
 
-    class Meta:
-        verbose_name = 'Владелец'
-        verbose_name_plural = 'Владельцы'
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="s1">&#39;Владелец&#39;</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s1">&#39;Владельцы&#39;</span>
 
-class Car(models.Model):
-    brand = models.CharField(max_length=50, verbose_name='Марка')
-    model = models.CharField(max_length=50, verbose_name='Модель')
-    color = models.CharField(max_length=30, verbose_name='Цвет')
-    year = models.IntegerField(verbose_name='Год выпуска')
+<span class="k">class</span> <span class="nc">Car</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">brand</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Марка&#39;</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Модель&#39;</span><span class="p">)</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Цвет&#39;</span><span class="p">)</span>
+    <span class="n">year</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Год выпуска&#39;</span><span class="p">)</span>
 
-    def __str__(self):
-        return f&quot;{self.brand} {self.model} ({self.year})&quot;
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">brand</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">)&quot;</span>
 
-    class Meta:
-        verbose_name = 'Автомобиль'
-        verbose_name_plural = 'Автомобили'
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="s1">&#39;Автомобиль&#39;</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s1">&#39;Автомобили&#39;</span>
 
-class DriverLicense(models.Model):
-    LICENSE_TYPES = [
-        ('A', 'Мотоциклы'),
-        ('B', 'Легковые автомобили'),
-        ('C', 'Грузовые автомобили'),
-        ('D', 'Автобусы'),
-    ]
+<span class="k">class</span> <span class="nc">DriverLicense</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">LICENSE_TYPES</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;Мотоциклы&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;Легковые автомобили&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;Грузовые автомобили&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;Автобусы&#39;</span><span class="p">),</span>
+    <span class="p">]</span>
 
-    owner = models.OneToOneField(
-        Owner, 
-        on_delete=models.CASCADE, 
-        verbose_name='Владелец',
-        related_name='driverlicense'
-    )
-    number = models.CharField(max_length=10, verbose_name='Номер удостоверения')
-    type = models.CharField(max_length=1, choices=LICENSE_TYPES, verbose_name='Тип')
-    issued_date = models.DateField(verbose_name='Дата выдачи')
+    <span class="n">owner</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span>
+        <span class="n">Owner</span><span class="p">,</span> 
+        <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> 
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Владелец&#39;</span><span class="p">,</span>
+        <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;driverlicense&#39;</span>
+    <span class="p">)</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Номер удостоверения&#39;</span><span class="p">)</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">LICENSE_TYPES</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Тип&#39;</span><span class="p">)</span>
+    <span class="n">issued_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Дата выдачи&#39;</span><span class="p">)</span>
 
-    def __str__(self):
-        return f&quot;{self.number} ({self.owner.name})&quot;
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">owner</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">)&quot;</span>
 
-    class Meta:
-        verbose_name = 'Водительское удостоверение'
-        verbose_name_plural = 'Водительские удостоверения'
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="s1">&#39;Водительское удостоверение&#39;</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s1">&#39;Водительские удостоверения&#39;</span>
 
-class Ownership(models.Model):
-    owner = models.ForeignKey(
-        Owner, 
-        on_delete=models.CASCADE, 
-        verbose_name='Владелец',
-        related_name='ownerships'
-    )
-    car = models.ForeignKey(
-        Car, 
-        on_delete=models.CASCADE, 
-        verbose_name='Автомобиль',
-        related_name='ownerships'
-    )
-    start_date = models.DateField(verbose_name='Дата начала владения')
-    end_date = models.DateField(
-        null=True, 
-        blank=True, 
-        verbose_name='Дата окончания владения'
-    )
+<span class="k">class</span> <span class="nc">Ownership</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">owner</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
+        <span class="n">Owner</span><span class="p">,</span> 
+        <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> 
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Владелец&#39;</span><span class="p">,</span>
+        <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;ownerships&#39;</span>
+    <span class="p">)</span>
+    <span class="n">car</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
+        <span class="n">Car</span><span class="p">,</span> 
+        <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> 
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Автомобиль&#39;</span><span class="p">,</span>
+        <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;ownerships&#39;</span>
+    <span class="p">)</span>
+    <span class="n">start_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Дата начала владения&#39;</span><span class="p">)</span>
+    <span class="n">end_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span>
+        <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+        <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Дата окончания владения&#39;</span>
+    <span class="p">)</span>
 
-    def __str__(self):
-        return f&quot;{self.owner.name} - {self.car.brand} {self.car.model}&quot;
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">owner</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">car</span><span class="o">.</span><span class="n">brand</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">car</span><span class="o">.</span><span class="n">model</span><span class="si">}</span><span class="s2">&quot;</span>
 
-    class Meta:
-        verbose_name = 'Владение автомобилем'
-        verbose_name_plural = 'Владения автомобилями'
-</code></pre>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="s1">&#39;Владение автомобилем&#39;</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s1">&#39;Владения автомобилями&#39;</span>
+</code></pre></div>
 
 <hr />
 <h3 id="_9">Результаты работы<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
